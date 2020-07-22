@@ -1,0 +1,43 @@
+.customTableHeader {
+  background: #505560;
+  color: #f4f4f4;
+  font-weight: bold;
+  border-radius: 8px;
+}
+.customTableHeaderTop {
+  border-radius: 8px;
+}
+.customTableTitleLeft {
+  padding: 14px 16px;
+  font-size: 15px;
+}
+.tableRightBack {
+  background: #575b62;
+  padding: 17px 15px 14px 15px !important;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.row {
+  flex: 1;
+}
+
+.customer {
+  padding: 5px 20px;
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  background: #fbfbfb;
+
+  p {
+    margin: 10px 0;
+  }
+
+  .address {
+    display: flex;
+
+    .left {
+      p {
+        margin: 10px 10px 0 0;
+      }
+    }
+  }
+}

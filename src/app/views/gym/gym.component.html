@@ -1,0 +1,187 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateGym()">Add</button>
+    <button class="btn btn-success" style="float: right; margin-right: 8px;" (click)="onShowGym()">Show On Map</button>
+
+    Location
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{gymList?.length}}</strong> locations</div>
+        Location List
+    </div>
+    <table class="table table-striped" [mfData]="gymList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th class="text-left">
+                    <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">Contact Name</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">Phone Number</mfDefaultSorter>
+                </th>
+     
+                <th>
+                    <mfDefaultSorter by="email">Street</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">City</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">State</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">ZipCode</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">Latitude</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="email">Longitude</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;"  (click)="onDetailGym(item)">
+                <td class="text-right"><span class="del-icon fa fa-trash" (click)="onDeleteGym(item)" title="Delete Customer"></span></td>
+                <td class="text-right"><span class="edit-icon fa fa-edit" (click)="onEditGym(item)" title="Edit Customer"></span></td>
+                <td class="text-right">{{item.No}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.contactName}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>{{item.street}}</td>
+                <td>{{item.city}}</td>
+                <td>{{item.state}}</td>
+                <td>{{item.zipCode}}</td>
+                <td>{{item.lat}}</td>
+                <td>{{item.lng}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <modal-header class="modelHeader">
+            </modal-header>
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #gymDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">
+        <h3 style="margin-top: 20px;color: #ffff;">{{actionType == 0 ? 'Add Location' : 'Update Location'}}</h3>
+    </modal-header>
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Name  <span style="color:red">*</span>
+            <div style="display: inline-block; width: 100%;" style="margin-left: 15px; margin-right: 15px;">
+                <input class="form-control" style="width: 100%" type="text" placeholder="Name" [(ngModel)]="customer.Name">
+                <span class="valmsg">*Field Required</span>
+            </div>
+        </div>
+
+        <div class="control-caption">Email  <span style="color:red">*</span>
+            <div style="display: inline-block; width: 100%;" style="margin-left: 15px; margin-right: 15px;">
+                <input class="form-control" style="width: 100%" type="text" placeholder="Email" [(ngModel)]="customer.Email">
+                <span class="valmsg">*Field Required</span>
+            </div>
+        </div>
+
+        <div class="control-caption">Other Information <span style="color:red">*</span>
+            <div style="display: inline-block; width: 100%;">
+                <div class="col-sm-6">
+                    <div class="control-caption">Contact Name</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Contact Name" [(ngModel)]="customer.ContactName">
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-caption">Phone Number</div>
+                    <input class="form-control" style="width: 100%" type="tel"  ng-pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="Phone Number"  [(ngModel)]="customer.PhoneNumber">
+                    <span class="valmsg">Format: 123-456-7890</span>
+                </div>
+            </div>
+
+            <div style="display: inline-block; width: 100%;">
+                <div class="col-sm-6">
+                    <div class="control-caption">Street</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Street" [(ngModel)]="customer.Street">
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-caption">City</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="City" [(ngModel)]="customer.City">
+                </div>
+            </div>
+
+            <div style="display: inline-block; width: 100%;">
+                <div class="col-sm-6">
+                    <div class="control-caption">State</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="State" [(ngModel)]="customer.State">
+                </div>
+                <div class="col-sm-3">
+                    <div class="control-caption">ZipCode</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Zip Code" [(ngModel)]="customer.ZipCode">
+                </div>
+                <div class="col-sm-3">
+                    <div class="control-caption">*</div>
+                    <button class="btn btn-success" (click)="onGetLocation()">Get Location</button>
+                </div>
+            </div>
+
+            <div style="display: inline-block; width: 100%;">
+                <div class="col-sm-6">
+                    <div class="control-caption">Latitude</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Latitude" [(ngModel)]="customer.Lat">
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-caption">Longitude</div>
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Longitude" [(ngModel)]="customer.Lng">
+                </div>
+            </div>
+            <span class="valmsg">*Field Required</span>
+        </div>
+
+    </modal-body>
+
+    <modal-footer >
+        <button class="btn btn-success" (click)="onConfirmAdd()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelAdd()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #mapDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        <agm-map #gMap class="agm-map" [latitude]="38.44" [longitude]="-98.66" [zoom]="2">
+            <agm-marker *ngFor="let item of gymList; let idx=index;"
+                [latitude]="onNumber(item.lat)" [longitude]="onNumber(item.lng)" (markerClick)="onClickGymOnMap(item)"></agm-marker>
+        </agm-map>
+    </modal-body>
+    <modal-footer>
+        <label style="float:left;">{{itemName}}</label>
+        <button class="btn btn-danger" (click)="onCancelMap()">Cancel</button>
+    </modal-footer>
+</modal>

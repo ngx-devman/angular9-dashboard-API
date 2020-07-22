@@ -1,0 +1,196 @@
+
+<div class="animated fadeIn">
+  <toaster-container
+    [toasterconfig]="config"
+    class="toaster-icon icon-success"
+  ></toaster-container>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          New Customer
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <form
+                [formGroup]="customerFrom"
+                class="form-validate mb-lg"
+                role="form"
+                name="customerFrom"
+                novalidate=""
+              >
+                <div class="control-div">
+                  Name
+                  <div class="model_body_div">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Name"
+                      [(ngModel)]="name"
+                      formControlName="name"
+                      required=""
+                    />
+                    <span
+                      class="text-danger"
+                      *ngIf="
+                        customerFrom.controls['name'].hasError('required') &&
+                        (customerFrom.controls['name'].dirty ||
+                          customerFrom.controls['name'].touched)
+                      "
+                      >This field is required</span
+                    >
+                  </div>
+                </div>
+
+                <div class="control-div">
+                  Email
+                  <div class="model_body_div">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Email"
+                      [(ngModel)]="email"
+                      formControlName="email"
+                      required=""
+                    />
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="
+                        customerFrom.controls['email'].hasError('required') &&
+                        (customerFrom.controls['email'].dirty ||
+                          customerFrom.controls['email'].touched)
+                      "
+                      >This field is required</span
+                    > -->
+                    <span
+                      class="text-danger"
+                      *ngIf="
+                        customerFrom.controls['email'].hasError('email') &&
+                        (customerFrom.controls['email'].dirty ||
+                          customerFrom.controls['email'].touched)
+                      "
+                      >This field must be a valid email address</span
+                    >
+                  </div>
+                </div>
+              </form>
+              <div class="control-div" >
+                <strong>Other Information</strong><br /><br />
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="">Contact Name</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Contact Name"
+                      [(ngModel)]="contactName"
+                    />
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="">Phone Number</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Phone Number"
+                      [(ngModel)]="phone"
+                    />
+                  </div>
+                </div>
+
+                <div class="control-div">
+                    <div class="">Address</div>
+                    <div id="locationField">
+                      <input class="form-control" id="autocomplete"
+                              placeholder="Enter your address"
+                              type="text"
+                              value=""/>
+                    </div>
+                </div>
+                
+                  <div id="address">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="">Street</div>
+                    <input id="sublocality_level_1"
+                      class="form-control"
+                      type="numbar"
+                      placeholder="Street"
+                    />
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="">City</div>
+                    <input  id="locality"
+                    type="text"
+                      class="form-control"
+                      placeholder="City"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="">State</div>
+                    <input id="administrative_area_level_1"
+                      class="form-control"
+                      placeholder="State"
+                    />
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="">ZipCode</div>
+                    <input id="postal_code" 
+                      class="form-control"
+                      type="number"
+                      placeholder="Zip Code"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-sm-6">
+              <div class="control-div">
+                Location in google map
+                <div class="row">
+                  <div class="col-sm-12">
+                    
+                      <!-- <div id="googleMap" style="width:100%;height:400px;"></div> -->
+                      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+                          <agm-marker [latitude]="lat"
+                [longitude]="lng"></agm-marker>
+                        </agm-map>
+
+                      <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                          <agm-marker *ngFor="let m of markers; let i = index"
+                                      [latitude]="m.lat" [longitude]="m.lng"
+                                      [label]="m.label" [title]="m.title" >
+                            <agm-info-window [disableAutoPan]="false">
+                              <a href="{{m.www}}" target="_blank"><strong>{{m.title}}</strong></a>
+                            </agm-info-window>
+                          </agm-marker>
+                        </agm-map> -->
+                        
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--/.row-->
+          <div class="form-actions">
+            <button class="btn btn-success" (click)="onConfirmCustomer()">
+              Save
+            </button>
+            <button class="btn btn-danger" (click)="onCancelCustomer()">
+              Cancel
+            </button>
+
+            <!-- <button class="btn btn-secondary" type="button">Cancel</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

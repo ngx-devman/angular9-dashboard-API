@@ -1,0 +1,12 @@
+<!-- <app-back-button [backRoute]="'/customer'"></app-back-button>
+<app-customer-info [customer]="customer"></app-customer-info>
+<app-jobs-category></app-jobs-category>
+<app-equipment-category></app-equipment-category> -->
+
+
+<app-back-button [backRoute]="'/customer'"></app-back-button>
+<app-list-template 
+  [listingDetails]="true"
+  [detailListingType]="'customer'"
+  [detailsDto]="customer"
+></app-list-template>

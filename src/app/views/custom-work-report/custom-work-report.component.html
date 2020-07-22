@@ -1,0 +1,46 @@
+<div class="panel panel-default custom-size">
+    <div class="table-responsive">
+        <table class="table table-striped" [mfData]="number" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead>
+                <tr>
+                    <th style="text-align: center;" >
+                        <mfDefaultSorter by="name"> Type </mfDefaultSorter>
+                    </th>  
+                    <th style="text-align: center;" >
+                        <mfDefaultSorter by="name">Starting Number</mfDefaultSorter>
+                    </th>
+                    <th></th>  
+                </tr>
+            </thead> 
+            <tbody>
+                <tr  class="line-hover" *ngFor="let item of mf.data">
+                    <td style=" text-align: center;" >{{item.doc}}</td>
+                    <!-- <td style=" text-align: center;"></td>
+                    <td style=" text-align: center;"></td> -->
+                    <td style=" text-align: center;">{{item.No}}</td>
+                    <td><span class="edit-icon fa fa-edit" style="color: brown; font-size: 20px;" tooltip="Edit" (click)="goToNumber(item)"></span></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<modal  #numDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header  class="header text-center">
+        Edit Number
+    </modal-header >
+    <modal-body>
+            <input class="form-control"  type="text" [(ngModel)]="numbers" >
+    </modal-body >
+    <modal-footer>
+            <button class="btn btn-success" >Edit</button>
+            <button class="btn btn-danger" (click)="onCancelEdit()">Cancel</button>
+    </modal-footer>
+</modal>

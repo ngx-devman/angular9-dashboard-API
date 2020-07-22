@@ -1,0 +1,52 @@
+.custom-size{
+    font-size: 17px;
+}
+.header_div{
+  text-align: center;
+  .custom-search{
+    width: 30%;    
+    background: none !important;
+    border: none !important;
+  }
+  input{
+    text-align: center;height: 45px;
+  }
+  .btn{
+    float: right;
+  }
+}
+.panel-heading{
+  button{
+    background-color: #5d9cec;font-size: 15px;color: white
+  }
+}
+.table{
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+  span{
+    font-size: 20px;
+    color: brown;
+  }
+}
+.model_body_div{
+  display: inline-block; 
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .footer{
+    margin-bottom: 35px;
+  }
+  .custom_label{
+    float: none!important;
+    margin-top: 10px;
+  }
+}
+
+
+
+  
+  

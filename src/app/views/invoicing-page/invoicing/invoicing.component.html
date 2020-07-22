@@ -1,0 +1,22 @@
+<app-page-navbar [navItems]="navItem" (itemedClicked)="openPopUp($event)"></app-page-navbar>
+<app-list-template 
+    [tableList]="completedJobs" 
+    [listTitle]="listTitle"
+    [statusAction]="false"
+    [listTableHeads]="listTableHeads"
+    [listTableIcons]="false"
+    [listTableType]="'completeJobs'"
+    [secondListTableType]="'invoices'"
+    [displayActivity]="false"
+    [displaySideText]="false"
+    [multiListTables]="true"
+    [secondListTitle]="secondListTitle"
+    [secondTableList]="invoices"
+    [secondListTableHeads]="secondListTableHeads"
+    (searchResult)="updateSearch($event)"
+    (createNewJob)="createServiceJob($event)"
+    (showServiceTicketInfo)="showServiceTicketInfo($event)"
+    (secondSearchResult)="updateSecondSearch($event)"
+    (editJob)="editTheJob($event)"
+    >
+</app-list-template>

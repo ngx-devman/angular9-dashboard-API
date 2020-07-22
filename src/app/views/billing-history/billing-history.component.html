@@ -1,0 +1,45 @@
+<div class="panel panel-default custom-size">     
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em> Number In List: <strong>{{Invoices?.length}} 1</strong></div>
+        Invoices
+    </div>
+    <table class="table table-striped" [mfData]="Invoices" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 15%;text-align: center;">
+                    <mfDefaultSorter by="View">Invoice Number </mfDefaultSorter>
+                </th>
+                <th style="width: 20%;text-align: center;">
+                        <mfDefaultSorter by="View">Date</mfDefaultSorter>
+                </th>
+                <th style="width: 30%;text-align: center;" >
+                    <mfDefaultSorter by="No">Amount</mfDefaultSorter>
+                </th>
+                <th style="width: 30%">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          <td></td>
+          <td style="text-align: center;">1</td>
+            <td style="text-align: center;">1/8/2019</td>
+            <td style="text-align: center;">$2000.00</td>
+            <td style="text-align: center;"> <button class="btn btn-success payment-btn" type="button" (click)="showReport()">View</button></td>
+            <!-- <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;" >
+                <td style="text-align: center;">{{item.No}}</td>
+                <td style="text-align: center;">{{item.name}}</td>
+                <td style="text-align: center;">{{item.email}}</td>
+                <td style="text-align: center;">{{item.phoneNumber}}</td>
+                <td></td>
+            </tr> -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table> 
+  </div>

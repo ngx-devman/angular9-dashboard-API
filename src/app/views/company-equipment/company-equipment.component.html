@@ -1,0 +1,151 @@
+<div class="content-heading">
+  <!-- <button class="btn btn-success" style="float: right;" *ngIf=" isAdmin == -1? true: false"  (click)="onCreateEquipment()">Add</button> -->
+  <button class="btn btn-success" style="float: right;"(click)="onCreateEquipment()">Add</button>
+ <br/>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+  <div class="panel-heading">
+      <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em> Number In List: <strong>{{equipData?.length}}</strong> </div>
+      <br/>
+  </div>
+  <table class="table table-striped" [mfData]="equipData" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+          <tr>
+              <th style="width: 3%"></th>
+              <th style="width: 3%"></th>
+              <th style="width: 5%; text-align: center;" >
+                  <mfDefaultSorter by="No">No.</mfDefaultSorter>
+              </th>
+              <th style="width: 10% ; text-align: center;">Image</th>
+              <th style="width: 8%  ;text-align: center;">
+                  <mfDefaultSorter by="type">Machine Type</mfDefaultSorter>
+              </th>
+              <th style="width: 10%; text-align: center;">
+                  <mfDefaultSorter by="brandName">Brand</mfDefaultSorter>
+              </th>
+              <th style="width: 10%; text-align: center;">
+                  <mfDefaultSorter by="model">Model</mfDefaultSorter>
+              </th>
+              <th style="width: 15%; text-align: center;">Serial Number</th>
+             
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <!-- <td></td> -->
+              <td><input class="form-control"></td>
+              <td><input class="form-control"></td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;" >
+              <td></td>
+              <td></td>
+              <td style=" text-align: center;">{{idx + 1}}</td>
+              <td  style=" text-align: center;"><img style="width: 25%"src="{{item.info.imageUrl}}" (click)="onDetailImg(item.imgUrl)"></td>
+              <td  style="width: 40px; text-align: center;" >{{item.type?.title}}</td>
+              <td  style=" text-align: center;">{{item.brand?.title}}</td>
+              <td  style=" text-align: center;">{{item.info.model}}</td>
+              <td  style=" text-align: center;">{{item.info.serialNumber}}</td>
+              <
+          </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+              <td colspan="8">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+              </td>
+          </tr>
+      </tfoot>
+  </table>
+  <toaster-container [toasterconfig]="config"></toaster-container>
+</div>
+
+<modal #equipmentDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+  <modal-header class="modelHeader">
+      <h2 style="margin-top: 20px;">Add Equipment</h2>
+  </modal-header>
+  <modal-body style="text-align:center;">
+          <div class="control-caption">Equipment Image</div>
+          <div style="display: inline-block; width: 100%; text-align: left;">
+              <div style="width: 100%; text-align: left;">
+                  <img #productImg src="{{imageUrl}}" 
+                      style="min-height: 100px; max-height: 100px; min-width: 100px; max-width: 300px; border: 1px solid #CCC;">
+              </div>
+              <label id="#bb" class="btn btn-primary" style="margin: 10px;"> Select File
+                  <input #fileInput 
+                      type="file"
+                      size="60"
+                      (change)="chooseFile($event)"
+                      accept="image/x-png,image/gif,image/jpeg"
+                      style="display: none;">
+              </label>          
+          </div>
+          <div class="row">
+              <div class="col-12" >
+              <div class="control-caption">Model</div>
+              <div>
+                  <input class="form-control" type="text"   style="width: 100%"  [(ngModel)]="model"   id="autocomplete">
+              </div>
+              </div>
+          </div>
+          <div class="row">         
+              <div class="col-12" >
+                  <div class="control-caption">serialNumber </div>
+                  <div >
+                      <input class="form-control" type="number"   style="width: 100%"  [(ngModel)]="serialNumber" id="autocomplete">
+                  </div>
+              </div>
+          </div>
+  
+          <div class="row">
+              <div class="col-md-12">
+                      <div class="control-caption">nfcTag</div>
+                      <div >
+                          <input class="form-control" type="text"   style="width: 100%"  [(ngModel)]="nfcTag" id="autocomplete">
+                      </div>
+              </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+                    <div class="control-caption">QR Code</div>
+                    <div >
+                        <input class="form-control" type="text"   style="width: 100%"  [(ngModel)]="qrCode" id="autocomplete">
+                    </div>
+            </div>
+        </div>
+          <div class="row">
+              <div class="col-12" >
+                  <div class="control-caption">Equipment Type Name</div>
+                  <div>
+                      <input class="form-control" type="text"   style="width: 100%"  [(ngModel)]="typeId"  (keyup)="addequipment($event)" list="dynmictypeIds" id="autocomplete"(change)="selectType(typeId)">
+                      <datalist id="dynmictypeIds">
+                          <option *ngFor="let industryDatas of industryData"  [value]="industryDatas.title"> </option>
+                      </datalist>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="row">
+              <div class="col-12" >
+                  <div class="control-caption">Equipment Brand</div>
+                  <div>
+                      <input class="form-control" type="text"   style="width: 100%"  [(ngModel)]="brandId"  (keyup)="addBrand($event)" list="dynmicBrandIds" id="autocomplete"(change)="selectBrand(brandId )">
+                      <datalist id="dynmicBrandIds">
+                          <option *ngFor="let Brand of Brands"  [value]="Brand.title"> </option>
+                      </datalist>
+                  </div>
+              </div>
+          </div>
+      </modal-body>
+  <modal-footer>
+      <button class="btn btn-success" (click)="onConfirmEquipment()">OK</button>
+      <button class="btn btn-danger" (click)="onCancelEquipment()">Cancel</button>
+  </modal-footer>
+</modal>

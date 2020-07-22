@@ -1,0 +1,7 @@
+<div class="{{cssClass(data.type)}} alert-dismissable">
+    <a class="close" (click)="removeAlert()">&times;</a>
+    <div>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">notifications</mat-icon>
+    </div>
+    <p style="font-size: 18px; margin-left: 20px;">{{data.message}}</p>
+</div>

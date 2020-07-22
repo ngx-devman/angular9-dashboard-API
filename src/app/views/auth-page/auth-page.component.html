@@ -1,0 +1,270 @@
+<ngx-spinner
+  bdOpacity = 0.3
+
+  size = "large"
+  color = "#5d9cec"
+  type = "ball-spin-clockwise-fade-rotating"
+  [fullScreen] = "true"
+  >
+  <p style="color: white" > Please wait... </p>
+</ngx-spinner>
+<div class="app-body">
+  <main class="main d-flex align-items-center custom-height">
+    <div class="row custom_row">
+      <div class="col-sm-12 col-md-6 col-md-offset-6 signin_col">
+          <!-- <toaster-container   class="custom-toast" [toasterconfig]="toasterconfig"></toaster-container> -->
+        <div class=" middle-form">
+          <div class="row Reg">
+            <div class="col-md-10 mx-auto">
+                <div class="card mx-6 ">
+                  <div class="card-body p-4 custom_card">
+                    <form [formGroup]="valForm1" class="form-validate mb-lg" role="form" name="loginForm" novalidate="">
+                      <h1 class="sign-up-plans" style="text-align: center;">Create An Account</h1>
+                      <p class="text-muted" style="text-align: center;">Please fill in below form to create an account with us</p>
+                
+                      <div class="row text-bottom">
+                        <div class="col-md-12">
+                            <h4><span style="color: red;">*</span> All fields required.</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input class="form-control" id="exampleInputFirstName" [(ngModel)]="firstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+                                <span class="text-danger" *ngIf="valForm1.controls['firstName'].hasError('required') && (valForm1.controls['firstName'].dirty || valForm1.controls['firstName'].touched)">*This field is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input class="form-control" id="exampleLastName" [(ngModel)]="lastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+                            <span class="text-danger" *ngIf="valForm1.controls['lastName'].hasError('required') && (valForm1.controls['lastName'].dirty || valForm1.controls['lastName'].touched)">*This field is required</span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                            </div>
+                              <input class="form-control" [(ngModel)]="email" type="email" name="email" placeholder="Email" autocomplete="off" formControlName="email" required="" />
+                              <span class="text-danger" *ngIf="valForm1.controls['email'].hasError('required') && (valForm1.controls['email'].dirty || valForm1.controls['email'].touched)">*This field is required</span>
+                              <span class="text-danger" *ngIf="valForm1.controls['email'].hasError('email') && (valForm1.controls['email'].dirty || valForm1.controls['email'].touched)">This field must be a valid email address</span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <!-- <input class="form-control" [(ngModel)]="password" type="password" name="password" placeholder="Password" formControlName="password" required="" /> -->
+                            <input class="form-control" [(ngModel)]="password" matInput placeholder="Password" [type]="hide ? 'text' : 'password'" formControlName="password" required=""/>
+                            <a href="javascript:void(0);" class="password-visibity-icon" (click)="hide = !hide"><mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon></a>
+                            <span class="text-danger" *ngIf="valForm1.controls['password'].hasError('required') && (valForm1.controls['password'].dirty || valForm1.controls['password'].touched)">*This field is required</span>
+                          </div>
+                        </div> 
+                        <!-- <div class="col-md-6">
+                          <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                              </div>
+                              <input class="form-control" id="exampleInputCompanyEmail" [(ngModel)]="companyEmail" type="email" name="companyEmail" placeholder="Company Email" formControlName="companyEmail" required="" />
+                              <span class="text-danger" *ngIf="valForm1.controls['companyEmail'].hasError('required') && (valForm1.controls['companyEmail'].dirty || valForm1.controls['companyEmail'].touched)">*This field is required</span>
+                              <span class="text-danger" *ngIf="valForm1.controls['companyEmail'].hasError('companyEmail') && (valForm1.controls['companyEmail'].dirty || valForm1.controls['companyEmail'].touched)">This field must be a valid email address</span>
+                          </div>
+                        </div> -->
+                        <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                            </div>
+                            <input class="form-control" id="exampleInputphoneNumber" [(ngModel)]="phoneNumber" type="text" [textMask]="{mask: phoneMask}" name="phoneNumber" placeholder="Phone Number" autocomplete="off" formControlName="phoneNumber"/>
+                            <span class="text-danger" *ngIf="valForm1.controls['phoneNumber'].hasError('required') && (valForm1.controls['phoneNumber'].dirty || valForm1.controls['phoneNumber'].touched)">*This field is required</span>
+                            <span class="text-danger" *ngIf="valForm1.controls['phoneNumber'].hasError('phoneNumber') && (valForm1.controls['phoneNumber'].dirty || valForm1.controls['phoneNumber'].touched)">This field must be a valid phoneNumber </span>
+                          </div>
+                        </div>
+                        <!-- <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                            </div>
+                            <input class="form-control" id="exampleInputcompanyPhoneNumber" [(ngModel)]="companyPhoneNumber" type="text" [textMask]="{mask: phoneMask}" name="companyPhoneNumber" placeholder="Enter company phone Number" autocomplete="off" formControlName="companyPhoneNumber"/>
+                            <span class="text-danger" *ngIf="valForm1.controls['companyPhoneNumber'].hasError('required') && (valForm1.controls['companyPhoneNumber'].dirty || valForm1.controls['companyPhoneNumber'].touched)">*This field is required</span>
+                            <span class="text-danger" *ngIf="valForm1.controls['companyPhoneNumber'].hasError('companyPhoneNumber') && (valForm1.controls['companyPhoneNumber'].dirty || valForm1.controls['companyPhoneNumber'].touched)">This field must be a valid phoneNumber </span>
+                          </div>
+                        </div>                 -->
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-industry"></i></span>
+                                </div>
+                                <select class="form-control" id="industry" formControlName="industry">
+                                  <option value="" disabled selected>Select Industry</option>
+                                  <option *ngFor="let industry of industryData; let i=index;" [value]="industry._id">{{industry.title}}</option>
+                                </select>
+                                <span class="text-danger" *ngIf="valForm1.controls['industry'].hasError('required') && (valForm1.controls['industry'].dirty || valForm1.controls['industry'].touched)">*This field is required</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fa fa-industry"></i></span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input class="form-control" id="exampleInputCompanyName" [(ngModel)]="companyName" type="text" name="companyName" placeholder="Company Name" formControlName="companyName" required="" />
+                                <span class="text-danger" *ngIf="valForm1.controls['companyName'].hasError('required') && (valForm1.controls['companyName'].dirty || valForm1.controls['companyName'].touched)">*This field is required</span>
+                            </div>
+                        </div>
+                      </div>    
+                      <div style="margin-bottom: 16px;">
+                          <div style="margin-left: 15px; margin-right: 15px;">
+                              <input type="checkbox" (change)="AgreecheckboxChange($event)"> &nbsp;<a href="javascript:void(0);" (click)="onAgreeTerm()">{{agreeBtTitle}}</a>
+                          </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="card-footer p-4">
+                    <div class="row">
+                      <div class="col-12">
+                          <!-- <button class="btn btn-block btn-success payment-btn" (click)="checkValidation()">Sign Up Now</button> -->
+                          <button class="btn btn-block btn-primary pt-3 pb-3" (click)="onFreeTrial()">Sign Up Now</button>
+                      </div>
+                      <!-- <div class="col-6">
+                          <button class="btn btn-block btn-success payment-btn" (click)="onFreeTrial()">Free Trial</button>
+                      </div> -->
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6 col-md-12 mt-3 pr-md-2">
+                        <!-- <button class="btn btn-block btn-success payment-btn" type="button" (click)="signInWithGoogle()" [disabled]="termAgreed === 1? false: true"> -->
+                          <button class="btn btn-block btn-primary pt-3 pb-3" type="button" (click)="signInWithGoogle()">
+                          <span class="button-span-text">
+                            <img class="social-login-logo" src="https://img.icons8.com/color/48/000000/google-logo.png">
+                            <span class="d-inline-block ml-2">Sign Up with Google</span>
+                          </span>
+                        </button>
+                      </div>
+                      <div class="col-lg-6 col-md-12 mt-3 pl-md-2">
+                          <button class="btn btn-block btn-primary pt-3 pb-3" type="button" (click)="signInWithFB()">
+                            <span class="button-span-text">
+                              <img class="social-login-logo" src="https://img.icons8.com/color/48/000000/facebook-circled.png">
+                              <span class="d-inline-block ml-2">Sign Up with Facebook</span>
+                            </span>
+                          </button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 mt-3" style="text-align: center;">
+                          <p>Already have an account? <a href="/login">Login</a></p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <toaster-container class="custom-toast" [toasterconfig]="toasterconfig"></toaster-container>
+  </main>
+</div>
+
+<app-footer>
+  <span><a href="https://www.blueclerk.com">BlueClerk</a> &copy; 2020 <a href="https://www.dasolgroup.com">DasolGroup</a>.</span>
+  <span class="ml-auto" style="text-align: center">Phone:512-846-6035 </span>
+  <span class="ml-auto" style="margin-right: 130px"><a href="https://help@dasolgroup.com">help@dasolgroup.com</a></span>
+</app-footer>
+   
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Payment Details</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <form class="stripe-form">
+            <div class="form-group row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                    </div>
+                    <input type="text" id="input1-group1" name="address" [(ngModel)]="addressForPayment" class="form-control field is-empty" placeholder="Address">
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-building-o"></i></span>
+                  </div>
+                  <input type="text" id="city" name="city" [(ngModel)]="cityForPayment" class="form-control field is-empty"  placeholder="City">
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                    </div>
+                    <input type="text" id="state" name="state" [(ngModel)]="stateForPayment" class="form-control field is-empty" placeholder="State">
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-file-archive-o"></i></span>
+                    </div>
+                    <input type="text" id="zip" name="zip" [(ngModel)]="zipForPayment" class="form-control field is-empty" placeholder="Zip">
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                    </div>
+                    <input type="text" id="nameOnCard" name="nameOnCard" [(ngModel)]="nameOnCard" class="form-control field is-empty" placeholder="Name On Card">
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label>Credit or debit card </label>
+              <div class="col-md-12">
+                <div id="card-element" class="field is-empty"></div>
+              </div>
+
+              <div class="outcome">
+                <div class="error" role="alert"></div>
+                    <div class="success" >
+                    Success! Your Stripe token is <span class="token"></span>
+                </div>
+              </div>
+            </div>                                                         
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+              <img class="block-center img-rounded" src="assets/img/stripe_img/outd_powered_by_stripe.png" style="position: absolute; left:10px;" alt="Image" />
+        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onPay()" >Pay</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

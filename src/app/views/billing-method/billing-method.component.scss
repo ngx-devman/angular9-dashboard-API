@@ -1,0 +1,76 @@
+.model-div{
+    width: 786px;
+    height: 250px;
+    background-color: white;
+    margin: 0 auto;
+}
+.labeltext {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-top: 25px;
+}   
+.title{
+    color: cornflowerblue;
+    font-size: 20px;
+} 
+.custom-size{
+    font-size: 17px;
+}
+.custom_form{
+    // transform: translateY(50%);
+    // padding: 0 50px;
+}
+.custom_label{
+width: 100%;
+}
+.report-icon {
+    color: rgb(88, 146, 93);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(179, 241, 189);
+    }
+}
+
+.del-icon {
+    color: rgb(146, 88, 88);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(241, 179, 179);
+    }
+}
+.modal-body {
+    position: relative;
+    padding: 0px;
+}
+.content_row{
+    margin: 10px;
+}
+.viewcard_row{
+    margin: 10px;
+}
+.custom_select{
+    font-size: 17px;
+    font-weight: 600;
+}
+.monthcol{
+    padding: 0px !important;
+    select{
+        padding: 0px;
+    }
+}
+.yearcol{
+    padding: 0px !important;
+    select{
+        padding: 0px;
+        margin-left: 10px;
+    }
+}
+.monthdiv{
+margin-left: 0px !important;
+}

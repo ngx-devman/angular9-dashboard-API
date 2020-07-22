@@ -1,0 +1,176 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateEquipment()">Add</button>
+    Equipment List
+    <small>{{ 'dashboard.WELCOME' | translate }} !</small>
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{equipList?.length}}</strong> equipments</div>
+        Equipment List
+    </div>
+    <table class="table table-striped" [mfData]="equipList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <!-->
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+                <-->
+                <!-->
+                <th style="width: 5%"></th>
+                <-->
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 5%" class="text-center">Image</th>
+                <th style="width: 5%" class="text-center">Diagram</th>
+                <th style="width: 5%">
+                    <mfDefaultSorter by="type">Type</mfDefaultSorter>
+                </th>
+                <th style="width: 5%">
+                        <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 5%">
+                    <mfDefaultSorter by="brand">Brand</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                    <mfDefaultSorter by="machineType">Machine</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="model">Model</mfDefaultSorter>
+                </th>
+                <th style="width: 20%">
+                    <mfDefaultSorter by="note">Note</mfDefaultSorter>                    
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;" (click)="onDetailEquipment(item)">
+                <!-->
+                <td class="text-right"><span class="del-icon fa fa-trash" (click)="onDeleteEquipment(item)" title="Delete Equipment"></span></td>
+                <td class="text-right"><span class="edit-icon fa fa-edit" (click)="onEditEquipment(item)" title="Edit Equipment"></span></td>
+                <-->
+                
+                <!-->
+                <td class="text-right"><span class="report-icon fa fa-file-text-o" (click)="onReportEquipment(idx, $event)" title="Report Equipment"></span></td>
+                <-->
+                <td class="text-right">{{item.No}}</td>
+                <td class="text-center"><img src="{{item.imgUrl}}" style="width: 40px;" (click)="onDetailImg($event, item.imgUrl)"></td>
+                <td class="text-center"><img src="{{item.imgUrl1}}" style="width: 40px;" (click)="onDetailImg($event, item.imgUrl1)"></td>
+                <td>{{item.type}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.machineType}}</td>
+                <td>{{item.model}}</td>
+                <td>{{item.note}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #equipmentDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header" class="text-center">
+        <h2 style="margin-top: 20px;">{{actionType == 0 ? 'Add Equipment' : 'Update Equipment'}}</h2>
+    </div>
+
+    <modal-body style="text-align:center;">
+
+        <div>
+            <div class="col-sm-6">
+                <div class="control-caption">Equipment Image</div>
+                <div style="display: inline-block; width: 100%; text-align: left;">
+                    <div style="width: 100%; text-align: left;">
+                        <img #productImg src="{{equipmentInfo && equipmentInfo.imgUrl ? equipmentInfo.imgUrl : ''}}" 
+                            style="min-height: 100px; max-height: 100px; min-width: 100px; max-width: 300px; border: 1px solid #CCC;">
+                    </div>
+                    <label id="#bb" class="btn btn-primary" style="margin: 10px;"> Select File
+                        <input #fileInput 
+                            type="file"
+                            size="60"
+                            (change)="chooseFile($event)"
+                            accept="image/x-png,image/gif,image/jpeg"
+                            style="display: none;">
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                    <div class="control-caption">Diagram Image</div>
+                    <div style="display: inline-block; width: 100%; text-align: left;">
+                        <div style="width: 100%; text-align: left;">
+                            <img #productImg1 src="{{equipmentInfo && equipmentInfo.imgUrl1 ? equipmentInfo.imgUrl1 : ''}}" 
+                                style="min-height: 100px; max-height: 100px; min-width: 100px; max-width: 300px; border: 1px solid #CCC;">
+                        </div>
+                        <label id="#bb" class="btn btn-primary" style="margin: 10px;"> Select File
+                            <input #fileInput1 
+                                type="file"
+                                size="60"
+                                (change)="chooseFile1($event)"
+                                accept="image/x-png,image/gif,image/jpeg"
+                                style="display: none;">
+                        </label>
+                    </div>
+                </div>
+        </div>
+
+        <div class="control-caption">Select Equipment Type Below</div>
+        <div class="btn-group" dropdown style="width: 100%;">
+            <button class="btn btn-default" dropdownToggle>{{equipmentInfo.type}}
+                <b class="caret" style="float: right; margin: 7px;"></b></button>
+            <ul *dropdownMenu class="dropdown-menu animated fadeInDown" role="menu">
+                <li><a href="#" (click)="onChangeValue('Strength')">Strength</a></li>
+                <li><a href="#" (click)="onChangeValue('Cardio')">Cardio</a></li>
+            </ul>
+        </div>
+
+        <div *ngIf="actionType == 1">
+            <div class="control-caption">NFC Tag ID</div>
+            <input class="form-control" style="width: 100%" type="text" [(ngModel)]="equipmentInfo.tag_id">
+        </div>
+
+        <div class="control-caption">Brand</div>
+        <div class="btn-group" dropdown style="width: 100%;">
+            <button class="btn btn-default" dropdownToggle>{{selBrand.name}}
+                <b class="caret" style="float: right; margin: 7px;"></b></button>
+            <ul *dropdownMenu class="dropdown-menu animated fadeInDown" role="menu">
+                <li *ngFor="let item of brandList"><a href="#" (click)="onChangeBrand(item.id)">{{item.name}}</a></li>
+            </ul>
+        </div>
+
+        <div class="control-caption">Machine Type</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="equipmentInfo.machineType">
+
+        <div class="control-caption">Model</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="equipmentInfo.model">
+
+        <div class="control-caption">Note</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="equipmentInfo.note">
+
+        <div class="control-caption">How To Use</div>
+        <textarea class="form-control" style="width: 100%" [(ngModel)]="equipmentInfo.howToUse"></textarea>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmEquipment()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelEquipment()">Cancel</button>
+    </modal-footer>
+</modal>

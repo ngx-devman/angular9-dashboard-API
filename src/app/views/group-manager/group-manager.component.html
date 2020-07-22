@@ -1,0 +1,138 @@
+<div class="content-heading">
+        <button class="btn btn-success" style="float: right;" (click)="onCreateMember()">Add Members</button>
+    <button class="btn btn-success managerbtn" (click)="onCreateManager()">Add Manager</button>
+    <br/>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <table class="table table-striped" [mfData]="groupList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%;"></th>
+               
+                <th style="width: 20% ;">
+                    <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;">
+                    <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;">
+                    <mfDefaultSorter by="role">Role</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;">
+                    <mfDefaultSorter by="role">Recent Activity</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;"  >
+                <td  ><span class="del-icon fa fa-trash" (click)="Opendelete()" tooltip="Remove Member From Group"></span></td>           
+                <td >{{item?.profile?.displayName}}</td>   
+                <td >{{item?.auth?.email}}</td>              
+                <td  *ngIf="item?.permissions?.role==2">Manager</td>
+                <td  *ngIf="item?.permissions?.role!=2">Technician</td>
+                <td ><span class="del-icon fa fa-history"></span></td>
+            </tr>
+            <!-- <tr *ngIf="mf.data.length == 0">
+                <td></td>
+                <td></td>
+                <td>No Data Found</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <!-- <p *ngIf="mf.data.length == 0" style="margin: 100%;">No Data Found</p> -->
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #addManagerDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <div class="modal-header" class="text-center">
+            <h2>Add Manager</h2>
+        </div>
+    </modal-header>
+    <modal-body>
+        <div class="row">
+            <div class="col-12" >
+                <div class="control-caption">Group </div>
+                <div>
+                    <input class="form-control" type="text"  [(ngModel)]="groupName" list="dynmicgroupIds" id="autocomplete" [readonly]="!editable">
+                        <!-- <datalist id="dynmicgroupIds">
+                            <option>{{groupName}}</option>
+                        </datalist> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Select Manager </div>
+                <div >
+                    <input class="form-control" type="text"  [(ngModel)]="managerId"  (keyup)="addManager($event)" list="dynmicmanagerIds" id="autocomplete"(change)="selectManager(managerId)">
+                        <datalist id="dynmicmanagerIds">
+                            <option *ngFor="let managerDatas of managerData "  [value]="managerDatas?.profile?.displayName"> </option>
+                        </datalist>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmManager()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelManager()">Cancel</button>
+    </modal-footer>
+</modal>
+
+
+<modal #addMemberDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <div class="modal-header" class="text-center">
+            <h2 >Add Member</h2>
+        </div>
+    </modal-header>
+    <modal-body>
+        <div class="row">
+            <div class="col-12" >
+                <div class="control-caption">Group </div>
+                <div>
+                    <input class="form-control" type="text" [(ngModel)]="groupName" list="dynmicgroupids" id="autocomplete"  [readonly]="!editable" >
+                        <!-- <datalist id="dynmicgroupids">
+                            <option *ngFor="let k of groupData" [value]="k.title"></option>
+                        </datalist> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Select Member </div>
+                <div >
+                    <input class="form-control" type="text" [(ngModel)]="memberId"  (keyup)="addMember($event)" list="dynmicmemberIds" id="autocomplete"(change)="selectMember(memberId)">
+                        <datalist id="dynmicmemberIds">
+                            <option *ngFor="let technicianDatas of technicianData "  [value]="technicianDatas?.profile.displayName"> </option>
+                        </datalist>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmMember()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelMember()">Cancel</button>
+    </modal-footer>
+</modal>
+<modal #deleteDlg data-toggle="modal" data-backdrop="static" data-keyboard="false"  *ngFor="let item of groupList">
+    <modal-body >
+        <div class="control-caption delete">Are You Sure ?</div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success"(click)="onDeleteGroup(item._id)">Yes</button>
+        <button class="btn btn-danger" (click)="onCancel()">No</button>
+    </modal-footer>
+</modal>

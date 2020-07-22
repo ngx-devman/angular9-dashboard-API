@@ -1,0 +1,86 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateManager()">Add Fitness Manager</button>
+    Manager
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{userList?.length}}</strong> Trainers</div>
+        Manager List
+    </div>
+    <table class="table table-striped" [mfData]="userList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20%" class="text-left">
+                    <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 30%">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-right"><span class="del-icon fa fa-trash" (click)="onDelete(item)" title="Delete Equipment"></span></td>
+                <td class="text-right">{{item.No}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #addDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header>
+        <h3>Add Fitness Manager</h3>
+    </modal-header>
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Name</div>
+        <div style="display: inline-block; width: 100%;">
+            <div class="col-sm-6">
+                <input class="form-control" style="width: 100%" type="text" placeholder="First Name" [(ngModel)]="manager.FirstName">
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" style="width: 100%" type="text" placeholder="Last Name" [(ngModel)]="manager.LastName">
+            </div>
+        </div>
+
+        <div class="control-caption">Email</div>        
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="manager.Email">
+
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmManager()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelManager()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <modal-body style="text-align:center;">
+            Do you really delete it?
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+            <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+        </modal-footer>
+    </modal>
+    

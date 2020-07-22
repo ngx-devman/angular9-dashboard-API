@@ -1,0 +1,30 @@
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        Inventory List
+    </div>
+    <table class="table table-striped" [mfData]="inventoryName" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+            <tr>
+                <th style="width: 20%;text-align: center;" >
+                    <mfDefaultSorter by="name">Model</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;text-align: center;" >
+                    <mfDefaultSorter by="name">Type</mfDefaultSorter>
+                </th>
+            </tr>
+      </thead> 
+      <tbody>
+        <tr  class="line-hover"  *ngFor="let item of inventoryName " > 
+            <td style=" text-align: center;">{{item.name}}</td>
+            <td style=" text-align: center;">{{item.type}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+            <td colspan="5">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+      </tfoot>
+  </table>
+</div>

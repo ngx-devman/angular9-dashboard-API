@@ -1,0 +1,185 @@
+
+  <app-header [sidebarToggler]="false" [asideMenuToggler]="false" [navbarBrandRouterLink]="['/dashboard']" [fixed]="true" [navbarBrandFull]="{
+    src: 'assets/img/logo.jpg',
+    width: '100%',
+    height: '97%',
+    alt: 'BlueClerk Logo'
+  }" [navbarBrandMinimized]="{
+    src: 'assets/img/brand/sygnet.svg',
+    width: 30,
+    height: 30,
+    alt: 'BlueClerk Logo'
+  }" [sidebarToggler]="'lg'" class="main-header">
+
+  <ul class="nav navbar-nav top-nav">
+    <li class="nav-item" [routerLink]="['/dashboard']" [routerLinkActive]="['active']"  (click)="navSearch('Dashboard')"><a class="nav-item">Dashboard</a></li>
+    <li class="nav-item" [routerLink]="['/group']" [routerLinkActive]="['active']"  (click)="navSearch('People')"><a class="nav-item">People</a></li>
+    <!-- <li class="nav-item" [routerLink]="['/customer']" [routerLinkActive]="['active']"  (click)="navSearch('Customers')"><a class="nav-item">Customers</a></li> -->
+    <li class="dropdown nav-item" [routerLink]="['/customer']" [routerLinkActive]="['active']"  (click)="navSearch('Customers')">
+      <a class="dropdown-toggle nav-item " data-toggle="dropdown">Customers</a>
+      <ul class="dropdown-menu" >
+        <li><a>Page 1-1</a></li>
+        <li><a>Page 1-2</a></li>
+        <li><a>Page 1-3</a></li>
+      </ul>
+    </li>
+    <li class="nav-item" [routerLink]="['/purchasedtag']" [routerLinkActive]="['active']"  (click)="navSearch('Tags')"><a class="nav-item">Tags</a></li>
+    <li class="nav-item" [routerLink]="['/inventory']" [routerLinkActive]="['active']"  (click)="navSearch('Inventory')"><a class="nav-item">Inventory</a></li>
+    <li class="nav-item" [routerLink]="['/admin']" [routerLinkActive]="['active']"  (click)="navSearch('Admin')"><a class="nav-item">Admin</a></li>
+    <li class="nav-item" [routerLink]="['/integrations']" [routerLinkActive]="['active']"  (click)="navSearch('Integrations')"><a class="nav-item">Integrations</a></li>
+    <li class="nav-item" [routerLink]="['/invoicing']" [routerLinkActive]="['active']"  (click)="navSearch('Invoicing')"><a class="nav-item">Invoicing</a></li>
+  </ul>
+
+  <div class="search-container"></div>
+  <div>
+    <a href="https://blueclerk.com/support/" target="_blank">
+      <i class="fa fa-question-circle" aria-hidden="true" style="font-size: 22px;margin-right: 20px;">
+      </i>
+    </a>
+  </div>
+  <div dropdown>
+    <a dropdownToggle role="button" class=" dropdown-toggle">
+      <i class="cui-bell" aria-hidden="true" style="font-size: 22px;margin-right: 20px;">
+      </i>
+      <i class="icon-settings" style="font-size: 22px;margin-right: 20px;"></i>
+    </a>
+    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" style="min-width: 141px;margin: 0px 59px 0">
+      <li role="menuitem" class="custommenu">
+        <a class="nav-link" href="javascript:void(0);" (click)="logOut()">
+          <i class="fa fa-lock"></i> Logout</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <img #defaultImg src="{{ imageUrl }}" style="width: 33px; height:33px;margin-right: 20px;border-radius: 50%;cursor: pointer;"
+      (click)="goToProfile()" />
+    <span style="margin-right:20px;">{{ userdata && userdata.profile ? userdata.profile.displayName : "" }}
+    </span>
+  </div>
+</app-header>
+
+<div class="sub-header">
+  <div class="row">
+    <h2 *ngIf="subtitle" class="sub-title">{{subtitle}}</h2>
+    <div class="search-container">
+      <!-- <form action="/action_page.php"> -->
+      <input type="text" placeholder="Search.." name="search" />
+      <button class="searchButton" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+      <!-- </form> -->
+      <button class="customerBtn" type="button" *ngIf="subtitle === 'Customers'" [routerLink]="['/newcustomer']">
+        New Customer
+      </button>
+    </div>
+  </div>
+</div>
+<div class="app-body main-container">
+  <app-sidebar  *ngIf="!hidenav" [fixed]="true" [display]="'lg'">
+    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="sidebarMinimized" style="font-size: 16px;"></app-sidebar-nav>
+    <!-- <app-sidebar-minimizer class="blue-gray-bg"></app-sidebar-minimizer> -->
+  </app-sidebar>
+  <main class="main">
+    <div class="container-fluid" [ngClass]="{'reduce': hidenav}">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+  <app-aside [fixed]="true" [display]="false">
+    <tabset>
+      <tab>
+        <ng-template tabHeading>
+          <i class="fa fa-history" title="History"></i>
+        </ng-template>
+        <div class="list-group list-group-accent">
+          <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
+            <div>
+              Meeting with
+              <strong>Lucas</strong>
+            </div>
+            <small class="text-muted mr-3">
+              <i class="icon-calendar"></i> 1 - 3pm</small>
+            <small class="text-muted">
+              <i class="icon-location-pin"></i> Palo Alto, CA</small>
+          </div>
+          <div class="list-group-item list-group-item-accent-info">
+            <div>
+              Skype with
+              <strong>Megan</strong>
+            </div>
+            <small class="text-muted mr-3">
+              <i class="icon-calendar"></i> 4 - 5pm</small>
+            <small class="text-muted">
+              <i class="icon-social-skype"></i> On-line</small>
+          </div>
+          <div class="list-group-item list-group-item-accent-danger list-group-item-divider">
+            <div>
+              New UI Project -
+              <strong>deadline</strong>
+            </div>
+            <small class="text-muted mr-3">
+              <i class="icon-calendar"></i> 10 - 11pm</small>
+            <small class="text-muted">
+              <i class="icon-home"></i> creativeLabs HQ</small>
+          </div>
+          <div class="list-group-item list-group-item-accent-primary list-group-item-divider">
+            <div>
+              <strong>Team meeting</strong>
+            </div>
+            <small class="text-muted mr-3">
+              <i class="icon-calendar"></i> 4 - 6pm</small>
+            <small class="text-muted">
+              <i class="icon-home"></i> creativeLabs HQ</small>
+          </div>
+        </div>
+      </tab>
+
+      <tab>
+        <ng-template tabHeading>
+          <i class="fa fa-tags" title="Count of Tags"></i>
+        </ng-template>
+        <div class="list-group list-group-accent">
+          <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
+            <div>
+              Tag 1
+              <strong>Lucas</strong>
+            </div>
+            <small class="text-muted">
+              <i class="icon-location-pin"></i> Palo Alto, CA</small>
+          </div>
+          <div class="list-group-item list-group-item-accent-info">
+            <div>
+              Tag ABC
+              <strong>Megan</strong>
+            </div>
+            <small class="text-muted mr-3">
+              <i class="icon-calendar"></i> 4 - 5pm</small>
+            <small class="text-muted">
+              <i class="icon-social-skype"></i> On-line</small>
+          </div>
+          <div class="list-group-item list-group-item-accent-danger list-group-item-divider">
+            <div>
+              New UI Project -
+              <strong>deadline</strong>
+            </div>
+            <small class="text-muted mr-3">
+              <i class="icon-calendar"></i> 10 - 11pm</small>
+            <small class="text-muted">
+              <i class="icon-home"></i> creativeLabs HQ</small>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </app-aside>
+</div>
+<footer>
+  <span>
+    <a href="https://www.blueclerk.com">BlueClerk</a> &copy; 2019
+    <a href="https://www.dasolgroup.com">DasolGroup</a>.</span>
+  <span class="ml-auto" style="text-align: center">Phone:512-846-6035 </span>
+  <span class="ml-auto" style="margin-right: 130px">
+    <a href="https://info@dasolgroup.com">info@dasolgroup.com</a>
+  </span>
+</footer>
+<div class="loading" *ngIf="appLoading">
+  <app-loading></app-loading>
+</div>

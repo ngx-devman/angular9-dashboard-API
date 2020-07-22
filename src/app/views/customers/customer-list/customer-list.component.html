@@ -1,0 +1,65 @@
+<div class="content-heading" >
+  <div style= "text-align: center;">
+      <button class="custom-search"> 
+              <input class="form-control" [(ngModel)]="searchOpt.name" (input)="onChangeSearchValue('name',searchOpt.name)" placeholder="Search" style="text-align: center;height: 45px;">
+      </button>
+  </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+  <div class="panel-heading">
+      <div>
+          <!-- new api -->
+              <button class="btn btn-oval btn-default" style="background-color: #5d9cec;font-size: 15px;color:white" 
+          type="button" (click)="getCustomer('true','false')">Active</button>
+          <button class="btn btn-oval btn-default" style="background-color: #5d9cec;font-size: 15px;color: white" 
+          type="button" (click)="getCustomer('false','true')">Inactive</button>
+          <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em> Number In List: <strong>{{custList?.length}}</strong></div>
+      </div>
+  </div>
+  <br/>
+  <div class="table-responsive">
+  <table class="table table-striped" [mfData]="custList" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+          <tr>
+              <th  style="width: 5%;text-align: center;">
+                <mfDefaultSorter by="View">View</mfDefaultSorter>
+              </th>
+              <th style="width: 10%;text-align: center;" >
+                <mfDefaultSorter by="No">No.</mfDefaultSorter>
+              </th>
+              <th style="width: 20% ;text-align: center;">
+                <mfDefaultSorter by="name ">Name</mfDefaultSorter>
+              </th>
+              <th style="width: 20% ;text-align: center;">
+                <mfDefaultSorter by="email">Email</mfDefaultSorter> 
+              </th>
+              <th style="width: 20% ;text-align: center;">
+                <mfDefaultSorter by="phoneNumber">Phone Number </mfDefaultSorter>
+              </th>
+
+          </tr>
+      </thead>
+      <tbody >
+          <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;"   >
+              <td style="text-align: center;"><span  class="cui-wrench" style="color: brown; font-size: 20px;" aria-hidden="true" tooltip="View Equipment" (click)="Equiplist(item)" ></span> </td>
+              
+              <td style="text-align: center;">{{item.No}}</td>
+              <td style="text-align: center;">{{item.info.name}}</td>
+              <td style="text-align: center;">{{item.info.email}}</td>
+              <td style="text-align: center;">{{item.contact.phone}}</td>
+             
+          </tr>
+      </tbody>
+      <tfoot>
+          <tr>  
+              <td colspan="5">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+              </td>
+          </tr>
+      </tfoot>
+  </table> 
+</div>
+  <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container>
+
+</div>

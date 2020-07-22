@@ -1,0 +1,119 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateEquipment()">Add</button>
+    Equipment
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{equipList?.length}}</strong> equipments</div>
+        Equipment List
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="equipList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 5%" class="text-center">Image</th>
+                <th style="width: 8%">
+                    <mfDefaultSorter by="type">Machine Type</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="brandName">Brand</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="model">Model</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input class="form-control" [(ngModel)]="searchOpt.machineType" (input)="onChangeValue('machineType',searchOpt.machineType)"></td>
+                <td><input class="form-control" [(ngModel)]="searchOpt.brand" (input)="onChangeValue('brand',searchOpt.brand)"></td>
+            </tr>
+
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-right">{{item.No}}</td>
+                <td class="text-center"><img src="{{item.imgUrl}}" style="width: 40px;" (click)="onDetailImg(item.imgUrl)"></td>
+                <td>{{item.typeName}}</td>
+                <td>{{item.brandName}}</td>
+                <td>{{item.model}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #equipmentDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header" class="text-center">
+        <h2 style="margin-top: 20px;">{{actionType == 0 ? 'Add Equipment' : 'Update Equipment'}}</h2>
+    </div>
+
+    <modal-body style="text-align:left;">
+        <div class="control-caption">Equipment Image</div>
+        <div style="display: inline-block; width: 100%; text-align: left;">
+            <div style="width: 100%; text-align: left;">
+                <img #productImg src="{{equipmentInfo && equipmentInfo.imgUrl ? equipmentInfo.imgUrl : ''}}" 
+                    style="min-height: 100px; max-height: 100px; min-width: 100px; max-width: 300px; border: 1px solid #CCC;">
+            </div>
+            <label id="#bb" class="btn btn-primary" style="margin: 10px;"> Select File
+                <input #fileInput 
+                    type="file"
+                    size="60"
+                    (change)="chooseFile($event)"
+                    accept="image/x-png,image/gif,image/jpeg"
+                    style="display: none;">
+            </label>
+        </div>
+
+        <div class="control-caption">Select Equipment Type Below</div>
+        <div class="btn-group" dropdown style="width: 100%;">
+            <button class="btn btn-default" dropdownToggle>{{selType.name}}
+                <b class="caret" style="float: right; margin: 7px;"></b></button>
+            <ul *dropdownMenu class="dropdown-menu animated fadeInDown" role="menu">
+                <li *ngFor="let item of typeList"><a href="#" (click)="onChangeType(item.id)">{{item.name}}</a></li>
+            </ul>
+        </div>
+
+        <div class="control-caption">Brand</div>
+        <div class="btn-group" dropdown style="width: 100%;">
+            <button class="btn btn-default" dropdownToggle>{{selBrand.name}}
+                <b class="caret" style="float: right; margin: 7px;"></b></button>
+            <ul *dropdownMenu class="dropdown-menu animated fadeInDown" role="menu">
+                <li *ngFor="let item of brandList"><a href="#" (click)="onChangeBrand(item.id)">{{item.name}}</a></li>
+            </ul>
+        </div>
+
+        <div class="control-caption">Model</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="equipmentInfo.model">    
+   
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmEquipment()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelEquipment()">Cancel</button>
+    </modal-footer>
+</modal>

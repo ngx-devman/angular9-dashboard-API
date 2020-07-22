@@ -1,0 +1,49 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+.line-hover:hover {
+    background: #fdffe0;
+}
+#autocomplete -ms-expand {
+    display: none;
+}
+.control-caption {
+    padding: 5px;
+    text-align: left;
+    font-weight: bold;
+}
+.custom-size{
+    font-size: 17px;
+}
+.custom-search{
+    width: 30%;    
+    background: none !important;
+    border: none !important;
+    td{
+        width: 20%;
+        input{
+            text-align: center; 
+            height: 45px;
+        }
+    }
+  
+}
+.btn{
+    float: right;
+}
+.header_div{
+    text-align: center;
+    
+}
+modal-body{
+    text-align:center;
+}
+h2{
+    margin-top: 20px;
+}

@@ -1,0 +1,74 @@
+<a class="close" (click)="removeAlert()">&times;</a>
+<!-- <div class="authorize-box" *ngIf="!shareAgreed">
+    <div class="row modal-title">
+        <h3>you should authorize to share with blueclerk etc</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-block btn-success" (click)="shareAgreedSocial()">OK</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-block btn-warning">Cancel</button>
+        </div>
+    </div>
+</div> -->
+
+<form [formGroup]="signupForm" class="form-validate mb-lg signup-modal" role="form" name="signupForm" novalidate="" (submit)="normalSignUp($event, signupForm)">
+    <h1 class="sign-up-plans" style="text-align: center;">Create An Account</h1>
+    <p class="text-muted" style="text-align: center;">Please fill in below form to create an account with us</p>
+
+    <div class="row text-bottom">
+    <div class="col-md-12">
+        <h4><span style="color: red;">*</span> All fields required.</h4>
+    </div>
+
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+        </div>
+        <input class="form-control" type="text" [textMask]="{mask: phoneMask}" name="phone" placeholder="Enter phone Number" autocomplete="off" formControlName="phone"/>
+        <span class="text-danger" *ngIf="signupForm.controls['phone'].hasError('required') && (signupForm.controls['phone'].dirty || signupForm.controls['phone'].touched)">*This field is required</span>
+        <span class="text-danger" *ngIf="signupForm.controls['phone'].hasError('phone') && (signupForm.controls['phone'].dirty || signupForm.controls['phone'].touched)">This field must be a valid phoneNumber </span>
+        </div>
+    </div>
+                            
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-industry"></i></span>
+            </div>
+            <select class="form-control" id="industryId" formControlName="industryId">
+                <option value="" disabled selected>Select industry</option>
+                <option *ngFor="let industry of industryData; let i=index;" [value]="industry._id">{{industry.title}}</option>
+            </select>
+            <span class="text-danger" *ngIf="signupForm.controls['industryId'].hasError('required') && (signupForm.controls['industryId'].dirty || signupForm.controls['industryId'].touched)">*This field is required</span>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+            <input class="form-control" formControlName="companyName" type="text" name="companyName" placeholder="Company Name" required="" />
+            <span class="text-danger" *ngIf="signupForm.controls['companyName'].hasError('required') && (signupForm.controls['companyName'].dirty || signupForm.controls['companyName'].touched)">*This field is required</span>
+        </div>
+    </div>
+    </div>    
+    <div style="margin-bottom: 16px;">
+        <div style="margin-left: 15px; margin-right: 15px;">
+            <input type="checkbox" #agreeCheck (change)="AgreecheckboxChange($event)"> &nbsp;<a href="javascript:void(0);" (click)="onAgreeTerm()">{{agreeBtTitle}}</a>
+        </div>
+        <!-- <div style="margin-left: 15px; margin-right: 15px;">
+            <input type="checkbox" #agreeCheckShare (change)="AgreecheckboxChange2($event)"> &nbsp;<a href="javascript:void(0);">Share your email || !agreeCheckShare.checked</a>
+        </div> -->
+    </div>
+    <div class="card-footer p-4">
+        <div class="row">
+        <div class="col-12">
+            <button class="btn btn-block btn-success payment-btn" type="submit" [disabled]="!signupForm.valid || !agreeCheck.checked">Sign Up Now</button>
+        </div>
+        <!-- <div class="col-6">
+            <button class="btn btn-block btn-success payment-btn " type="button" (click)="onFreeTrial()">Free Trial</button>
+        </div> -->
+        </div>
+    </div>
+</form>

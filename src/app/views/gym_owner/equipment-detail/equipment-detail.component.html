@@ -1,0 +1,63 @@
+<div class="content-heading">
+    <img src="{{equipment.imgUrl}}" style="width: 70px;" (click)="onDetailImg(equipment.imgUrl)">
+    {{equipment.machineType}}
+</div>
+
+<!-- START row-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default" id="panelChart1">
+            <div class="btn-group" data-toggle="buttons" style="float: right; margin-top: 6px; margin-right: 8px;">
+                <label class="btn btn-primary active" (click)="onDaily()">
+                    <input type="radio" name="options" id="option1"> Daily
+                </label>
+                <label class="btn btn-primary" (click)="onWeekly()">
+                    <input type="radio" name="options" id="option2"> Weekly
+                </label>
+                <label class="btn btn-primary" (click)="onMonthly()">
+                    <input type="radio" name="options" id="option3"> Monthly
+                </label>
+                <label class="btn btn-primary" (click)="onYearly()">
+                        <input type="radio" name="options" id="option4"> Yearly
+                </label>
+            </div>
+            <div class="panel-heading">
+                <div class="panel-title">{{timeFilter}} Usage</div>
+            </div>
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div flot [dataset]="timeUsageData" [options]="barOptions" height="300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default" id="panelChart2">
+            <div class="panel-heading">
+                <div class="panel-title">Gender Usage</div>
+            </div>
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div flot [dataset]="genderUsageData" [options]="pieOptions" height="300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default" id="panelChart3">
+            <div class="panel-heading">
+                <div class="panel-title">Age Usage</div>
+            </div>
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div flot [dataset]="ageUsageData" [options]="pieOptions" height="300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END row-->

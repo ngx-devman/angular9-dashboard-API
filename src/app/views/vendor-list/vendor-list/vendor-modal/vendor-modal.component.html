@@ -1,0 +1,75 @@
+<div class="vendorModal">
+    <div class="heading">
+        <h3>Add Vendors</h3>
+    </div>
+    <div class="vendorContent">
+        <div class="vendorSearch">
+            <form #f="ngForm" (ngSubmit)="searchVendors()">
+                <div class="search">
+                    <input type="text" [(ngModel)]="newVendor" name="email" #email="ngModel" required email pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control search-box-field" placeholder="Search Vendors Here..." />
+                </div>
+                <div class="searchAction">
+                    <button class="btn btn-primary btn-default custom-btn " type="submit" [disabled]="!f.form.valid">
+                        Search Vendors
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="inviteUser" *ngIf="!userExsist">
+            <div class="title">
+                <p>This account is not found. Click here to invite this user to BlueClerk</p>
+            </div>
+            <div class="actionBtn">
+                <button class="btn btn-primary btn-default custom-btn " type="button" (click)="inviteVendor()">
+                    Invite Vendor
+                </button>
+                <button class="btn btn-danger btn-default custom-btn " type="button" (click)="close()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <div class="searchedUser" *ngIf="searchedUser">
+            <!-- <div class="userInfo">
+                <h3>Searched Vendor</h3>
+                <div class="col-sm-12 companyLogo">
+                    <img src="{{searchedUser.info.logoUrl}}">
+                </div>
+                <div class="col-sm-12 contactDetails">
+                    <div class="col-sm-6">
+                        <div class="userName">
+                            <p><strong>Name:</strong> {{searchedUser.info.companyName}}</p>
+                        </div>
+                        <div class="userEmail">
+                            <p><strong>Email:</strong> {{searchedUser.info.companyEmail}}</p>
+                        </div>
+                        <div class="userPhone">
+                            <p><strong>Phone:</strong> {{searchedUser.contact.phone | slice:0:3}}-{{searchedUser.contact.phone | slice:3:6}}-{{searchedUser.contact.phone | slice:6:10}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="userName">
+                            <p><strong>Street:</strong> {{searchedUser.address.street}}</p>
+                        </div>
+                        <div class="userEmail">
+                            <p><strong>City & State:</strong> {{searchedUser.address.city}} {{searchedUser.address.state}}</p>
+                        </div>
+                        <div class="userPhone">
+                            <p><strong>ZipCode:</strong> {{searchedUser.address.zipCode}}</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div> -->
+            <app-vendor-display [searchedUser]="searchedUser"></app-vendor-display>
+            <div class="userAction">
+                <button class="btn btn-primary btn-default custom-btn " type="button" (click)="startContract()">
+                    Authorize
+                </button>
+                <button class="btn btn-danger btn-default custom-btn " type="button" (click)="close()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

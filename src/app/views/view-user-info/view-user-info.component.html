@@ -1,0 +1,134 @@
+
+<div class="custom_size">
+  <div>
+    <p>{{userInfo.name}}</p>
+  </div>
+  <ul class="nav nav-tabs" >
+    <li  class="active"><a class="nav-link active" data-toggle="tab" href="#Account"  aria-controls="account" aria-expanded="true"> Account</a></li>
+    <li><a class="nav-link"  data-toggle="tab" href="#Permissions">Permissions</a></li>
+    <li><a class="nav-link"  data-toggle="tab" href="#History">History</a></li>
+  </ul>
+  <div class="row"> 
+    <div class="col-6">
+      <div class="tab-content" style="padding: 30px">
+        <div id="Account" class="tab-pane fade active in">
+          <div class="content-heading">
+            <div style= "text-align: center;">
+              <div class="card">
+                <div class="card-header custom_header">Account Details
+                </div>
+                <div class="card-body">
+                  <div class="row" style="margin: 20px;">
+                    <img src="assets/img/user_avatar.png"
+                    style="width: 100px; height:100px;border-radius: 50%;"
+                    />
+                    <!-- <div class="row">
+                      <label>Name: </label>
+                      <span>{{userInfo.name}}</span>
+                    </div> -->
+                  </div>
+                </div>
+
+                <div class="card-header custom_header">Profile
+                </div>
+                <div class="card-body">
+                  <div class="row"  style="margin: 20px;">
+                    <span> Added On: {{userInfo.date}}</span>
+                  </div>
+                </div>
+
+                <div class="card-header custom_header">Contact
+                </div>
+                <div class="card-body" >
+                  <div class="row"  style="margin: 20px;">
+                    <span>{{userInfo.contact}}</span>
+                  </div>
+                </div>
+                
+                  
+                <div class="card-header custom_header">Address
+                </div>
+                <div class="card-body" >
+                  <div class="row"  style="margin: 20px;">
+                    <label>Address:</label>
+                    <span>{{userInfo.address}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+      
+    
+      <div id="Permissions" class="tab-pane fade">
+        <div class="card">
+          <div class="card-header custom_header">
+            <p>Permissions</p>
+          </div>
+          <div class="card-body">
+              <div class="row">
+              <div class="col-4"  *ngFor="let permission of permissions">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" id="defaultUnchecked">
+                  <label >{{permission.name}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="custom_btn">
+            <button class="btn btn-success">Edit</button>
+            </div>
+        </div>
+      </div>    
+        <div id="History" class="tab-pane fade">
+          <div class="card">
+            <div class="card-header custom_header">
+              <p>History</p>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div><br/>
+
+    <div class="col-6">
+      <div class="row">
+        <div  class="col-12" style="padding:30px ; top:9px">
+          <div class="card">
+            <div class="card-header job_header">
+              <p >  Recent jobs </p>
+            </div>
+            <div class="card-body">
+              <p>No recent job</p>
+            </div>
+          </div>
+        </div>
+        <div  class="col-12" style="padding:30px ;">
+          <div class="card ">
+            <div class="card-header user_header">
+              <p> Deauthorized User </p>
+            </div>
+            <div class="card-body ">
+              <p>Deauthorized User has the following effects:</p>
+              <ul>
+                <li type="disc">
+                  Cannot be scheduled for job
+                </li>
+                <li type="disc">
+                  Cannot scan equipment
+                </li>
+                <li type="disc">
+                  Any user under this account will not have access
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer custom_footer">
+              <button class="btn custom_button"> Deauthorize</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</div>

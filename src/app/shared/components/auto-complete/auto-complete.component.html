@@ -1,0 +1,16 @@
+<div class="formGroup autoComplete">
+    <input matInput
+        aria-label="autoList"
+        [matAutocomplete]="auto"
+        [formControl]="stateCtrl"
+        [ngModel]="selectedCustomer"
+        (ngModelChange)="updateAutoComplete($event)"
+        (focus)="displayAutoOptions()"
+        class="form-control"
+        >
+ <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
+   <mat-option *ngFor="let state of filteredStates | async" [value]="state._id">
+     <span>{{state.name}}</span>
+   </mat-option>
+ </mat-autocomplete>
+</div>

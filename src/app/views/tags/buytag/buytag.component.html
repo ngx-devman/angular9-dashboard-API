@@ -1,0 +1,414 @@
+<!-- <div class="content-heading">
+  <div style="float: right; font-size: 20px;" class="custom_label">
+     <button class="btn btn-oval btn-default" style=" margin-right: 8px; margin-bottom: 10px;background-color: #5d9cec;font-size: 15px;" 
+     type="button" (click)="onBuyTag()"  *ngIf="isRole==3 || isRole==0 " >Buy More</button>
+     <b>{{curTagCnt}}</b> tags not coded
+  </div>
+  <br/>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+  <div class="panel-heading">
+    <div class="pull-right text-muted"><strong>{{tagData?.length}}</strong> Purchases</div>
+    <br/>
+  </div>
+  <div class="table-responsive">
+  <table class="table table-striped" [mfData]="tagData" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+        <tr>
+            <th style="width: 5%;text-align: center;"></th>
+            <th style="width: 20%;text-align: center;">
+                <mfDefaultSorter by="No">Tags Bought</mfDefaultSorter>
+            </th>
+            <th style="width:20%;text-align: center;">
+                <mfDefaultSorter by="No">Invoice# </mfDefaultSorter>
+            </th>
+            <th style="width:20%;text-align: center;">
+                <mfDefaultSorter by="tagCnt">Amount</mfDefaultSorter>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="line-hover"  *ngFor="let item of mf.data; let idx=index;" >
+            <td  style="text-align: center;"><span class="cui-file" tooltip="Show Report"  aria-hidden="true" (click)="goToInvoice(item)" ></span> </td>
+            <td  style="text-align: center;" >{{item.info.noOfTags}} </td>
+            <td  style="text-align: center;">#90-98792</td>
+            <td  style="text-align: center;" >{{item.info.total}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+            <td colspan="5">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+      </tfoot>
+  </table>
+</div>
+  <toaster-container [toasterconfig]="config" class="toaster-icons"></toaster-container>
+
+</div>
+
+<modal #buyDlg data-toggle="modal" data-backdrop="static" data-keyboard="false" class="custom-size">
+    <modal-header class="modelHeader">         
+        <div class="modal-header" class="text-center">
+            <h2  style="margin-top: 20px;"> Buy Blue Tag </h2>
+        </div>
+    </modal-header>
+    <modal-body style="text-align:center;">
+        <div class="row"  >
+            <div class="col-md-12 md-form" >
+                <label style="text-align: initial;">
+                    <span>Select Card</span>
+                    <div >
+                        <input class="form-control" type="text" [(ngModel)]="cardId" list="dynmiccardId" id="autocomplete" (change)="selectCard(cardId)">
+                        <datalist id="dynmiccardId">
+                            <option *ngFor="let cardDatas of cardData"  [value]="cardDatas.ending">{{cardDatas.ending}}</option>
+                        </datalist>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="addressTitle">
+            <p>Shipping Address</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6 md-form">
+                <label style="text-align: initial;" >
+                    <span>Name</span>
+                    <input type="text" id="inputMDEx"  [(ngModel)]="name" class="form-control form-control-lg" placeholder="Name" />
+                </label>
+            </div>
+            <div class="col-md-6 md-form">
+                    <label style="text-align: initial;" >
+                        <span>Address</span>
+                        <input type="text" id="inputMDEx"  [(ngModel)]="addressForPayment" class="form-control form-control-lg" placeholder="Address" />
+                    </label>
+                </div>
+        </div>
+        <div class="row" >
+            <div class="col-md-6 md-form" >
+                <label style="text-align: initial;">
+                    <span>State</span>
+                    <input type="text" id="inputMDEx" [(ngModel)]="stateForPayment" class="form-control form-control-lg" placeholder="State" />
+                </label>
+            </div>
+            <div class="col-md-6 md-form">
+                <label style="text-align: initial;">
+                    <span>City</span>
+                    <input type="text" id="inputMDEx" [(ngModel)]="cityForPayment"  class="form-control form-control-lg" placeholder="City" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6  md-form">
+                <label style="text-align: initial;">
+                    <span>Zip</span>
+                    <input type="text" [(ngModel)]="zipForPayment" class="form-control form-control-lg" placeholder="Zip" />
+                </label>
+            </div>   
+            <div class="col-md-6  md-form">
+                <label class=" md-form" style="text-align: initial;">
+                    <span>Number of Tags</span>
+                    <input class="form-control form-control-lg" type="number" (change)="setSales()" [(ngModel)]="buyTagCnt" placeholder="Number of blue tags" min="0"/>
+                </label>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer style="margin-top: 29px;margin-bottom:45px;">
+        <label style="position: absolute; left:10px; font-size:18px; font-weight:bold" >Sales: ${{sales}}</label>
+        <input type ="hidden"  [(ngModel)]="sales" >
+        <label style="font-size:18px; font-weight:bold; margin-right: 30px;" >Tax: ${{tax}}</label>
+        <input type ="hidden"  [(ngModel)]="tax" >
+        <label style="position: absolute; font-size:18px; font-weight:bold" >Total: ${{total}}</label>
+        <input type ="hidden"  [(ngModel)]="total" >
+        <div style="position: relative;top: 32px;margin-top: 20px;">
+                <button class="mb-sm btn btn-success  btn-outline" style=" font-size: 15px;" (click)="onConfirmBuy()">Buy</button>
+                <button class="mb-sm btn btn-danger btn-outline" (click)="onCancelBuy()">Cancel</button>
+        </div>
+       
+    </modal-footer>
+</modal> -->
+
+
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-heading">
+          <div style="float: right; font-size: 20px;" class="custom_label">
+            <button
+              class="btn btn-oval btn-default"
+              style=" margin-right: 8px; margin-bottom: 10px;background-color: #5d9cec;font-size: 15px;"
+              type="button"
+              (click)="onBuyTag()"
+              *ngIf="isRole == 3 || isRole == 0"
+            >
+              Buy More
+            </button>
+            <b>{{ curTagCnt }}</b> tags not coded
+          </div>
+          <br />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Customer Tags
+            <div class="pull-right text-muted">
+              <strong>{{ tagData?.length }}</strong> Purchases
+            </div>
+          </div>
+          <div class="card-body p0">
+            <div class="table-responsive">
+              <table
+                class="table table-striped mb-0 table-middle-align"
+                [mfData]="tagData"
+                #mf="mfDataTable"
+                [mfRowsOnPage]="10"
+              >
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Size</th>
+                    <th style="text-align: center;">
+                      <mfDefaultSorter by="No">Tags Bought</mfDefaultSorter>
+                    </th>
+                    <th style="text-align: center;">
+                      <mfDefaultSorter by="No">Invoice# </mfDefaultSorter>
+                    </th>
+                    <th style="text-align: center;">
+                      <mfDefaultSorter by="tagCnt">Amount</mfDefaultSorter>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="line-hover"
+                    *ngFor="let item of mf.data; let idx = index"
+                    (click)="goToInvoice(item)"
+                  >
+                    <td>
+                      <div class="avatar">
+                        <img src="assets/img/dummy.png" class="img-avatar" />
+                      </div>
+                    </td>
+                    <td>Large</td>
+                    <td style="text-align: center;">{{ item.info.noOfTags }}</td>
+                    <td style="text-align: center;">#90-98792</td>
+                    <td style="text-align: center;">{{ item.info.total }}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5">
+                      <mfBootstrapPaginator
+                        [rowsOnPageSet]="[5, 10, 15]"
+                      ></mfBootstrapPaginator>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+  
+              <toaster-container
+                [toasterconfig]="config"
+                class="toaster-icons"
+              ></toaster-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Inventory Tags
+          </div>
+          <div class="card-body p0">
+            <div class="table-responsive">
+              <table class="table table-striped mb-0 table-middle-align">
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Size</th>
+                    <th style="text-align: center;">
+                      Tags
+                    </th>
+                    <th style="text-align: center;">
+                      Quantity
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="line-hover">
+                    <td>
+                      <div class="avatar">
+                        <img src="assets/img/dummy.png" class="img-avatar" />
+                      </div>
+                    </td>
+                    <td>Small</td>
+                    <td style="text-align: center;">-</td>
+                    <td style="text-align: center;">1000</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <modal
+    #buyDlg
+    data-toggle="modal"
+    data-backdrop="static"
+    data-keyboard="false"
+    class="custom-size"
+  >
+    <modal-header class="modelHeader">
+      <div class="modal-header" class="text-center">
+        <h2 style="margin-top: 20px;">Buy Blue Tag</h2>
+      </div>
+    </modal-header>
+    <modal-body style="text-align:center;">
+      <div class="row">
+        <div class="col-md-12 md-form">
+          <label style="text-align: initial;">
+            <span>Select Card</span>
+            <div>
+              <input
+                class="form-control"
+                type="text"
+                [(ngModel)]="cardId"
+                list="dynmiccardId"
+                id="autocomplete"
+                (change)="selectCard(cardId)"
+              />
+              <datalist id="dynmiccardId">
+                <option
+                  *ngFor="let cardDatas of cardData"
+                  [value]="cardDatas.ending"
+                  >{{ cardDatas.ending }}</option
+                >
+              </datalist>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="addressTitle">
+        <p>Shipping Address</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 md-form">
+          <label style="text-align: initial;">
+            <span>Name</span>
+            <input
+              type="text"
+              id="inputMDEx"
+              [(ngModel)]="name"
+              class="form-control form-control-lg"
+              placeholder="Name"
+            />
+          </label>
+        </div>
+        <div class="col-md-6 md-form">
+          <label style="text-align: initial;">
+            <span>Address</span>
+            <input
+              type="text"
+              id="inputMDEx"
+              [(ngModel)]="addressForPayment"
+              class="form-control form-control-lg"
+              placeholder="Address"
+            />
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 md-form">
+          <label style="text-align: initial;">
+            <span>State</span>
+            <input
+              type="text"
+              id="inputMDEx"
+              [(ngModel)]="stateForPayment"
+              class="form-control form-control-lg"
+              placeholder="State"
+            />
+          </label>
+        </div>
+        <div class="col-md-6 md-form">
+          <label style="text-align: initial;">
+            <span>City</span>
+            <input
+              type="text"
+              id="inputMDEx"
+              [(ngModel)]="cityForPayment"
+              class="form-control form-control-lg"
+              placeholder="City"
+            />
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6  md-form">
+          <label style="text-align: initial;">
+            <span>Zip</span>
+            <input
+              type="text"
+              [(ngModel)]="zipForPayment"
+              class="form-control form-control-lg"
+              placeholder="Zip"
+            />
+          </label>
+        </div>
+        <div class="col-md-6  md-form">
+          <label class=" md-form" style="text-align: initial;">
+            <span>Number of Tags</span>
+            <input
+              class="form-control form-control-lg"
+              type="number"
+              (change)="setSales()"
+              [(ngModel)]="buyTagCnt"
+              placeholder="Number of blue tags"
+              min="0"
+            />
+          </label>
+        </div>
+      </div>
+    </modal-body>
+    <modal-footer style="margin-top: 29px;margin-bottom:45px;">
+      <label
+        style="position: absolute; left:10px; font-size:18px; font-weight:bold"
+        >Sales: ${{ sales }}</label
+      >
+      <input type="hidden" [(ngModel)]="sales" />
+      <label style="font-size:18px; font-weight:bold; margin-right: 30px;"
+        >Tax: ${{ tax }}</label
+      >
+      <input type="hidden" [(ngModel)]="tax" />
+      <label style="position: absolute; font-size:18px; font-weight:bold"
+        >Total: ${{ total }}</label
+      >
+      <input type="hidden" [(ngModel)]="total" />
+      <div style="position: relative;top: 32px;margin-top: 20px;">
+        <button
+          class="mb-sm btn btn-success  btn-outline"
+          style=" font-size: 15px;"
+          (click)="onConfirmBuy()"
+        >
+          Buy
+        </button>
+        <button class="mb-sm btn btn-danger btn-outline" (click)="onCancelBuy()">
+          Cancel
+        </button>
+      </div>
+    </modal-footer>
+  </modal>
+  

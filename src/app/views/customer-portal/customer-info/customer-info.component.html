@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card customTableHeaderTop">
+      <div
+        class="card-header customTableHeader d-flex justify-content-between p-0"
+      >
+        <label class="p-10 m-0 customTableTitleLeft">
+          Customer Information
+        </label>
+        <small
+          _ngcontent-tym-c15=""
+          class="m-0 float-right tableRightBack dark-blue-bg"
+          ><i _ngcontent-tym-c15="" class="fa fa-edit"></i> Edit Customer</small
+        >
+      </div>
+      <div class="table-container card-body">
+        <div class="customer">
+          <div class="row">
+            <div class="col-md-6">
+              <p>
+                Name:
+                <strong
+                  >{{ customer && customer.profile.firstName }}
+                  {{ customer && customer.profile.lastName }}</strong
+                >
+              </p>
+              <div class="address">
+                <div class="left">
+                  <p>Address:</p>
+                </div>
+                <div class="right">
+                  <p>
+                    <strong>{{ customer && customer.address.street }}</strong>
+                  </p>
+                  <p>
+                    <strong
+                      >{{ customer && customer.address.city }},
+                      {{ customer && customer.address.state }},
+                      {{ customer && customer.address.zipCode }}</strong
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <p>
+                Contact Name:
+                <strong>{{ customer && customer.profile.displayName }}</strong>
+              </p>
+              <p>
+                E-Mail: <strong>{{ customer && customer.info.email }}</strong>
+              </p>
+              <p>
+                Phone: <strong>{{ customer && customer.contact.phone }}</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <form [formGroup]="valForm1" class="form-validate mb-lg" role="form" name="reportForm" novalidate="" >
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-4">
+            <!-- <label for="fname">Item</label> -->
+            <label for="fname">Unit (equipment info) </label>
+          </div>
+          <div class="col-6">
+            <!-- <input  #Unit  type="text" id="Unit" name="Unitname" placeholder="Unit (equipment info)" > -->
+            <input class="form-control" id="exampleInputUnitname" [(ngModel)]="Unitname" type="text" name="Unit" placeholder="Unit name" formControlName="Unit" required="" />
+            <span class="text-danger" *ngIf="valForm1.controls['Unit'].hasError('required') && (valForm1.controls['Unit'].dirty || valForm1.controls['Unit'].touched)">*This field is required</span>
+          </div>
+          <div class="col-1"></div>
+        </div>
+        
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-4">
+            <!-- <label for="lname">Description</label> -->
+            <label for="lname">Work Performed</label>
+          </div>
+          <div class="col-6">
+              <input class="form-control" id="exampleInputWork_Performed" [(ngModel)]="Work_Performed" type="text" name="Work" placeholder="Work Performed" formControlName="Work_Performed" required="" />
+              <span class="text-danger" *ngIf="valForm1.controls['Work_Performed'].hasError('required') && (valForm1.controls['Work_Performed'].dirty || valForm1.controls['Work_Performed'].touched)">*This field is required</span>
+            <!-- <input type="text" id="Work_Performed" name="Work_Performed" placeholder="Work Performed" [ngModel]="Work_Performed"> -->
+          </div>
+          <div class="col-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-4">
+            <!-- <label for="lname">Quantity</label> -->
+            <label for="lname">Note</label>
+          </div>
+          <div class="col-6">
+              <input class="form-control" id="exampleInpunote" [(ngModel)]="note" type="text" name="Note" placeholder="Note" formControlName="note" required="" />
+              <span class="text-danger" *ngIf="valForm1.controls['note'].hasError('required') && (valForm1.controls['note'].dirty || valForm1.controls['note'].touched)">*This field is required</span>
+            <!-- <input type="text" id="note" name="note" placeholder="Note" [ngModel]="note"> -->
+          </div>
+          <div class="col-1"></div>
+        </div>
+      
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-4">
+            <!-- <label for="lname">Unit Cost</label> -->
+            <label for="lname">Technician name</label>
+          </div>
+          <div class="col-6">
+              <input class="form-control" id="exampleInputtechname" [(ngModel)]="techname" type="text" name="TechName" placeholder="Technician name" formControlName="techname" required="" />
+              <span class="text-danger" *ngIf="valForm1.controls['techname'].hasError('required') && (valForm1.controls['techname'].dirty || valForm1.controls['techname'].touched)">*This field is required</span>
+            <!-- <input type="text" id="techname" name="techname" placeholder="Technician name" [ngModel]="techname"> -->
+          </div>
+          <div class="col-1"></div>
+        </div>
+    
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <!-- <label for="lname">Unit Cost</label> -->
+
+                <label for="lname">Time of scan</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" id="exampleInputTime" [(ngModel)]="time" type="text" name="Time" placeholder="Time of scan" formControlName="time" required="" />
+                <span class="text-danger" *ngIf="valForm1.controls['time'].hasError('required') && (valForm1.controls['time'].dirty || valForm1.controls['time'].touched)">*This field is required</span>
+                <!-- <input type="text" id="time" name="time" placeholder="Time of scan" [ngModel]="time"> -->
+            </div>
+            <div class="col-1"></div>
+        </div>
+        
+        <div class="card-footer p-4">
+          <div class="row">
+              <div class="col-1"></div>
+              <div class="col-3">
+              <button class="btn btn-block btn-success payment-btn" type="button"  (click)= "cancel()">Cancel</button>
+              </div>
+              <div class="col-3">
+              <button class="btn btn-block btn-success payment-btn" type="button"  (click)="save()">Save</button>
+              </div>
+          </div>
+        </div>
+
+        <div class="card-footer p-4">
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-3">
+            <button class="btn btn-block btn-success payment-btn" type="button" (click)="showReport()"  >show</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+  <div class="col-6">
+    <div class="table-responsive-sm"  *ngIf="isDisplay">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th class="center">#</th>
+                  <th >Unit (equipment info) </th>
+                  <th>Work Performed</th>
+                  <th class="center">Note</th>
+                  <th class="right">Technician name</th>
+                  <th class="right">Time of scan</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td class="center">1</td>
+                  <td class="left">{{Unit}}</td>
+                  <td class="left">{{Work}}</td>
+                  <td class="center">{{Note}}</td>
+                  <td class="right">{{TechName}}</td>
+                  <td class="right">{{Time}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>     
+</div>
+     
+            
+      

@@ -1,0 +1,117 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+
+.edit-icon {
+    color: rgb(88, 106, 146);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(179, 213, 241);
+    }
+}
+
+.report-icon {
+    color: rgb(88, 146, 93);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(179, 241, 189);
+    }
+}
+
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+.customtoast{
+  .ion-success{
+      display: none !important;
+      background-image: none !important;
+  }
+}
+.custom-size{
+    font-size: 17px;
+}
+.header_div{
+  text-align: center;
+  .custom-search{
+    width: 30%;    
+    background: none !important;
+    border: none !important;
+  }
+  input{
+    text-align: center;height: 45px;
+  }
+  .btn{
+    float: right;
+  }
+}
+.panel-heading{
+  button{
+    background-color: #5d9cec;font-size: 15px;color: white
+  }
+}
+.table{
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+  span{
+    font-size: 20px;
+    color: brown;
+  }
+}
+.model_body_div{
+  display: inline-block; 
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .footer{
+    margin-bottom: 35px;
+  }
+  .custom_label{
+    float: none!important;
+    margin-top: 10px;
+  }
+}
+.p0 {
+  padding: 0;
+}
+.table-middle-align {
+  tbody {
+    tr {
+      td {
+        vertical-align: middle;
+      }
+    }
+  }
+}
+.avatar {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid;
+}
+
+
+  
+  

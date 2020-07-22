@@ -1,0 +1,20 @@
+<app-back-button *ngIf="userProfile" [backRoute]="userProfile.backRoute"></app-back-button>
+<p style="font-size: 17px;"><strong> Viewing : </strong>{{userProfile.title}}</p>
+<app-individual-profile 
+    [accountDetail]="currentUser" 
+    [listTableHeads]="tableHeads" 
+    [accountJobList]="accountJobsList" 
+    [historyJobList]="historyJobsList"
+    [userType]="userType"
+    [permissions]="permissions"
+    [tableHead]="permissionHead"
+    (updateAccountSearch)="accountJobSearch($event)"
+    (updateHistorySearch)="historyJobSearch($event)"
+    (editJob)="editJobs($event)"
+    (accountJobStatus)="accountJobStatus($event)"
+    (historyJobStatus)="historyJobStatus($event)"
+    (updateProfile)="editProfile($event)"
+    (updatePassword)="editPassword($event)"
+    >
+</app-individual-profile>
+<toaster-container class="toaster-icon"></toaster-container>

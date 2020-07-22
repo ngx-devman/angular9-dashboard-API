@@ -1,0 +1,177 @@
+<div class="card">
+  <div class="card-header">
+    Work report <strong>#90-98792</strong>
+    <!-- <a href="https://coreui.io/pro/angular/" class="badge badge-danger ml-2">CoreUI Pro Component</a> -->
+    <a
+      href="#"
+      class="btn btn-sm btn-secondary float-right mr-1 d-print-none"
+      onclick="javascript:window.print();"
+      ><i class="fa fa-print"></i> Print</a
+    >
+    <!-- <a href="#" class="btn btn-sm btn-info float-right mr-1 d-print-none"><i class="fa fa-save"></i> Save</a> -->
+  </div>
+  <div class="card-body p30 inner-card-margin">
+    <div class="row mb-4">
+      <div class="col-sm-6">
+        <div class="company-info-report">
+          <div class="company-info-report-image">
+            <img
+              src="{{ jobInfo?.company?.info?.logoUrl }}"
+              alt="Avatar"
+              onerror="src='assets/img/dummy.png'"
+            />
+          </div>
+          <div class="company-info-report-data">
+            <h2>{{ jobInfo?.company?.info?.companyName }}</h2>
+
+            <div>
+              {{ jobInfo?.company?.address?.street }}
+            </div>
+            <div>
+              {{ jobInfo?.company?.address?.city }},
+              {{ jobInfo?.company?.address?.state }}
+            </div>
+            <div>{{ jobInfo?.company?.address?.zipcode }}</div>
+            <div>Phone: {{ jobInfo?.company?.contact?.phone }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="report-details">
+          <div class="report-details-row">
+            <div class="report-details-row-label">
+              Job Type
+            </div>
+            <div class="report-details-row-data">
+              {{ jobInfo?.type?.title }}
+            </div>
+          </div>
+          <div class="report-details-row">
+            <div class="report-details-row-label">
+              Date & Time
+            </div>
+            <div class="report-details-row-data">
+              {{ formatDate(jobInfo?.dateTime) }}
+              {{ formatTime(jobInfo?.dateTime) }}
+            </div>
+          </div>
+
+          <div class="report-details-row">
+            <div class="report-details-row-label">
+              Technician name
+            </div>
+            <div class="report-details-row-data">
+              {{ jobInfo?.technician.profile.displayName }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>To</strong>
+          </div>
+          <div class="card-body">
+            <div class="work-to-row">
+              <div class="work-to-col">
+                <h3>{{ jobInfo?.customer?.info?.name }}</h3>
+                <div>{{ jobInfo?.customer?.address?.street }}</div>
+                <div>{{ jobInfo?.customer?.address?.city }}</div>
+                <div>{{ jobInfo?.customer?.address?.state }}</div>
+                <div>{{ jobInfo?.customer?.address?.zipcode }}</div>
+              </div>
+              <div class="work-to-col">
+                <div>Email: {{ jobInfo?.customer?.info?.email }}</div>
+                <div>Phone: {{ jobInfo?.customer?.contact?.phone }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <strong>Equipment Info</strong>
+          </div>
+          <div class="card-body p0">
+            <div class="table-responsive-sm">
+              <table class="table table-striped custom-table">
+                <thead>
+                  <tr>
+                    <th>Unit</th>
+                    <th>Scan Tags</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Test</td>
+                    <td>123</td>
+                    <td>{{ jobInfo?.comment }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <strong>Dispatch Notes</strong>
+          </div>
+          <div class="card-body">
+            {{ jobInfo?.comment }}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <strong>Job Details</strong>
+          </div>
+          <div class="card-body">
+            {{ description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" style="display: none;">
+      <div class="col-sm-4">
+        <h6 class="mb-3">From:</h6>
+        <img
+          src="{{ jobInfo?.company?.info?.logoUrl }}"
+          alt="Avatar"
+          class="avatar custom-avatar"
+          onerror="src='assets/img/dummy.png'"
+        />
+        <div>
+          <strong>{{ jobInfo?.company?.info?.companyName }}</strong>
+        </div>
+        <div>{{ jobInfo?.company?.address?.street }}</div>
+        <div>{{ jobInfo?.company?.address?.city }}</div>
+        <div>{{ jobInfo?.company?.address?.state }}</div>
+        <div>{{ jobInfo?.company?.address?.zipcode }}</div>
+        <div>Phone: {{ jobInfo?.company?.contact?.phone }}</div>
+      </div>
+      <!--/.col-->
+      <div class="col-sm-4">
+        <h6 class="mb-3">To:</h6>
+      </div>
+      <!--/.col-->
+      <div class="col-sm-4">
+        <h6 class="mb-3">Details:</h6>
+        <div>
+          Job Type : <strong>{{ jobInfo?.type?.title }}</strong>
+        </div>
+        <div>
+          Date :<strong>{{ formatDate(jobInfo?.dateTime) }}</strong>
+        </div>
+        <div>
+          Technician :<strong>
+            {{ jobInfo?.technician.profile.displayName }}</strong
+          >
+        </div>
+      </div>
+      <!--/.col-->
+    </div>
+    <!--/.row-->
+  </div>
+</div>

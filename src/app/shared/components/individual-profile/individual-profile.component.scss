@@ -1,0 +1,85 @@
+.individualProfile{
+    padding: 20px 100px; 
+    .ml-10{
+        margin-left:10px;
+    }
+    .accountDetail{
+        margin-top: 40px;
+        padding: 0;
+        .accounts{
+            padding-left: 0;
+            .accountsCard{
+                padding: 30px;
+                border-radius: 5px;
+                .centeredContent{
+                    text-align: center;
+                    margin-top: 20px;
+                    margin-bottom: 10px;
+                    border-bottom: 1px dashed #eee;
+                    .img{
+                        width: 45%;
+                        margin: auto;
+                        border-radius: 50%;
+                        img{
+                            border-radius: 50%;
+                            width: 150px;
+                            height: 150px;
+                        }
+                    }
+                    h3{
+                        margin-bottom: 20px;
+                    }
+                }
+                .contact{
+                    margin-top: 25px;
+                    h3{
+                        margin-bottom: 20px;
+                    }
+                    .singleContact{
+                        display: flex;
+                        border-top: 1px solid #eee;
+                        padding: 20px 10px;
+                        .leftHead{
+                            display: flex;
+                            flex: 1;
+                            align-items: center;
+                            p{
+                                margin-left: 10px;
+                                margin-bottom: 0;
+                                font-weight: 800;
+                            }
+                        }
+                        .text{
+                            flex: 1;
+                            text-align: right;
+                            p{
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .editProfile{
+            margin-top: 15px;
+            button{
+                width: 100%;
+                font-size: 18px;
+                font-weight: 800;
+                color: #fff;
+            }
+        }
+    }
+    .historyDetails{
+        margin-top: 40px;
+        .historyJobs{
+            padding: 0;
+        }
+    }
+    .permissionDetails{
+        margin-top: 40px;
+        .permissionList{
+            padding: 0;
+        }
+    }
+}

@@ -1,0 +1,213 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles with default layout.
+// If you are going to use dark layout please comment next line
+@import "~@coreui/coreui-pro/scss/coreui";
+
+// Import styles with dark layout
+// If you want to use dark layout uncomment next line
+//@import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark";
+
+// If you want to add something do it here
+@import "custom";
+
+// Spinkit
+$spinkit-spinner-color: $body-color;
+@import "~spinkit/scss/spinkit.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "node_modules/angular2-toaster/toaster";
+@import "sweetalert2/src/sweetalert2.scss";
+@import "../app/shared/styles/bootstrap.scss";
+@import "../scss/vendors/toastr/toastr.scss";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+body, html {
+  font-family: 'Gothic','A1';
+  font-style: normal;
+  font-weight: normal;
+}
+
+@media print {
+  .breadcrumb {
+    display: none !important;
+  }
+  .app-footer {
+    display: none !important;
+  }
+}
+
+.zEWidget-launcher {
+  margin: 0px 20px !important;
+}
+
+
+
+.sidebar .nav-link  {
+    padding:10px 10px 10px 32px !important;
+}
+
+body {
+  font-family: Roboto;
+}
+
+.password-visibity-icon {
+  position: absolute;
+  right: 4px;
+  z-index: 10000;
+  padding-top: 5px;
+}
+
+.button-span-text {
+  position: relative;
+  margin-left: 16px;
+  .social-login-logo {
+      width: 16px;
+      height: 16px;
+      left: -18px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+}
+
+
+.admin-element-card {
+  width: 222px;
+  height: 222px;
+}
+
+.admin-element-container {
+  display: flex;
+  flex-wrap: wrap;
+  app-admin-card {
+    margin-right: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+.admin-card-container {
+  cursor: pointer;
+  text-align: center;
+  width: 192px;
+  height: 178px;
+  margin: auto;
+  border-radius: 15px;
+  border: 1px solid #e6e8ee;
+  box-shadow: none;
+  background: white;
+
+  .card-content-custom {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      .circle-icon-back {
+          border-radius: 50%;
+          width: 48px;
+          height: 48px;
+          margin: auto;
+          text-align: center;
+          position: relative;
+          img {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+          }
+          mat-icon {
+            color: white;
+            font-size: 20px;
+            margin-top: 14px;
+            margin-right: 0px;
+          }
+      }
+  }
+  .card-title-text {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0px;
+  }
+}
+
+.admin-card-container:hover {
+  background: #ff8c56;
+  .card-content-custom {
+    .circle-icon-back{
+      background: white !important;
+      mat-icon {
+        color: #ff8c56 !important;
+      }
+    }
+  }
+  .card-title-text {
+    color: white !important;
+  }
+}
+
+.circle-icon-back:hover {
+  background: white;
+}
+
+.back-fab-custom-button {
+  position: absolute;
+  right: 20px;
+}
+
+.defaultModel .mat-dialog-container{
+  overflow: visible;
+  border-radius: 0;
+}
+
+.defaultModel{
+  .cusModel{
+    .mat-placeholder-required{
+      display: none!important;
+    }
+  }
+}
+.sidebar .nav-link .nav-icon{
+  font-size: 1.4rem;
+  margin: 0 1.5rem 0 0;
+}
+.owl-dt-inline-container, .owl-dt-popup-container{
+  width: 26.5em;
+}
+.owl-dt-inline-container .owl-dt-calendar, .owl-dt-popup-container .owl-dt-calendar{
+  height: 27.25em;
+}
+.owl-dt-calendar-table .owl-dt-calendar-cell-content{
+  font-size: 1.3em;
+}
+.owl-dt-control .owl-dt-control-content{
+  font-size: 1.3em;
+}
+.individualProfile .mat-ink-bar{
+  background-color:  rgb(20, 156, 230)!important;
+}
+.individualProfile .mat-tab-label-active{
+  color:  rgb(20, 156, 230)!important;
+  opacity: 1!important;
+}
+
+.cal-month-view .cal-day-badge {
+  background-color: #f86c6b;
+}
+.list-template .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background-color: #00AAFF;
+}
+.list-template {
+  .mat-tab-label{
+    padding: 0 15px;
+    min-width: 145px;
+  }
+}

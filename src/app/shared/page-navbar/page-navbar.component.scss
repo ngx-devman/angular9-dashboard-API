@@ -1,0 +1,20 @@
+.singleOption {
+    padding: 0 15px;
+    p{
+        margin: 0;
+        font-weight: 400;
+        font-size: 17px;
+        cursor: pointer;
+    }
+}
+.singleOption.active{
+    p{
+        font-weight: 700;
+    }
+}
+mat-toolbar{
+    background: #41B2EF;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    color: #fff;
+}

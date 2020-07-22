@@ -1,0 +1,173 @@
+<div class="content-heading">
+    <!-- <button mat-button  style="float: left;margin-right: 13px;" (click)="goBack()" >Back</button> -->
+  <div style="float: right; font-size: 20px;">
+   
+  <button class="btn btn-oval btn-default" style=" margin-right: 8px; margin-bottom: 10px;background-color: #5d9cec;font-size: 15px;" 
+  type="button" (click)="onBuyTag()" >Buy More</button>
+  <b>{{curTagCnt}}</b> tags not coded
+  </div>
+  <br/>
+  <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+  </div>
+  <br/>
+  <div class="panel panel-default custom-size">
+  <div class="panel-heading">
+  <!-- <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{tagList?.length}}</strong> Purchases</div> -->
+  <div class="pull-right text-muted"><strong>{{tagList?.length}}</strong> Purchases</div>
+  <br/>
+  </div>
+  <div class="table-responsive">
+  <table class="table table-striped" [mfData]="tagList" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+      <tr>
+          <th style="width: 10%;text-align: center;">
+              <mfDefaultSorter by="No">Invoice# </mfDefaultSorter>
+          </th>
+          <th style="width: 10%;text-align: center;">
+              <mfDefaultSorter by="tagCnt">Count</mfDefaultSorter>
+          </th>
+          <th style="width: 10%;text-align: center;">
+            <mfDefaultSorter by="total">Total</mfDefaultSorter>
+        </th>
+          <th style="width: 20%;text-align: center; ">
+              <mfDefaultSorter by="addDate">Date</mfDefaultSorter>
+          </th>
+          <th style="width: 30%;text-align: center;">
+              <mfDefaultSorter by="shippingAddress">Shiping Address</mfDefaultSorter>
+          </th>
+          <!-- <th style="width: 20%"></th> -->
+      </tr>
+  </thead>
+  <tbody>
+      <!-- <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+          <td class="text-right">{{item.No}}</td>
+          <td>{{item.tagCnt}}</td>
+          <td>{{item.addDate}}</td>
+          <td>{{item.shippingAddress}}</td>
+          <td></td>
+      </tr> -->
+      <tr class="line-hover" (click)="goToInvoice()" >
+        <td  style="text-align: center;">#90-98792</td>
+        <td  style="text-align: center;" >5</td>
+        <td  style="text-align: center;" >500</td>
+        <td  style="text-align: center;">5/8/2019</td>
+        <td style="text-align: center;" >Kolhapur</td>
+        <!-- <td></td> -->
+    </tr>
+  </tbody>
+  <tfoot>
+      <tr>
+          <td colspan="5">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+          </td>
+      </tr>
+  </tfoot>
+  </table>
+  </div>
+  <toaster-container [toasterconfig]="config"></toaster-container>
+  
+  </div>
+  
+  <modal #buyDlg data-toggle="modal" data-backdrop="static" data-keyboard="false" class="">
+    <div class="model-div">
+           
+  <modal-body style="text-align:center;height: 164px; ">
+        <label class="title">
+                Buy Blue Tag 
+            </label>
+            <div>
+                    <label  style="float: left;font-size: 16px;" >
+                            Shipping Address
+                    </label>
+              </div>
+      <form class="stripe-form" style = "height: 175px;" >
+          <!-- <label>
+              Buy Blue Tag
+          </label> -->
+          <!-- <div style="float: left;font-size: 16px;">
+                <label >
+                        Shipping Address
+                </label>
+          </div> -->
+  <!--              
+        <div class="row">
+            <div class="col-md-12"  style="max-width: 30%;">
+                <label>
+                    <input name="address" type="text" [(ngModel)]="addressForPayment" class="field is-empty" placeholder="Address" />
+                    <span><span>Address</span></span>
+                </label>
+            </div>
+        </div> -->       
+        <div >
+            <div class="row"  style="margin-top: 40px;height: 35px;">
+                    <!-- <div class="md-form">
+                            <input type="text" id="inputMDEx" class="form-control">
+                            <label for="inputMDEx">Medium input</label>
+                          </div> -->
+                <div class="col-md-6 md-form"  style=" max-width: 60%;" >
+                        <label for="inputLGEx">
+                               <span><span>Address</span></span>
+                            <input name="address" type="text" id="inputMDEx"  [(ngModel)]="addressForPayment" class="form-control form-control-lg" placeholder="Address" />
+                         
+                        </label>
+                    </div>
+                    <div class="col-md-12" style="flex: 19px;" >
+                            <label  for="inputLGEx">
+                                    <span><span>City</span></span>
+                                <input name="city" type="text" id="inputMDEx" [(ngModel)]="cityForPayment"  class="form-control form-control-lg" placeholder="City" />
+                                
+                            </label>
+                        </div>
+              <!-- <div class="col-md-12" style="flex: 19px;" >
+                  <label>
+                      <input name="city" type="text" [(ngModel)]="cityForPayment" class="field is-empty" placeholder="City" />
+                      <span><span>City</span></span>
+                  </label>
+              </div> -->
+            </div>
+            <div class="row" style="margin-top: 30px;height: 60px;">
+                    <div class="col-md-6  md-form" style="max-width: 48%;" >
+                            <label for="inputLGEx">
+                                    <span><span>State</span></span>
+                                <input name="state" type="text" id="inputMDEx" [(ngModel)]="stateForPayment" class="form-control form-control-lg" placeholder="State" />
+                                
+                            </label>
+                        </div>   
+              <!-- <div class="col-md-6" style="    max-width: 48%;" >
+                  <label>
+                      <input name="state" type="text" [(ngModel)]="stateForPayment" class="field is-empty" placeholder="State" />
+                      <span><span>State</span></span>
+                  </label>
+              </div>       -->
+              <!-- <div class="col-md-12" style="flex: 19px;" >
+                  <label>
+                      <input name="zip" type="text" [(ngModel)]="zipForPayment" class="field is-empty" placeholder="Zip" />
+                      <span><span>Zip</span></span>
+                  </label>
+              </div> -->
+              <div class="col-md-12  md-form" style="flex: 19px;" >
+                    <label for="inputLGEx">
+                            <span><span>Zip</span></span>
+                        <input name="zip" type="text" [(ngModel)]="zipForPayment" class="form-control form-control-lg" placeholder="Zip" />
+                        
+                    </label>
+                </div>
+            </div>
+          <label class=" md-form" >
+                <span><span>Number of blue tags</span></span>
+              <input class="form-control form-control-lg" name="nameOnCard" type="number" [(ngModel)]="buyTagCnt" placeholder="Number of blue tags" min="0"/>
+              
+          </label>
+        </div>
+      </form>
+  </modal-body>
+  <modal-footer>
+      <label style="position: absolute; left:10px; font-size:18px; font-weight:bold">Sales: ${{(buyTagCnt * 5).toFixed(2)}}</label>
+      <label style="font-size:18px; font-weight:bold; margin-right: 16px;">Tax: ${{(buyTagCnt * 5 * 0.0825).toFixed(2)}}</label>
+  
+      <button class="mb-sm btn btn-purple btn-outline" (click)="onConfirmBuy()">Buy</button>
+      <button class="mb-sm btn btn-danger btn-outline" (click)="onCancelBuy()">Cancel</button>
+  </modal-footer>
+  </div>
+  </modal>
+  

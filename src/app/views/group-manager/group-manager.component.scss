@@ -1,0 +1,66 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+.del-icon {
+    color: rgb(146, 88, 88);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(241, 179, 179);
+    }
+}
+
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+.selected {
+    background: rgb(217, 239, 255) !important;
+}
+.custom-size{
+    font-size: 17px;
+}
+.content-heading{
+    text-align: center;
+   
+    .btn{
+        float: right;
+    }
+    .managerbtn{
+        margin-right: 10px;
+    }
+  }
+  table{
+    th{
+        text-align: center;
+    }
+    td{
+        text-align: center;
+    }
+    span{
+        color: brown; font-size: 20px;
+    }
+}
+h2{
+    margin-top: 20px;
+}
+modal-body{
+    text-align:center;
+}
+
+.delete{
+    text-align:center;font-size: 20px
+}

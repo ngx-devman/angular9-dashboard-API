@@ -1,0 +1,14 @@
+<app-back-button [toLastPage]="true"></app-back-button>
+<h4>Viewing Customer: {{paramCustomer}}</h4>
+
+<app-list-template 
+  [tableList]="reportsList" 
+  [listTitle]="listTitle"
+  [createTitle]="'Customer Reports'"
+  [statusAction]="false"
+  [listTableHeads]="listTableHeads"
+  [listTableIcons]="false"
+  [listTableType]="'customerreports'"
+  [displayActivity]="false"
+  (searchResult)="updateSearch($event)"
+></app-list-template>

@@ -1,0 +1,87 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateExercise()">Add</button>
+    {{equipment.Name}} Exercise
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{exerciseList?.length}}</strong> Exercises</div>
+        Multi Function Equipment List
+    </div>
+    <table class="table table-striped" [mfData]="exerciseList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 1%">
+                </th>
+                <th style="width: 40%" class="text-left">
+                    <mfDefaultSorter by="exercise">Exercise</mfDefaultSorter>
+                </th>
+                <th style="width: 40%" class="text-left">
+                    <mfDefaultSorter by="body_part">Body Part</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-right"><span class="del-icon fa fa-trash" (click)="onDeleteExercise(item)" title="Delete Brand"></span></td>
+                <td class="text-right"><span class="edit-icon fa fa-edit" (click)="onEditExercise(item)" title="Edit Brand"></span></td>
+                <td class="text-right">{{item.No}}</td>
+                <td></td>
+                <td>{{item.exercise}}</td>
+                <td>{{item.body_part}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <button class="btn btn-success" style="float: left; margin-top: 8px; background-color:#5d9cec" (click)="onBack()">Back</button>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #exerciseDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header" class="text-center">
+        <h2 style="margin-top: 20px;">{{actionType == 0 ? 'Add Exercise' : 'Update Exercise'}}</h2>
+    </div>
+
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Exercise Name</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="name">
+
+        <div class="control-caption">Select Body Part</div>
+        <div class="btn-group" dropdown style="width: 100%;">
+            <button class="btn btn-default" dropdownToggle>{{bodyPart}}
+                <b class="caret" style="float: right; margin: 7px;"></b></button>
+            <ul *dropdownMenu class="dropdown-menu animated fadeInDown" role="menu">
+                <li *ngFor="let item of bodyPartList"><a href="#" (click)="onChangeBodyPart(item)">{{item}}</a></li>
+            </ul>
+        </div>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmExercise()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelExercise()">Cancel</button>
+    </modal-footer>
+</modal>

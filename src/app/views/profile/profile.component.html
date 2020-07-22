@@ -1,0 +1,306 @@
+<div class="container mb-3">
+  <!-- profile box start here -->
+  <div class="col-md-5 col-md-offset-1">
+    <div class="col-md-12">
+      <ul class="nav  mb-3 profile-header-ul" id="pills-tab" role="tablist">
+        <li class="nav-item ">
+          <a
+            class=" active pl-1"
+            id="pills-home-tab"
+            data-toggle="pill"
+            href="#pills-home"
+            role="tab"
+            aria-controls="pills-home"
+            aria-selected="true"
+            ><i class="fa fa-user-circle-o pr-2" aria-hidden="true"></i>
+            Account</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class=""
+            id="pills-profile-tab"
+            data-toggle="pill"
+            href="#pills-profile"
+            role="tab"
+            aria-controls="pills-profile"
+            aria-selected="false"
+            ><i class="fa fa-info-circle pr-2" aria-hidden="true"></i>
+            Permissions</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class=""
+            id="pills-contact-tab"
+            data-toggle="pill"
+            href="#pills-contact"
+            role="tab"
+            aria-controls="pills-contact"
+            aria-selected="false"
+            ><i class="fa fa-history pr-2" aria-hidden="true"></i> History</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-12 profile-body-box">
+      <div class="tab-content accont-detail-box" id="pills-tabContent">
+        <!-- Account detail start here -->
+        <div
+          class="tab-pane fade show active"
+          id="pills-home"
+          role="tabpanel"
+          aria-labelledby="pills-home-tab"
+        >
+          <p class="pl-2 pt-2 font-bold">Account Details</p>
+          <div class="col-md-12 text-center">
+            <div class="text-center">
+              <img
+                [src]="
+                  imageUrl
+                    ? imageUrl
+                    : 'https://www.bootdey.com/img/Content/avatar/avatar7.png'
+                "
+                class=" user-profile-image"
+              />
+              <p class="mt-4 profile-image-name">{{ displayName }}</p>
+            </div>
+          </div>
+          <p class="pl-2 pt-2 font-bold">Contact</p>
+          <table
+            cellspacing="5"
+            class="table table-responsive-sm table-hover mb-0 profile-table"
+          >
+            <tbody>
+              <tr>
+                <th>
+                  <small
+                    ><i class="fa fa-envelope-o" aria-hidden="true"></i> Email
+                    Address</small
+                  >
+                </th>
+                <th>
+                  <small class="font-bold">{{ email }}</small>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <small
+                    ><i class="fa fa-mobile" aria-hidden="true"></i> Phone
+                    Number</small
+                  >
+                </th>
+                <th>
+                  <small class="font-bold">{{ companyPhone }}</small>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <small>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    Location</small
+                  >
+                </th>
+                <th>
+                  <small class="font-bold"
+                    >{{ companyStreet }} {{ companyStreet ? "," : "" }}
+                    {{ companyCity }}</small
+                  >
+                </th>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-center account-created-title mt-4">
+            <small class="font-bold"
+              ><i class="fa fa-calendar" aria-hidden="true"></i>
+
+              Account Created on 12 December 2020</small
+            >
+          </p>
+        </div>
+
+        <!-- permission block start here -->
+        <div
+          class="tab-pane fade"
+          id="pills-profile"
+          role="tabpanel"
+          aria-labelledby="pills-profile-tab"
+        >
+          Design not given of permission block
+        </div>
+        <!-- History block start here -->
+        <div
+          class="tab-pane fade"
+          id="pills-contact"
+          role="tabpanel"
+          aria-labelledby="pills-contact-tab"
+        >
+          Design not given for history block
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mt-5" *ngIf="!isAdmin">
+      <input
+        type="button"
+        class="btn btn-danger form-control"
+        value="Deactivate"
+      />
+    </div>
+  </div>
+
+  <!-- Recent jobs start here -->
+  <div class="col-md-4 recent-job-box">
+    <p class="pl-2 pt-3 font-bold">Recent Jobs</p>
+    <div class="col-md-12 text-center mt-3 no-recent-job">
+      <i class="fa fa-gift no-recent-color fa-2x" aria-hidden="true"></i>
+      <p>
+        <small class="mt-3 no-recent-color">There are no recent jobs</small>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- <div
+  class="mt-5"
+  style="width: 100%; display: grid;margin-top:20px;margin-bottom: 50px;"
+>
+  <div
+    class="panel panel-default col-xs-6 col-sm-4 custom-size"
+    style="margin: auto; padding: 0; font-size: 17px"
+  >
+    <div
+      class="panel-heading "
+      style="background-color:#0885c5 !important;color: #ffff !important;font-size: 17px"
+    >
+      User Profile
+    </div>
+
+    <div class="panel-body ">
+      <div class="control-caption">User Profile Picture</div>
+      <div style="display: inline-block; width: 100%; text-align: left;">
+        <div style="width: 100%; text-align: left;">
+          <img
+            #productImg
+            src="{{ imageUrl }}"
+            style="min-height: 100px; max-height: 100px; min-width: 100px; max-width: 300px; border: 1px solid #CCC;font-size: 17px"
+          />
+        </div>
+        <label
+          id="#bb"
+          class="btn btn-primary"
+          style="margin: 10px;font-size: 17px"
+        >
+          Select File
+          <input
+            #fileInput
+            type="file"
+            size="60"
+            (change)="chooseFile($event)"
+            accept="image/x-png,image/gif,image/jpeg"
+            style="display: none;"
+          />
+        </label>
+      </div>
+      <div class="control-caption">First Name</div>
+      <input
+        class="form-control"
+        style="width: 100%;font-size: 17px"
+        type="text"
+        [(ngModel)]="firstName"
+      />
+      <div class="control-caption">Last Name</div>
+      <input
+        class="form-control"
+        style="width: 100%;font-size: 17px"
+        type="text"
+        [(ngModel)]="lastName"
+      />
+      <div class="changepassworddiv">
+        <button
+          style="background-color: cornflowerblue;color:white;font-size: 17px"
+          class="btn"
+          type="button"
+          data-toggle="modal"
+          data-target="#basicExampleModal"
+        >
+          Change Password
+        </button>
+      </div>
+      <button
+        class="btn btn-success"
+        style="margin-top: 10px; float: right;"
+        (click)="onUpdateProfile()"
+      >
+        Update Profile
+      </button>
+    </div>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+  </div>
+
+  <div
+    #confirmDlg
+    class="modal fade"
+    id="basicExampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div style="display: inline-block; width: 100%; margin-top: 8px;">
+            <div class="col-sm-12">
+              <div class="control-caption">
+                Current Password (At Least 8 Characters)<span style="color:red"
+                  >*</span
+                >
+              </div>
+              <input
+                class="form-control"
+                style="width: 100%"
+                type="password"
+                [(ngModel)]="currentPassword"
+              />
+            </div>
+            <div class="col-sm-12">
+              <div class="control-caption">
+                New Password<span style="color:red">*</span>
+              </div>
+              <input
+                class="form-control"
+                style="width: 100%"
+                type="password"
+                [(ngModel)]="newPassword"
+              />
+              <span *ngIf="err" class="err">{{ err }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="onUpdatePassword()"
+          >
+            Change Password
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

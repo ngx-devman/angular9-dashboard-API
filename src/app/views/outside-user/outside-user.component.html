@@ -1,0 +1,71 @@
+<div class="col-8 custom_col">
+<div style="width: 100%; display: grid;margin-bottom: 50px;">
+    <div class="panel panel-default custom-size">
+        <div class="card-header text-center header">
+            <h2> Outside organization</h2> 
+        </div>
+        <div class="panel-heading">
+            <div class="row" style="padding: 20px;" >
+                <div class="col-4" style="text-align: center">
+                    <div >Add Authorized User</div>
+                </div>
+                <div class="col-6">
+                    <input  class="form-control" type="text" [(ngModel)]="email">
+                    <!-- <input class="form-control" type="text"  (keyup)="addUser($event)" list="dynmicCutsomerIds" id="autocomplete" [(ngModel)]='id' (change)="selectUser(id)">
+                    <datalist id="dynmicCutsomerIds">
+                        <option *ngFor="let userEmails of userEmail"  [value]="userEmails.email"></option>
+                    </datalist> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" style="text-align: center">
+                    <div >Organization</div>
+                </div>
+                <div class="col-6" >
+                    <input class="form-control" type="text" [(ngModel)]="org">
+                    <datalist id="">
+                        <option  [value]="org"> </option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-block btn-success" style="float: right; width: 30%;" (click)="addNewUser()">Add</button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="table-responsive">
+    <table class="table table-striped" [mfData]="" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="text-align: center;" >
+                    <mfDefaultSorter by="name"> Permissions</mfDefaultSorter>
+                </th>
+                <th style="text-align: center;">
+                    <mfDefaultSorter by="name"> Add  Permissions </mfDefaultSorter>
+                </th>
+            </tr>
+        </thead> 
+        <tbody>
+            <tr  class="line-hover" *ngFor="let item of permissions;let i=index" >
+                <td style=" text-align: center;" >{{item.permission}}</td>
+                <td style="text-align: center;"  >
+                    <input type="checkbox"/>
+                </td>
+            </tr>
+        </tbody>
+      
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="custom_button">
+        <button class="btn btn-success" (click)="goToUser()">View Authorized Users</button>
+        <button class="btn btn-success" (click)="goToInvite()">Invite Users</button>
+      </div>
+    </div> -->
+</div>    
+</div>            

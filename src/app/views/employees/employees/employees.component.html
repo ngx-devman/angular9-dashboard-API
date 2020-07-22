@@ -1,0 +1,14 @@
+<app-back-button [backRoute]="'/admin'"></app-back-button>
+<app-list-template 
+  [tableList]="employeesList" 
+  [listTitle]="listTitle"
+  [createTitle]="'New Employee'"
+  [statusAction]="false"
+  [listTableHeads]="listTableHeads"
+  [listTableIcons]="false"
+  [role]="role"
+  [listTableType]="'employees'"
+  [displayActivity]="false"
+  (searchResult)="updateSearch($event)"
+  (createNew)="onCreateEmployee()"
+></app-list-template>

@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card customTableHeaderTop">
+      <div
+        class="card-header customTableHeader d-flex justify-content-between p-0"
+      >
+        <label class="p-10 m-0 customTableTitleLeft">
+          Jobs
+        </label>
+        <small
+          _ngcontent-tym-c15=""
+          class="m-0 float-right tableRightBack dark-blue-bg"
+          (click)="createTicket()"
+          ><i _ngcontent-tym-c15="" class="fa fa-plus"></i> Create Ticket</small
+        >
+      </div>
+      <div class="table-container card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div
+              class="card sub-category"
+              [routerLink]="'/customer/reports/' + customerId"
+              title="Reports"
+            >
+              <h3>Reports</h3>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div
+              class="card sub-category"
+              [routerLink]="'/customer/jobs/' + customerId"
+              title="Jobs"
+            >
+              <h3>Jobs</h3>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div
+              class="card sub-category"
+              [routerLink]="'/customer/tickets/' + customerId"
+              title="Tickets"
+            >
+              <h3>Tickets</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

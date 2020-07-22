@@ -1,0 +1,16 @@
+<app-back-button [backRoute]="'/admin'"></app-back-button>
+<app-list-template 
+  [tableList]="vendorList" 
+  [listTitle]="listTitle"
+  [createTitle]="'New Vendor'"
+  [statusAction]="false"
+  [listTableHeads]="listTableHeads"
+  [activityTableHeads]="activityTableHeads"
+  [activityTableData]="activityData"
+  [listTableIcons]="true"
+  [role]="role"
+  [listTableType]="'vendor'"
+  (searchResult)="updateSearch($event)"
+  (createNew)="onCreateVendor()"
+></app-list-template>
+<toaster-container [toasterconfig]="config"></toaster-container>

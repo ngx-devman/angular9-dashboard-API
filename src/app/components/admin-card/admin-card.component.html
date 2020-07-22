@@ -1,0 +1,21 @@
+<div class="admin-card-container mat-elevation-z4"
+    matRipple
+    [matRippleCentered]="centered"
+    [matRippleDisabled]="disabled"
+    [matRippleUnbounded]="unbounded"
+    [matRippleRadius]="radius"
+    [matRippleColor]="color"
+    (click)="onClickCard(item.click)"
+    (mouseover)="hover=true" (mouseleave)="hover=false"
+    *ngIf= "item.name != '' ? true : false "
+    >
+    <div class="card-content-custom">
+        <mat-icon svgIcon="thumbs-up" [ngStyle]="{color: hover ? 'red !important' : 'white'}" color="item.color" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+        <!-- <span [ngStyle] ="{backgroundColor: hover ? 'red' : 'grey' }">hello {{ hover }}</span> -->
+        <div class="circle-icon-back" [ngStyle]="{'background': item.color}">
+        <mat-icon style="color: white;">{{item.i}}</mat-icon>
+        </div>
+    </div>
+    <p class="card-title-text" [style.color]="item.color">{{item.name}}</p>
+</div>
+<!-- <div>hello</div> -->

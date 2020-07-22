@@ -1,0 +1,94 @@
+
+<div class="panel panel-default custom-size">
+  <div class="panel-heading">
+    <div>
+      <div class="row" >
+          <div class="col-2" style="text-align: center">
+            <div class="control-caption">Select Technician </div>
+          </div>
+          <div class="col-3">
+            <input class="form-control" type="text"   [(ngModel)]="technicianname" list="dynmicUserIds" id="autocomplete">
+            <datalist id="dynmicUserIds">
+                <option *ngFor="let techLists of techList"> {{techLists.firstName}} {{techLists.lastName}}</option>
+            </datalist>
+          </div>
+          <div class="col-2" style="text-align: center">
+            <div class="control-caption">Select Template </div>
+          </div>
+          <div class="col-3">
+            <input class="form-control" type="text"   [(ngModel)]="template" list="UserIds" id="autocomplete">
+            <datalist id="UserIds">
+                <option> Template 1</option>
+                <option> Template 2</option>
+                <option> Template 3</option>
+            </datalist>
+          </div>
+          <div  class="col-2"> 
+            <button class="btn btn-success"  >View</button>
+          </div>
+      </div>     
+    </div>
+  </div>
+  <table class="table table-striped" [mfData]="techList" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+          <tr>
+              <th style="width: 40%;text-align: center;" >
+                <mfDefaultSorter by="name">Functionility</mfDefaultSorter>
+              </th>
+              <th style="width: 15%;text-align: center;">
+                <mfDefaultSorter by="name">View</mfDefaultSorter>
+              </th>
+              <th style="width: 15%;text-align: center;">
+                <mfDefaultSorter by="name">Add / Edit</mfDefaultSorter>
+              </th>    
+          </tr>
+      </thead> 
+      <tbody>
+          <tr  class="line-hover"  *ngFor="let navItem of items " >
+               <td style="width: 5%; text-align: center;" >{{navItem.name}}</td>
+               <td style="width: 15%;text-align: center;">
+                  <input type="checkbox" value="" name="View" />
+              </td>
+              <td style="width: 15%;text-align: center;">
+                  <input type="checkbox" value="" name="Add" />
+              </td>
+              <td></td> 
+          </tr>
+      </tbody>
+  </table>
+  <div style="text-align: center; margin:10px;">
+    <div >
+      <button class="btn btn-success"  >Save</button>
+      <span><button class="btn btn-success" (click)="SaveTemplate()" data-toggle="modal" data-target="#basicExampleModal" >Save As Template</button></span>
+    </div>
+  </div>
+  <toaster-container [toasterconfig]="config"></toaster-container>
+  <div #confirmDlg class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"> 
+        <div class="modal-header" style="background-color: #a4a3a338;color: black;">
+            <h5 class="modal-title" id="exampleModalLabel" style="font-size: 18px;font-weight: bold">Save Template</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div style="display: inline-block; width: 100%; margin-top: 8px;">
+            <div class="col-sm-12">
+              <div class="control-caption">Template Name</div>
+              <input class="form-control" style="width: 100%" type="name" [(ngModel)]="name">
+            </div>
+            <div class="col-sm-12">
+              <div class="control-caption">Note</div>
+              <textarea class="form-control" style="width: 100%" type="note" [(ngModel)]="note"></textarea> 
+            </div>
+          </div>
+        </div>      
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-success"  type="button">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

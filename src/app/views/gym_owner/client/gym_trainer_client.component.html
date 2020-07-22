@@ -1,0 +1,86 @@
+<div class="content-heading">
+    {{trainerName}}
+    <small>{{ 'dashboard.ClientList' | translate }}</small>
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{trainerList?.length}}</strong> Clients</div>
+        {{trainerName}}'s Client List
+    </div>
+    <table class="table table-striped" [mfData]="trainerList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 25%" class="text-left" style="padding-left:20px;">
+                    <mfDefaultSorter by="name">Client Name</mfDefaultSorter>
+                </th>
+                <th style="width: 30%">
+                    <mfDefaultSorter by="name">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 45%">
+                    <mfDefaultSorter by="address">Action</mfDefaultSorter>                    
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td style="padding-left:20px;">{{item.firstName}} {{item.lastName}}</td>
+                <td>{{item.email}}</td>
+                <td><button class="btn btn-success" (click)="displayWorkout(item.id)">See Workouts</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<!-- <modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #gymDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Gym Name</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="trainerInfo.name">
+
+        <div class="control-caption">Address</div>        
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="trainerInfo.address">
+
+        <div class="control-caption">Latitude</div>        
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="trainerInfo.lat">
+
+        <div class="control-caption">Longitude</div>        
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="trainerInfo.lon">
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmGYM()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelGYM()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #mapDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        <agm-map #gMap class="agm-map" [latitude]="38.44" [longitude]="-98.66" [zoom]="2">
+            <agm-marker *ngFor="let item of trainerList; let idx=index;"
+                [latitude]="onNumber(item.lat)" [longitude]="onNumber(item.lon)" (markerClick)="onClickGymOnMap(item)"></agm-marker>
+        </agm-map>
+    </modal-body>
+    <modal-footer>
+        <label style="float:left;">{{itemName}}</label>
+        <button class="btn btn-danger" (click)="onCancelMap()">Cancel</button>
+    </modal-footer>
+</modal> -->

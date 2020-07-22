@@ -1,0 +1,129 @@
+.job-status {
+  border: 2px solid;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.line-hover {
+  cursor: pointer;
+}
+
+.line-hover:hover {
+  background: #fdffe0;
+}
+
+.edit-icon {
+  color: rgb(88, 106, 146);
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    color: rgb(179, 213, 241);
+  }
+}
+
+.report-icon {
+  color: rgb(88, 146, 93);
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    color: rgb(179, 241, 189);
+  }
+}
+
+.del-icon {
+  color: rgb(146, 88, 88);
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    color: rgb(241, 179, 179);
+  }
+}
+
+.control-caption {
+  padding: 5px;
+  font-size: 17px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.err {
+  color: red;
+}
+.changepassworddiv {
+  margin: 20px;
+  color: cornflowerblue;
+}
+.custom-size {
+  font-size: 17px;
+}
+/* new css start here */
+.profile-header-ul li a {
+  background-color: none !important;
+  color: #989292;
+  font-weight: bold;
+}
+.profile-header-ul li .active {
+  background-color: none !important;
+  color: #20a8d8;
+  border-bottom: 2px solid;
+}
+.profile-header-ul .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: none !important;
+}
+.profile-header-ul {
+  border-bottom: 1px solid #c0c0c06b;
+}
+.user-profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  padding: 5px;
+  object-fit: cover;
+}
+.profile-image-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+.font-bold {
+  font-weight: bold;
+}
+.profile-table {
+  color: #757575;
+}
+
+.profile-table tr {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.profile-table tr:first-child {
+}
+
+.account-created-title {
+  color: #757575;
+}
+.profile-body-box .tab-content .active {
+  opacity: 1 !important;
+}
+.recent-job-box {
+  background: #fff;
+  margin-top: 55px;
+  border-radius: 5px;
+}
+.no-recent-job {
+  background: #c3fbd433;
+  margin-bottom: 20px;
+  padding: 40px;
+}
+.no-recent-color {
+  color: green;
+  font-weight: bold;
+}
+.accont-detail-box {
+  border-radius: 5px;
+}

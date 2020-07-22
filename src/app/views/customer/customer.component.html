@@ -1,0 +1,403 @@
+<modal
+  *ngIf="customerFrom"
+  #custDlg
+  data-toggle="modal"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <modal-header class="modelHeader">
+    <div class="modal-header" class="text-center">
+      <h2 *ngIf="!flag" style="margin-top: 20px;">Add Customer</h2>
+      <h2 *ngIf="flag" style="margin-top: 20px;">Update Customer</h2>
+    </div>
+  </modal-header>
+
+  <modal-body style="text-align:center;">
+    <form
+      [formGroup]="customerFrom"
+      class="form-validate mb-lg"
+      role="form"
+      name="customerFrom"
+      novalidate=""
+    >
+      <div class="control-caption">
+        Name
+        <div class="model_body_div">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Name"
+            [(ngModel)]="name"
+            formControlName="name"
+            required=""
+          />
+          <span
+            class="text-danger"
+            *ngIf="
+              customerFrom.controls['name'].hasError('required') &&
+              (customerFrom.controls['name'].dirty ||
+                customerFrom.controls['name'].touched)
+            "
+            >This field is required</span
+          >
+        </div>
+      </div>
+
+      <div class="control-caption">
+        Email
+        <div class="model_body_div">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Email"
+            [(ngModel)]="email"
+            formControlName="email"
+            required=""
+          />
+          <span
+            class="text-danger"
+            *ngIf="
+              customerFrom.controls['email'].hasError('required') &&
+              (customerFrom.controls['email'].dirty ||
+                customerFrom.controls['email'].touched)
+            "
+            >This field is required</span
+          >
+          <span
+            class="text-danger"
+            *ngIf="
+              customerFrom.controls['email'].hasError('email') &&
+              (customerFrom.controls['email'].dirty ||
+                customerFrom.controls['email'].touched)
+            "
+            >This field must be a valid email address</span
+          >
+        </div>
+      </div>
+    </form>
+    <div class="control-caption">
+      Other Information
+      <div class="model_body_div">
+        <div class="col-sm-6">
+          <div class="control-caption">Contact Name</div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Contact Name"
+            [(ngModel)]="contactName"
+          />
+        </div>
+        <div class="col-sm-6">
+          <div class="control-caption">Phone Number</div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Phone Number"
+            [(ngModel)]="phone"
+          />
+        </div>
+      </div>
+
+      <div class="model_body_div">
+        <div class="col-sm-6">
+          <div class="control-caption">Street</div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Street"
+            [(ngModel)]="street"
+          />
+        </div>
+        <div class="col-sm-6">
+          <div class="control-caption">City</div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="City"
+            [(ngModel)]="city"
+          />
+        </div>
+      </div>
+
+      <div class="model_body_div">
+        <div class="col-sm-6">
+          <div class="control-caption">State</div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="State"
+            [(ngModel)]="state"
+          />
+        </div>
+        <div class="col-sm-6">
+          <div class="control-caption">ZipCode</div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Zip Code"
+            [(ngModel)]="zipCode"
+          />
+        </div>
+      </div>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button class="btn btn-success" (click)="onConfirmCustomer()">OK</button>
+    <button class="btn btn-danger" (click)="onCancelCustomer()">Cancel</button>
+  </modal-footer>
+</modal>
+
+<app-list-template 
+  [tableList]="custList" 
+  [listTitle]="'Customer List (Number In List)'"
+  [createTitle]="'New Customer'"
+  [statusAction]="true"
+  [listTableHeads]="listTableHeads"
+  [activityTableHeads]="activityTableHeads"
+  [activityTableData]="activityData"
+  [listTableIcons]="true"
+  [role]="role"
+  [newView]="true"
+  (searchResult)="updateSearch($event)"
+  (statusUpdate)="updateCustomer($event)"
+  (createNew)="onCreateCustomer()"
+  (visitList)="goToVisitList($event)"
+  (equipList)="Equiplist($event)"
+  (editCustomer)="onEditCustomer($event)"
+  [listingDetails]="editCustomer"
+  [detailListingType]="'customer'"
+  [detailsDto]="customer"
+  [jobsConfig]="jobsConfig"
+  [equipmentConfig]="equipmentConfig"
+  [customerSyncDetails]="customerSyncDetails"
+  [serviceStatus]="serviceStatus"
+></app-list-template>
+
+<!-- <app-list-template 
+  *ngIf="editCustomer"
+  [listingDetails]="editCustomer"
+  [detailListingType]="'customer'"
+  [detailsDto]="customer"
+  (editCustomer)="onEditCustomer($event)"
+></app-list-template> -->
+<!-- <div class="row mt-2">
+  <div class="col-md-7">
+    <div class="card customTableHeaderTop">
+      <div class="card-header customTableHeader p-0">
+        <label class="p-10 m-0 customTableTitleLeft">
+          Customer List (Number In List {{ custList?.length }} )</label
+        >
+        <small
+          class="m-0 float-right  tableRightBack"
+          *ngIf="role == 3 ? true : false"
+          (click)="onCreateCustomer()"
+          ><i class="fa fa-plus"></i> New Customer</small
+        >
+      </div>
+      <div class="table-container card-body p-0">
+        <div class="col-md-12 searchMainBox">
+          <div class="col-md-6 p-0">
+            <div class="search-box-div col-md-12">
+              <div class="col-md-1">
+                <i class="fa fa-search mt-2 fa-2x" aria-hidden="true"></i>
+              </div>
+              <div class="col-md-10">
+                <input
+                  type="text"
+                  [(ngModel)]="searchOpt.name"
+                  (input)="onChangeSearchValue('name', searchOpt.name)"
+                  class="form-control search-box-field"
+                  placeholder="Search Here..."
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-4 p-0">
+            <div class="col-md-6 p-0">
+              <button
+                class="btn btn-primary btn-default custom-btn "
+                type="button"
+                (click)="getCustomer('true', 'false')"
+              >
+                Active
+              </button>
+            </div>
+            <div class="col-md-6 p-0">
+              <button
+                class="btn btn-oval btn-default custom-btn inactive-btn-custom"
+                type="button"
+                (click)="getCustomer('false', 'true')"
+              >
+                Inactive
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <table
+          class="table table-responsive-sm table-hover table-outline mb-0"
+          [mfData]="custList"
+          #mf="mfDataTable"
+          [mfRowsOnPage]="10"
+        >
+          <thead>
+            <tr>
+              <th class="text-center">No</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data; let idx = index">
+              <td class="text-center">
+                {{ idx + 1 }}
+              </td>
+              <td>
+                {{ item?.info?.name }}
+              </td>
+              <td>
+                {{ item?.contact?.phone }}
+              </td>
+              <td>
+                {{ item?.info?.email }}
+              </td>
+              <td class="custom-text-color">
+                <i
+                  class="fa fa-file-o fa-1x custom-pointer"
+                  (click)="goToVisitList(item)"
+                ></i>
+                <i
+                  class="fa fa-wrench pl-2 pr-2 custom-pointer"
+                  (click)="Equiplist(item)"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  class="fa fa-pencil-square-o pr-1 custom-pointer"
+                  (click)="onEditCustomer(item)"
+                  aria-hidden="true"
+                ></i>
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="col-md-5">
+    <div class="card customTableHeaderTop">
+      <div class="card-header customTableHeader p-0">
+        <label class="p-10 m-0 customTableTitleLeft">Recent Activity</label>
+      </div>
+      <div class="table-container card-body p-0">
+        <table class="table table-responsive-sm table-hover table-outline mb-0">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Recent Activity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="avatar">
+                  <img
+                    src="https://www.bootdey.com/img/Content/avatar/avatar7.png"
+                    class="img-avatar"
+                  />
+                </div>
+              </td>
+              <td class="custom-text-color">
+                Albert Gonzalege
+              </td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box blue_background">
+                  <div class="status_dot blue_dot"></div>
+                  <div>Job Schedule</div>
+                </div>
+              </td>
+              <td>
+                <a [routerLink]="['/reports']"
+                  ><small class="activity_view_more">View More</small></a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="avatar">
+                  <img
+                    src="https://www.bootdey.com/img/Content/avatar/avatar7.png"
+                    class="img-avatar"
+                  />
+                </div>
+              </td>
+              <td class="custom-text-color">
+                Timothy Loy
+              </td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box yellow_background">
+                  <div class="status_dot yellow_dot"></div>
+                  <div>Pending</div>
+                </div>
+              </td>
+              <td>
+                <a [routerLink]="['/reports']"><small class="activity_view_more">View More</small></a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="avatar">
+                  <img
+                    src="https://www.bootdey.com/img/Content/avatar/avatar7.png"
+                    class="img-avatar"
+                  />
+                </div>
+              </td>
+              <td class="custom-text-color">
+                Lindsey Neal
+              </td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box green_background">
+                  <div class="status_dot green_dot"></div>
+                  <div>Active</div>
+                </div>
+              </td>
+              <td>
+                <a [routerLink]="['/reports']"><small class="activity_view_more">View More</small></a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="avatar">
+                  <img
+                    src="https://www.bootdey.com/img/Content/avatar/avatar7.png"
+                    class="img-avatar"
+                  />
+                </div>
+              </td>
+              <td class="custom-text-color">
+                Lawrence Tripp
+              </td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box grey_background">
+                  <div class="status_dot grey_dot"></div>
+                  <div>Not Schedule</div>
+                </div>
+              </td>
+              <td>
+                <a [routerLink]="['/reports']"><small class="activity_view_more">View More</small></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->

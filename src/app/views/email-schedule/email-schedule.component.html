@@ -1,0 +1,112 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateEmailTemplate()">Add Email Schedule</button>
+    Email Schedule
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{techList?.length}}</strong> Email Schedules</div>
+        Email Schedule List
+    </div>
+    <table class="table table-striped" [mfData]="techList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20%" class="text-left">
+                    <mfDefaultSorter by="Name">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 20%" class="text-left">
+                    <mfDefaultSorter by="FireDate">Email Date</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="Description">Description</mfDefaultSorter>
+                </th>
+                <th style="width: 30%">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-right"><span class="del-icon fa fa-trash" (click)="onDelete(item)" title="Delete Schedule"></span></td>
+                <td class="text-right"><span class="edit-icon fa fa-edit" (click)="onEdit(item)" title="Edit Schedule"></span></td>
+                <td class="text-right">{{item.No}}</td>
+                <td>{{item.Name}}</td>
+                <td>{{item.FireDate}}</td>
+                <td>{{item.Description}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- <toaster-container [toasterconfig]="config"></toaster-container> -->
+
+</div>
+
+<div class="add-dialog" *ngIf="showDialog">
+    <div class="add-dialog-content" style="margin: 0 150px;">
+        <header>
+            <h3>{{actionType == 0 ? 'Add Email Schedule' : 'Update Email Schedule'}}</h3>
+        </header>
+        <div style="text-align:center;">
+            <div class="email-schedule">
+                <div class="control-caption_one">Name:</div>
+                <div style="float: right; width: 92%;text-align: left;">
+                    <div class="col-sm-6"> 
+                        <input class="form-control" style="width: 100%" type="text" placeholder="Name" [(ngModel)]="mail.Name">
+                    </div>
+                </div>
+            </div>
+            <div class="email-schedule">
+                <div class="control-caption_one">Schedule Date:</div>
+                <div style="float: right; width: 92%;text-align: left;">
+                    <div class="col-sm-6"> 
+                        <!-- <angular2-date-picker [(ngModel)]="dateTimeLocal" [settings]="settings"></angular2-date-picker> -->
+                    </div>
+                </div>
+            </div>
+        <div class="email-schedule">
+            <div class="control-caption_one">Description:</div>
+            <div style="float: right; width: 92%;text-align: left;">
+                <div class="col-sm-6"> 
+                    <input class="form-control" style="width: 100%" type="text" placeholder="Description" [(ngModel)]="mail.Description">
+                </div>
+            </div>
+        </div>
+
+        <div class="email-schedule">
+            <div class="control-caption_one">Email Template:</div>
+            <div class="ckeditor">
+                <ckeditor [(ngModel)]="mail.ckeditorContent"> </ckeditor>
+            </div>
+        </div>
+    </div>
+
+        <div>
+            <button class="btn btn-success" (click)="onConfirmEmailTemplate()">OK</button>
+            <button class="btn btn-danger" (click)="onCancelEmailTemplate()" style="margin-left: 8px;">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+    

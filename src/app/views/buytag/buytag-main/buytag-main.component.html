@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-12 text-right mb-4">
+    <button class="btn btn-primary" [routerLink]="['detail']">
+      Tags Bought Details
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let buyTag of buyTagsConfig" class="col-sm-6 col-md-3">
+    <div
+      class="card"
+      [ngClass]="[
+        buyTag?.colored ? buyTag?.bgColor + ' ' + buyTag?.bgTextColor : ''
+      ]"
+    >
+      <div class="card-body">
+        <div class="h1 text-muted text-right mb-4">
+          <i class="icon-basket-loaded"></i>
+        </div>
+        <div class="h4 mb-0">
+          {{ buyTag?.mainTitle }}
+          <div *ngIf="buyTag?.custom" class="d-inline">
+            <span class="d-inline-block mr-2">{{ buyTag?.quantity }}</span>
+            <i
+              class="icon-minus"
+              style="cursor: pointer;"
+              (click)="minusQuantity(buyTag)"
+            >
+            </i>
+            <i
+              class="icon-plus"
+              style="cursor: pointer;"
+              (click)="addQuantity(buyTag)"
+            >
+            </i>
+          </div>
+        </div>
+        <small class="text-muted text-uppercase font-weight-bold">{{
+          buyTag?.subTitle
+        }}</small>
+
+        <div class="progress progress-white progress-xs mt-3">
+          <div
+            aria-valuemax="100"
+            aria-valuemin="0"
+            aria-valuenow="25"
+            class="progress-bar"
+            role="progressbar"
+            style="width: 25%;"
+          ></div>
+        </div>
+
+        <div *ngIf="buyTag?.dimension" class="form-group row">
+          <label class="col-md-12 col-form-label pb-0">Dimensions:</label>
+          <div class="col-md-12 col-form-label">
+            <div *ngFor="let options of buyTag.dimensions" class="form-check pl-0">
+              <input
+                [checked]="options?.selected"
+                class="form-check-input"
+                [id]="options?.optionName + options?.option"
+                [name]="options?.optionName"
+                [value]="options?.selected"
+                type="radio"
+              /><label class="form-check-label pl-4 ml-2" [for]="options?.optionName + options?.option"> {{ options?.optionTitle }} </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer px-3 py-4">
+        <button
+          class="btn btn-block btn-link text-left"
+          style="cursor: pointer;"
+          [disabled]="!buyTag.quantity"
+          (click)="onBuyTag(buyTag.quantity)"
+        >
+          {{ buyTag?.buyText }}
+          <i class="fa fa-angle-right float-right font-lg mt-2"></i>
+        </button>
+        <!-- <button
+          class="font-weight-bold font-lg btn-block text-dark"
+          style="cursor: pointer;"
+          [disabled]="buyTag.quantity"
+          (click)="onBuyTag(buyTag.quantity)"
+        >
+          {{ buyTag?.buyText }}
+          <i class="fa fa-angle-right float-right font-lg"></i>
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-buy-blue-tags-modal
+    #buyDlg
+    (responseMessage)="FromBuyTagModal($event)">
+</app-buy-blue-tags-modal>
+
+<div>
+  <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container>
+</div>

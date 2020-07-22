@@ -1,0 +1,47 @@
+.nav-tabs  li.active a,
+ .nav-tabs  li.active  a:hover, 
+ .nav-tabs 
+ li.active  a:focus{
+    color: black;
+}
+.custom_btn{
+padding: 10px;
+}
+.custom_size{
+    font-size: 17px;
+}
+.custom_header{
+    border-top: 1px solid #c8ced3;
+    background:#f2f2f2;
+    height: 50px;
+    text-align: initial
+}
+.card_div{
+    margin: 20px;
+}
+.tab-content{
+    background: none !important;
+    border: none !important;
+}
+.job_header{
+    background-color: green;
+    color: white;
+    p{
+        margin-bottom: 0px;
+    }
+}
+.user_header{
+    background-color: rgb(241, 60, 60);
+    color: white;
+    p{
+        margin-bottom: 0px;
+    }
+}
+.custom_button{
+    background: red;
+    color: white;
+}
+.custom_footer{
+    background-color: white ;
+    border-top: none;
+}

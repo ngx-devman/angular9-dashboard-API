@@ -1,0 +1,283 @@
+<div class="content-heading">
+    <span  *ngIf="customer_name != undefined" style="font-size: 17px;"><strong> Viewing : </strong>{{customer_name}}</span>
+
+    <button class="btn btn-success" style="float: right;" (click)="goToVisitList()">New Job</button>
+    <button   class="btn btn-success" style="float: right;margin-right: 10px;" (click)="toggle()" >{{buttonName}}</button>
+    <button id="custToast" class="btn btn-success" style="float: right;visibility: hidden;" (click)="beforeToast()">Toast</button>
+    <br/>
+</div>
+<br/>
+
+<!-- 
+<div class="content-heading">
+    <span *ngIf="customer_name != undefined" style="font-size: 17px;"><strong> Viewing : </strong>{{customer_name}}</span>
+
+    <button class="btn btn-success" style="float: right;" (click)="goToVisitList()">New Job</button>
+    <button  *ngIf="customer_name != undefined" class="btn btn-success" style="float: right;margin-right: 10px; " (click)=" getJob(undefined)">Show all</button>
+    <br/>
+</div>
+<br/> -->
+<div  *ngIf="show"  class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div class="pull-right text-muted">Number In List: <strong>{{jobList?.length}}</strong></div>
+        <br/>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="jobList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th  style="width: 5%; ">
+                    <!-- <mfDefaultSorter by="View">View</mfDefaultSorter> -->
+                </th>
+                <th style="width: 5%;" ></th>
+                <!-- <th style="width: 5%;" >
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th> -->
+                <th style="width: 15% ;">
+                    <mfDefaultSorter by="name ">Technician</mfDefaultSorter>
+                </th>
+                <th style="width: 15%;">
+                    <mfDefaultSorter by="Customer">Customer</mfDefaultSorter> 
+                </th>
+                <th style="width: 10%;">
+                    <mfDefaultSorter by="Type">Type</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;">
+                    <mfDefaultSorter by="Date">Scheduled Date</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;">
+                    <mfDefaultSorter by="Date">Scheduled Time</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;">
+                    <mfDefaultSorter by="Date">Created Date</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;">
+                    <mfDefaultSorter by="Date">Created Time</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;">
+                    <mfDefaultSorter by="Date">Actual Time</mfDefaultSorter>
+                </th>
+                <!-- <th style="width: 10%;">
+                    <mfDefaultSorter by="Date">Date and Time</mfDefaultSorter>
+                </th> -->
+            </tr>
+        </thead>
+        <tbody >
+            <tr class="line-hover"  *ngFor="let item of mf.data; let idx=index;">
+                <td ><span class="cui-file" tooltip="Show Report"  aria-hidden="true" (click)="showReport(item)" ></span> </td>
+                <td ><span *ngIf="item.status == 0" class="edit-icon fa fa-edit" (click)="onEditJob(item)" tooltip="Edit Job"></span></td>   
+                <!-- <td >{{idx + 1}}</td> -->
+                <td>{{item.technician.profile.displayName}}</td>
+                <td>{{item.customer.info.name}}</td>
+                <td>{{item.type?.title}}</td>
+                <td>{{formatDate(item.dateTime)}}</td>
+                <td>{{formatTime(item.dateTime)}}</td>
+                <td>{{formatDate(item.createdAt)}}</td>
+                <td>{{formatTime(item.createdAt)}}</td>
+                <td *ngIf="item.status==0">--</td>
+                <td *ngIf="item.status==1">Started</td>
+                <td *ngIf="item.status==2">Finished</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table> 
+    </div>
+    
+    <!-- <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container> -->
+    <!-- <toaster-container [toasterconfig]="config" class="toaster-icon"></toaster-container> -->
+</div>
+
+<toaster-container [toasterconfig]="config" class="toaster-icon"></toaster-container>
+
+<div [hidden]="show"  class="animated fadeIn">
+    <div class="card custom_card">
+      <div class="card-body">
+        <div class="row text-center">
+          <div class="col-md-4">
+            <div class="btn-group">
+              <div class="btn btn-outline-secondary" (click)="decrement()">
+                Previous
+              </div>
+              <div class="btn btn-primary" (click)="today()">
+                Today
+              </div>
+              <div class="btn btn-outline-secondary" (click)="increment()">
+                Next
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+          </div>
+          <div class="col-md-4">
+            <div class="btn-group float-right">
+              <div class="btn btn-primary" (click)="view = 'month'" [class.active]="view === 'month'">Month</div>
+              <div class="btn btn-primary" (click)="view = 'week'" [class.active]="view === 'week'">Week</div>
+              <div class="btn btn-primary" (click)="view = 'day'" [class.active]="view === 'day'">Day</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div [ngSwitch]="view">
+          <mwl-calendar-month-view
+            *ngSwitchCase="'month'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [activeDayIsOpen]="activeDayIsOpen"
+            (dayClicked)="dayClicked($event.day)"
+            (eventTimesChanged)="eventTimesChanged($event)">
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view
+            *ngSwitchCase="'week'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            (eventTimesChanged)="eventTimesChanged($event)">
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view
+            #elem
+            *ngSwitchCase="'day'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            (eventTimesChanged)="eventTimesChanged($event)">
+          </mwl-calendar-day-view>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <modal #custDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <div class="modal-header" class="text-center">
+            <!-- <h2>Schedule Job</h2> -->
+            <h2 *ngIf="!flag" style="margin-top: 20px;">Add Scheduled Job</h2>
+            <h2 *ngIf="flag" style="margin-top: 20px;">Update Scheduled Job</h2>
+        </div>
+    </modal-header>
+
+    <modal-body >
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Select Customer </div>
+                <div >
+                    <input class="form-control" type="text" [(ngModel)]="customerId" [disabled]="flag"  (keyup)="addCustomer($event)" list="dynmicCutsomerIds" id="autocomplete"(change)="selectCustomer(customerId)">
+                    <datalist id="dynmicCutsomerIds">
+                        <option *ngFor="let customerLists of customerdata "  [value]="customerLists.info.name"> </option>
+                    </datalist>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" >
+                <div class="control-caption">Select Employee </div>
+                <div>
+                    <input class="form-control" type="text" [(ngModel)]="technicianId"  (keyup)="addEmployee($event)" list="dynmicUserIds" id="autocomplete" (change)="selectEmployee(technicianId)">
+                    <datalist id="dynmicUserIds">
+                        <option *ngFor="let k of Employeedata" [value]="k.profile.displayName"></option>
+
+                    </datalist>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-12" >
+                <div class="control-caption">Select Employee </div>
+                <div>
+                    <input class="form-control" type="text" [(ngModel)]="technicianId"  (keyup)="addEmployee($event)" list="dynmicUserIds" id="autocomplete" (change)="selectEmployee(technicianId)">
+                    <datalist id="dynmicUserIds">
+                        <option *ngFor="let k of AllGroupData" [value]="k.profile.displayName"></option>
+                    </datalist>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="row">
+            <div class="col-12" >
+                <div class="control-caption">Select Technician </div>
+                <div>
+                    <input class="form-control" type="text" [(ngModel)]="technicianId"  (keyup)="addTech($event)" list="dynmicUserIds" id="autocomplete" (change)="select(technicianId)">
+                    <datalist id="dynmicUserIds">
+                        <option *ngFor="let k of technicianData" [value]="k.profile.displayName"></option>
+                    </datalist>
+                </div>
+            </div>
+        </div> -->
+  
+
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Select Customer Equipment</div>
+                <div >
+                    <input class="form-control" type="text" list="dynmicCutsomerEquipmentIds" id="autocomplete"  [(ngModel)]="EquipmentId" (change)="selectEquipment(EquipmentId)">
+                        <datalist id="dynmicCutsomerEquipmentIds">
+                            <option *ngFor="let equipmentDatas of equipmentData"  [value]="equipmentDatas.info.model"> {{equipmentDatas.brand?.title}} {{equipmentDatas.type?.title}} </option>
+                        </datalist>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div  class="control-caption">Job Type</div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"></div>
+                    <select class="form-control" id="industry" [disabled]="flag" [(ngModel)]="jobTypeId" (change)="selectType(jobTypeId)">
+                        <option *ngFor="let type of jobTypeData" [value]="type.title" >{{type.title}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Notes/Special Instructions</div>
+                <div>
+                    <textarea type="text" class="form-control"[disabled]="flag" [(ngModel)]="note"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Scheduled Date/Time </div>
+                <div>
+                    <input type="datetime-local"class="form-control" [(ngModel)]="dateTime">
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer class="footer">
+        <button *ngIf="flag" class="btn btn-danger" (click)="onCancelJob()">Click here to cancel this job</button>
+        <button class="btn btn-success" (click)="onConfirmVisitor()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelVisitor()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #cancelDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader" >
+        <div class="modal-header" style="border-bottom: none !important;" >
+            <h2  style="margin-top: 20px;">Cancel Job</h2>
+        </div>
+    </modal-header>
+    <modal-body>
+        <div class="modalDiv">
+        <p class="agreeTxt">Are you sure you want to cancel this job?</p>
+        </div>
+        <div class="row">         
+            <div class="col-12" >
+                <div class="control-caption">Comment</div>
+                <div>
+                    <textarea type="text" class="form-control" [(ngModel)]="cancel_comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="cancelJob()">Confirm</button>
+        <button class="btn btn-danger" (click)="dismissView()">Cancel</button>
+    </modal-footer>
+</modal>

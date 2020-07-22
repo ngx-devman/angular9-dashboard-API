@@ -1,0 +1,35 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onHowToUse()">How To Use</button>
+    Welcome
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div style="width: 100%; display: grid;">
+    <div class="panel panel-default col-xs-6 col-sm-8" style="margin: auto; padding: 0;">
+        <div class="panel-heading">
+            Welcome to blueclerk
+        </div>
+
+        <div class="panel-body">
+            <font size="8"><b>Welcome to BlueClerk Database.</b></font><br><br>
+            <font size="4">Here, you will be able to access the data of your fitness center/exercise machines and the usage.<br>
+            With our database, you will be able to run reports.</font><br><br>
+            <font size="6">List of updates:</font><br><br>
+            <font size="4">
+            <b>Web Database:</b> April 2018-Login ability for gym managers and representatives for manufacturers.<br>
+            Better security and minimum requirements for passwords<br><br>
+            <b>Smartphone Apps:</b> Better user interface for input on date of birth<br>
+            If you have any questions or feedback, feel free to contact us at any time.  We can be reached at:<br><br>
+            Email: chris@nortonfitness.com<br>
+            Phone: 512-519-9691<br>
+            Address: 
+            9430 Research Blvd
+            Building 2, Suite 350
+            Austin, Texas 78759
+            </font>
+        </div>
+
+        <toaster-container [toasterconfig]="config"></toaster-container>
+
+    </div>
+</div>

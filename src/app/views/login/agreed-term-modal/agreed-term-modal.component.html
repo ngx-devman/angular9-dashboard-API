@@ -1,0 +1,23 @@
+<div class="agree-modal-container">
+    <div class="row">
+        <div class="col-12 text-center text-bold">
+            <p style="font-size: 20px; font-weight: bold;">Please agree to our terms of use and privacy</p>
+        </div>
+        <div class="col-12">
+            <div>
+                <input type="checkbox" #agreeCheck (change)="agreedTermFlage != agreedTermFlage"> &nbsp;<a href="javascript:void(0);" (click)="showAgreedContent()">{{agreeBtTitle}}</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 mt-3">
+            <button class="btn btn-block btn-success mt-lg login_btn" style="overflow: hidden;" (click)="AgreedTerm('1')" [disabled] = "!agreeCheck.checked">
+                <span class="button-span-text">Okay</span>
+            </button>    
+        </div>
+        <div class="col-md-6 col-sm-12 mt-3">
+            <button class="btn btn-block btn-danger mt-lg login_btn" (click)="AgreedTerm('0')">
+                <span class="button-span-text">Cancel</span>
+            </button>
+        </div>
+    </div>    
+</div>
+

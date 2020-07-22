@@ -1,0 +1,474 @@
+<table
+  class="table table-responsive-sm table-hover table-outline mb-0"
+  [mfData]="tableList"
+  #mf="mfDataTable"
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let head of tableHeads; let i = index"
+        [class.text-center]="i == 0"
+      >
+        {{ head }}
+      </th>
+    </tr>
+  </thead>
+
+  <tbody *ngIf="type === 'customer'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item?.profile?.displayName }}
+      </td>
+      <td>
+        {{ item?.contact?.phone }}
+      </td>
+      <td *ngIf="item.info">
+        {{ item?.info?.email }}
+      </td>
+      <td *ngIf="item.auth">
+        {{ item?.auth?.email }}
+      </td>
+      <td class="custom-text-color" *ngIf="displayIcons">
+        <i
+          class="fa fa-file-o fa-1x custom-pointer"
+          (click)="goToVisitList(item)"
+          matTooltip="Jobs"
+        ></i>
+        <i
+          class="fa fa-wrench pl-2 pr-2 custom-pointer"
+          (click)="Equiplist(item)"
+          aria-hidden="true"
+          matTooltip="Equipment"
+        ></i>
+        <i
+          class="fa fa-pencil-square-o pr-1 custom-pointer"
+          (click)="onEditCustomer(item)"
+          aria-hidden="true"
+          matTooltip="Edit Customer"
+        ></i>
+        <i class="fa fa-eye" aria-hidden="true" matTooltip="View Detail"></i>
+      </td>
+      <td class="custom-pointer" *ngIf="!displayIcons">
+        <button
+          class="custom-pointer btn btn-primary btn-default"
+          (click)="onViewCustomer(item)"
+        >
+          View More
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'vendor'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item?.contractor?.info?.companyName }}
+      </td>
+      <td>
+        <p *ngIf="item?.status == 0" [ngStyle]="{ margin: '0' }">Pending</p>
+        <p *ngIf="item?.status == 1" [ngStyle]="{ margin: '0' }">Accepted</p>
+      </td>
+      <td>
+        <a (click)="goToDetail(item?.contractor)" class="customLink"
+          >View More</a
+        >
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'technicians'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item.profile.displayName }}
+      </td>
+      <td>
+        {{ item.auth.email }}
+      </td>
+      <td>
+        {{ item.contact.phone }}
+      </td>
+      <td>
+        <a (click)="goToDetail(item?._id)" class="customLink">View More</a>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'managers' || type === 'officeAdmins'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item.profile.displayName }}
+      </td>
+      <td>
+        {{ item.auth.email }}
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'groups'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td>
+        <span
+          class="cui-wrench"
+          tooltip="Inventory"
+          (click)="Inventory(item)"
+        ></span>
+      </td>
+      <td>
+        <span
+          class="edit-icon fa fa-users"
+          (click)="onMembers(item, idx)"
+          tooltip="Members"
+        ></span>
+      </td>
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item.title }}
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'brands' || type === 'equipments' || type == 'jobs'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item.title }}
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'employees'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item.profile.displayName }}
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'serviceTicket'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <!-- <td class="text-center">
+                {{ idx + 1 }}
+            </td> -->
+      <td>
+        {{ item?.ticketId }}
+      </td>
+      <td>
+        {{ item.createdAt | date: "mediumDate" }}
+      </td>
+      <td>
+        {{ item?.customer?.profile?.displayName }}
+      </td>
+      <td>
+        <button
+          (click)="createJob(item)"
+          class="custom-pointer btn btn-primary btn-default"
+          *ngIf="!item.jobCreated"
+        >
+          Create Job
+        </button>
+        <button
+          (click)="jobDetail(item.job)"
+          class="custom-pointer btn btn-primary btn-default"
+          *ngIf="item.jobCreated"
+        >
+          Job Detail
+        </button>
+      </td>
+      <td>
+        <mat-icon (click)="infoServiceTicket(item)" class="custom-pointer"
+          >info</mat-icon
+        >
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'scheduleJobs'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <!-- <td class="text-center">
+                {{ idx + 1 }}
+            </td> -->
+      <td class="text-center">
+        {{ item?.jobId }}
+      </td>
+      <td *ngIf="item.status == 0">
+        Pending
+      </td>
+      <td *ngIf="item.status == 1">
+        In Progress
+      </td>
+      <td *ngIf="item.status == 2">
+        Complete
+      </td>
+      <td *ngIf="item.status == 3">
+        Cancel
+      </td>
+      <td>
+        {{ item.technician.profile.displayName }}
+      </td>
+      <td>
+        {{ item?.customer?.profile?.displayName }}
+      </td>
+      <td>
+        {{ item.type.title }}
+      </td>
+      <td>
+        {{ item.dateTime | date: "longDate" }}
+      </td>
+      <td>
+        {{ item.dateTime | date: "shortTime" }}
+      </td>
+      <td>
+        <button
+          class="custom-pointer btn btn-primary btn-default"
+          *ngIf="item.status == 0 || item.status == 3"
+          (click)="editTheJob(item)"
+        >
+          Edit
+        </button>
+        <button
+          *ngIf="item.status == 1 || item.status == 2"
+          class="btn btn-primary btn-default"
+          (click)="gotoReport(item)"
+          matTooltip="View"
+          [matTooltipPosition]="'right'"
+        >
+          Complete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'vendorJobs'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ item?.jobId }}
+      </td>
+      <!-- <td *ngIf="item.status == 0">
+        Pending
+      </td>
+      <td *ngIf="item.status == 1">
+        In Progress
+      </td>
+      <td *ngIf="item.status == 2">
+        Complete
+      </td>
+      <td *ngIf="item.status == 3">
+        Cancel
+      </td> -->
+      <!-- <td>
+        {{ item.technician.profile.displayName }}
+      </td> -->
+      <td>
+        {{ item?.customer?.profile?.displayName }}
+      </td>
+      <td>
+        {{ item.type.title }}
+      </td>
+      <td>
+        {{ item.dateTime | date: "longDate" }}
+      </td>
+      <td>
+        {{ item.dateTime | date: "shortTime" }}
+      </td>
+      <td>
+        <button
+          class="custom-pointer btn btn-primary btn-default"
+          *ngIf="item.status == 0 || item.status == 3"
+          (click)="editTheJob(item)"
+        >
+          Edit
+        </button>
+        <button
+          *ngIf="item.status == 1 || item.status == 2"
+          class="btn btn-primary btn-default"
+          (click)="gotoReport(item)"
+          matTooltip="View"
+          [matTooltipPosition]="'right'"
+        >
+          Complete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'permissions'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ item?.title }}
+      </td>
+      <td *ngIf="userType != 'Vendor'">
+        <mat-checkbox
+          class="example-margin"
+          [(ngModel)]="item.view"
+          name="viewPermission"
+          [disabled]="viewUser == loggedUser._id"
+        >
+        </mat-checkbox>
+      </td>
+      <td *ngIf="userType != 'Vendor'">
+        <mat-checkbox
+          class="example-margin"
+          [(ngModel)]="item.edit"
+          name="editPermission"
+          [disabled]="viewUser == loggedUser._id"
+        >
+        </mat-checkbox>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'customerview'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td>
+        {{ item?.type?.title }}
+      </td>
+      <td>
+        {{ item?.brand?.title }}
+      </td>
+      <td>
+        {{ item?.info?.model }}
+      </td>
+      <td>
+        {{ item?.info?.serialNumber }}
+      </td>
+      <td>
+        {{ item?.info?.nfcTag }}
+      </td>
+      <td class="equipmentImage">
+        <img src="{{ item?.images }}" />
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'jobRates'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+      <td class="text-center">
+        {{ idx + 1 }}
+      </td>
+      <td>
+        {{ item.jobType.title }}
+      </td>
+      <td *ngIf="item.isFixed">
+        Fixed
+      </td>
+      <td *ngIf="!item.isFixed">
+        Hourly
+      </td>
+      <td>
+        {{item.charges | currency:'USD'}}
+      </td>
+      <td>
+        <button class="custom-pointer btn btn-primary btn-default" (click)="editTheJob(item)">
+          Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'completeJobs'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+        <td class="text-center">
+          {{ item?.jobId }}
+        </td>
+        <td>
+          {{ item.technician.profile.displayName }}
+        </td>
+        <td>
+          {{ item?.customer?.profile?.displayName }}
+        </td>
+        <td>
+          {{ item.type.title }}
+        </td>
+        <td>
+          {{ item.dateTime | date: "longDate" }}
+        </td>
+        <td *ngIf="!item.invoiceGenerated">
+          <button class="custom-pointer btn btn-primary btn-default" (click)="editTheJob(item)">
+            Generate
+          </button>
+        </td>
+        <td *ngIf="item.invoiceGenerated">
+          -
+        </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'invoices'">
+    <tr *ngFor="let item of mf.data; let idx = index">
+        <td class="text-center">
+          {{ item?.invoiceId }}
+        </td>
+        <td>
+          {{ item.job.jobId }}
+        </td>
+        <td>
+          {{ item?.job.customer?.profile?.displayName }}
+        </td>
+        <td>
+          {{ item.job.type.title }}
+        </td>
+        <td>
+          {{ item.charges | currency:'USD'}}
+        </td>
+        <td>
+          {{ item.tax | currency:'USD'}}
+        </td>
+        <td>
+          {{ item.total | currency:'USD'}}
+        </td>
+        <td>
+          <button class="custom-pointer btn btn-primary btn-default" (click)="viewInvoice(item)">
+            View
+          </button>
+        </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'purchasedTags'">
+    <tr
+      class="line-hover"
+      *ngFor="let item of mf.data; let idx = index"
+      (click)="onRowClick()"
+    >
+      <td class="text-right">{{ item.No }}</td>
+      <td>{{ item?.tagCnt }}</td>
+      <td>{{ item?.addDate }}</td>
+      <td>{{ item?.shippingAddress }}</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'buyTags'">
+    <tr
+      class="line-hover"
+      *ngFor="let item of mf.data; let idx = index"
+      (click)="onRowClick()"
+    >
+      <td style="text-align: center;">{{ item?.info?.noOfTags }}</td>
+      <td style="text-align: center;">#90-98792</td>
+      <td style="text-align: center;">{{ item?.info?.total }}</td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="type === 'buyTags'">
+    <tr class="line-hover" *ngFor="let item of mf.data; let idx = index">
+      <td style="text-align: center;">{{ idx + 1 }}</td>
+      <td style="text-align: center;">
+        <img
+          style="width: 25px; height: 25px;"
+          src="{{ item?.info?.imageUrl }}"
+          (click)="onDetailImg(item.imgUrl)"
+        />
+      </td>
+      <td style="text-align: center;">{{ item?.brand?.title }}</td>
+      <td style="width: 40px; text-align: center;">
+        {{ item?.type?.title }}
+      </td>
+      <td style="text-align: center;">{{ item?.info?.model }}</td>
+      <td style="text-align: center;">{{ item?.info?.serialNumber }}</td>
+    </tr>
+  </tbody>
+</table>

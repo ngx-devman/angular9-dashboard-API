@@ -1,0 +1,217 @@
+<modal
+  #buyDlg
+  data-toggle="modal"
+  data-backdrop="static"
+  data-keyboard="false"
+  class="custom-size"
+>
+  <modal-header class="modelHeader">
+    <div class="modal-header" class="text-center">
+      <h2 style="margin-top: 20px;">Buy Blue Tag</h2>
+    </div>
+  </modal-header>
+  <modal-body class="px-0">
+    <span *ngIf="cardData?.length; then formTemp; else noCardFoundTemp"></span>
+
+    <ng-template #formTemp>
+      <form [formGroup]="blueTagForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group text-left">
+              <label for="dynmiccardId">Select Card</label>
+              <select
+                formControlName="cardId"
+                [ngClass]="{
+                  'is-invalid':
+                    blueTagForm.get('cardId').invalid &&
+                    (blueTagForm.get('cardId').dirty ||
+                      blueTagForm.get('cardId').touched)
+                }"
+                id="dynmiccardId"
+                class="form-control"
+              >
+                <option *ngFor="let card of cardData" [value]="card?._id">
+                  {{ card?.ending }}
+                </option>
+              </select>
+              <div class="invalid-feedback">
+                You have to select a card.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <h3 class="pb-4">Shipping Address</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group pb-4">
+            <label style="text-align: initial;">Name</label>
+            <input
+              formControlName="name"
+              [ngClass]="{
+                'is-invalid':
+                  blueTagForm.get('name').invalid &&
+                  (blueTagForm.get('name').dirty ||
+                    blueTagForm.get('name').touched)
+              }"
+              type="text"
+              id="inputMDEx"
+              class="form-control form-control-lg"
+              placeholder="Name"
+            />
+            <div class="invalid-feedback">
+              Name is required.
+            </div>
+          </div>
+
+          <div class="col-md-6 form-group pb-4">
+            <label style="text-align: initial;">Address</label>
+            <input
+              formControlName="street"
+              [ngClass]="{
+                'is-invalid':
+                  blueTagForm.get('street').invalid &&
+                  (blueTagForm.get('street').dirty ||
+                    blueTagForm.get('street').touched)
+              }"
+              type="text"
+              id="inputMDEx"
+              class="form-control form-control-lg"
+              placeholder="Address"
+            />
+            <div class="invalid-feedback">
+              Address is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group pb-4">
+            <label style="text-align: initial;">State</label>
+            <input
+              formControlName="state"
+              [ngClass]="{
+                'is-invalid':
+                  blueTagForm.get('state').invalid &&
+                  (blueTagForm.get('state').dirty ||
+                    blueTagForm.get('state').touched)
+              }"
+              type="text"
+              id="inputMDEx"
+              class="form-control form-control-lg"
+              placeholder="State"
+            />
+            <div class="invalid-feedback">
+              State is required.
+            </div>
+          </div>
+
+          <div class="col-md-6 form-group pb-4">
+            <label style="text-align: initial;">City</label>
+            <input
+              formControlName="city"
+              [ngClass]="{
+                'is-invalid':
+                  blueTagForm.get('city').invalid &&
+                  (blueTagForm.get('city').dirty ||
+                    blueTagForm.get('city').touched)
+              }"
+              type="text"
+              id="inputMDEx"
+              class="form-control form-control-lg"
+              placeholder="City"
+            />
+            <div class="invalid-feedback">
+              City is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group pb-4">
+            <label style="text-align: initial;">Zip</label>
+            <input
+              formControlName="zipCode"
+              [ngClass]="{
+                'is-invalid':
+                  blueTagForm.get('zipCode').invalid &&
+                  (blueTagForm.get('zipCode').dirty ||
+                    blueTagForm.get('zipCode').touched)
+              }"
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Zip"
+            />
+            <div class="invalid-feedback">
+              Zip Code is required.
+            </div>
+          </div>
+
+          <div class="col-md-6 form-group pb-4">
+            <label class="md-form" style="text-align: initial;"
+              >Number of Tags</label
+            >
+            <input
+              formControlName="noOfTags"
+              [ngClass]="{
+                'is-invalid':
+                  blueTagForm.get('noOfTags').invalid &&
+                  (blueTagForm.get('noOfTags').dirty ||
+                    blueTagForm.get('noOfTags').touched)
+              }"
+              class="form-control form-control-lg"
+              type="number"
+              (ngModelChange)="setSales()"
+              placeholder="Number of blue tags"
+              min="0"
+            />
+            <div class="invalid-feedback">
+              Number of Tags are required & should be greater than 0.
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+
+    <ng-template #noCardFoundTemp>
+      <div class="alert alert-primary" role="alert">
+        No Card Found...
+        <a [routerLink]="['/main', 'billingmethod']">Click Here</a> to add a
+        payment method...
+      </div>
+    </ng-template>
+  </modal-body>
+  <modal-footer style="margin-top: 29px;">
+    <label
+      *ngIf="cardData?.length"
+      style="
+        position: absolute;
+        left: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      "
+      >Sales: ${{ (noOfTags.value * 5).toFixed(2) }}</label
+    >
+
+    <label
+      *ngIf="cardData?.length"
+      style="font-size: 18px; font-weight: bold; margin-right: 16px;"
+      >Tax: ${{ (noOfTags.value * 5 * 0.0825).toFixed(2) }}</label
+    >
+
+    <button
+      *ngIf="cardData?.length"
+      [disabled]="blueTagForm?.invalid"
+      class="mb-sm btn btn-success btn-outline"
+      style="width: 18%; font-size: 15px;"
+      (click)="addTags()"
+    >
+      Buy
+    </button>
+    <button class="mb-sm btn btn-danger btn-outline" (click)="onCancelBuy()">
+      Cancel
+    </button>
+  </modal-footer>
+</modal>

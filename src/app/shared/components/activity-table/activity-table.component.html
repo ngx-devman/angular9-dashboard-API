@@ -1,0 +1,35 @@
+<div class="table-container card-body p-0">
+    <table class="table table-responsive-sm table-hover table-outline mb-0">
+      <thead>
+        <tr>
+          <th *ngFor="let head of tableHeads; let i = index;">{{head}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let list of tableList; let i = index;">
+          <td>
+            <div class="avatar">
+              <img
+                src="https://www.bootdey.com/img/Content/avatar/avatar7.png"
+                class="img-avatar"
+              />
+            </div>
+          </td>
+          <td class="custom-text-color">
+            Albert Gonzalege
+          </td>
+          <td class="custom-text-color">
+            <div class="recent_activity_box blue_background">
+              <div class="status_dot blue_dot"></div>
+              <div>Job Scheduled</div>
+            </div>
+          </td>
+          <td>
+            <a class="customLink"
+              ><small class="activity_view_more" [routerLink]="['/reports']">View More</small></a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

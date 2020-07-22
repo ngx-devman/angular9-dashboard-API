@@ -1,0 +1,29 @@
+.customTableHeader {
+  background: #505560;
+  color: #f4f4f4;
+  font-weight: bold;
+  border-radius: 8px;
+}
+.customTableHeaderTop {
+  border-radius: 8px;
+}
+.customTableTitleLeft {
+  padding: 14px 16px;
+  font-size: 15px;
+}
+table {
+  tr {
+    th {
+      font-weight: 600;
+    }
+    th,
+    td {
+      font-size: 13px;
+    }
+  }
+}
+
+.no-record {
+  text-align: center;
+  padding: 138px 0;
+}

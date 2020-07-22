@@ -1,0 +1,321 @@
+<div class="animated fadeIn">
+  <div class="row dashboard-counts">
+    <div class="col-sm-6 col-lg-3 card-box-list">
+      <div class="card text-white  custom-light-blue-bg custom-card card-box-inner curso-pointer" [routerLink]="['/customer']">
+        <div class="card-body pb-0 mt-3 mb-4">
+          <div class="col-md-3  col-xs-3">
+            <i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-9  col-xs-9">
+            <div class="text-value card-box-count">{{ counts.customers }}</div>
+            <div *ngIf="counts?.customers == '1'" class="mb-2 card-box-title">Customer</div>
+            <div *ngIf="counts?.customers != '1'" class="mb-2 card-box-title">Customers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3 card-box-list">
+      <div class="card text-white custom-light-blue-bg custom-card card-box-inner curso-pointer" [routerLink]="['/tech']">
+        <div class="card-body pb-0 mt-3 mb-4">
+          <div class="col-md-3 col-xs-3">
+            <i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-9 col-xs-9">
+            <div class="text-value card-box-count">
+              {{ counts.technicians }}
+            </div>
+            <div class="mb-2 card-box-title">Technicians</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3 card-box-list">
+      <div class="card text-white custom-light-blue-bg custom-card card-box-inner curso-pointer">
+        <div class="card-body pb-0 mt-3 mb-4">
+          <div class="col-md-3 col-xs-3">
+            <i class="fa fa-sticky-note-o fa-3x" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-9 col-xs-9" style="padding-right: 0;">
+            <div class="text-value card-box-count">{{ counts.reports }}</div>
+            <div class="mb-2 card-box-title">
+              Reports <small>(To Be Approved)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3 card-box-list">
+      <div class="card text-white custom-light-blue-bg custom-card card-box-inner curso-pointer" [routerLink]="['/schedule']">
+        <div class="card-body pb-0 mt-3 mb-4">
+          <div class="col-md-3 col-xs-3">
+            <i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-9 col-xs-9">
+            <div class="text-value card-box-count">{{ counts.tickets }}</div>
+            <div class="mb-2 card-box-title">Tickets</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jobs Chart -->
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <div class="card customTableHeaderTop custom-min-height">
+        <div class="card-header customTableHeader p-0">
+          <label class="p-10 m-0 customTableTitleLeft">Jobs</label>
+          <small class="m-0 float-right  tableRightBack dark-blue-bg" (click)="createTicket()"
+            ><i class="fa fa-plus"></i> New Ticket</small
+          >
+        </div>
+        <div class="card-body p-0">
+          <div
+            *ngIf="barChartData.length"
+            style="display: block;padding: 20px 10px;"
+          >
+            <canvas
+              baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card customTableHeaderTop custom-min-height">
+        <div class="card-body p-0">
+          <div class="invoice-paid blue-gray-bg">
+            <div class="card-header customTableHeader blue-gray-bg p-0">
+              <label class="p-10 m-0 customTableTitleLeft curso-pointer" [routerLink]="['/vendors']">Vendor Activity</label>
+              <!-- <small class="m-0 float-right  tableRightBack"
+                ><i class="fa fa-plus"></i> New Job</small
+              > -->
+            </div>
+            <div class="details">
+              <b>{{ counts.jobs }}</b>
+              <p>Active Jobs</p>
+            </div>
+            <div *ngIf="lineChartData && lineChartData.length">
+              <canvas
+                baseChart
+                width="400"
+                height="342"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"
+              >
+              </canvas>
+            </div>
+            <div *ngIf="!lineChartData || !lineChartData.length">
+              <div style="width:400px;height:200px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card customTableHeaderTop custom-min-height">
+        <div class="card-header customTableHeader p-0">
+          <label class="p-10 m-0 customTableTitleLeft">Groups</label>
+          <small class="m-0 float-right  tableRightBack dark-blue-bg"
+            ><i class="fa fa-plus"></i> New Group</small
+          >
+        </div>
+        <div class="table-container card-body p-0">
+          <table
+            *ngIf="groupData && groupData.length"
+            class="table table-responsive-sm table-hover table-outline mb-0"
+          >
+            <thead>
+              <tr>
+                <th class="text-center">S/N</th>
+                <th>Group Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let group of groupData; let i = index">
+                <td class="text-center">
+                  {{ i + 1 }}
+                </td>
+                <td>
+                  <div>{{ group.name }}</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" colspan="2">View all</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="no-record" *ngIf="!groupData.length">
+            <b>No Groups Found</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Info -->
+  <div class="row mt-2">
+    <div class="col-md-4">
+      <div class="card customTableHeaderTop">
+        <div class="card-header customTableHeader p-0">
+          <label class="p-10 m-0 customTableTitleLeft">Customer Activity</label>
+          <small
+            routerLink="/newcustomer"
+            class="m-0 float-right  tableRightBack dark-blue-bg"
+            ><i class="fa fa-plus"></i> New Customer</small
+          >
+        </div>
+        <div class="table-container card-body p-0">
+          <table
+            class="table table-responsive-sm table-hover table-outline mb-0"
+            *ngIf="customerData && customerData.length"
+          >
+            <thead>
+              <tr>
+                <th class="text-center">Logo</th>
+                <th>Name</th>
+                <th>Recent Activity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let customer of customerData">
+                <td class="text-center">
+                  <div class="avatar">
+                    <img
+                      [src]="customer.profile.imageUrl || dummyUser"
+                      class="img-avatar"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div>{{ customer.profile.displayName }}</div>
+                </td>
+                <td>
+                  <span class="avatar-status badge-primary"></span>
+                  <div class="activity-badge {{ customer.class }}">
+                    <span class="pointer"></span>
+                    {{ customer.activity }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="no-record" *ngIf="!customerData.length">
+            <b>No Customer Found</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="card customTableHeaderTop">
+        <div class="card-header customTableHeader p-0">
+          <label class="p-10 m-0 customTableTitleLeft">Technicians</label>
+          <small class="m-0 float-right  tableRightBack dark-blue-bg " [routerLink]="['/newuser']"
+            ><i class="fa fa-plus"></i> New Technician</small
+          >
+        </div>
+        <div class="table-container card-body p-0">
+          <table
+            *ngIf="technicianData.length"
+            class="table table-responsive-sm table-hover table-outline mb-0"
+          >
+            <thead>
+              <tr>
+                <th class="text-center">Photo</th>
+                <th>Name</th>
+                <th>Recent Activity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tech of technicianData">
+                <td class="text-center">
+                  <div class="avatar">
+                    <img
+                      [src]="tech.profile.imageUrl || dummyUser"
+                      class="img-avatar"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    {{ tech.profile.displayName }}
+                  </div>
+                </td>
+                <td>
+                  <span class="avatar-status badge-primary"></span>
+                  <div class="activity-badge {{ tech.profile.status }}">
+                    <span class="pointer"></span>
+                    {{ tech.profile.status }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="no-record" *ngIf="!technicianData.length">
+            <b>No Technicians Found</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 recent-info-boxes">
+      <div class="col-md-12 p-0">
+        <div class="card blue-gray-bg curso-pointer text-white card-box-inner" [routerLink]="['/inventory']">
+          <div class="card-body pb-0 mt-3 mb-4">
+            <div class="col-md-3 col-xs-3">
+              <i class="fa fa-wrench fa-3x" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-9 col-xs-9 padding-right-0">
+              <div class="text-value card-box-count">
+                {{ counts.inventories }}
+              </div>
+              <div class="mb-2 card-box-title curso-pointer">Total Inventory</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 p-0">
+        <div class="card blue-gray-bg text-white card-box-inner curso-pointer" [routerLink]="['/inventory']">
+          <div class="card-body pb-0 mt-3 mb-4">
+            <div class="col-md-3 col-xs-3">
+              <i class="fa fa-wrench fa-3x" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-9 col-xs-9 padding-right-0">
+              <div class="text-value card-box-count">{{ counts.repaired }}</div>
+              <div class="mb-2 card-box-title curso-pointer">Newly Added Inventory</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 p-0">
+        <div class="card blue-gray-bg text-white curso-pointer card-box-inner" [routerLink]="['/buytag']">
+          <div class="card-body pb-0 mt-3 mb-4">
+            <div class="col-md-3 col-xs-3 customImg">
+              <img src="/assets/blue-icon.jpg">
+            </div>
+            <div class="col-md-9 col-xs-9 padding-right-0">
+              <div class="text-value card-box-count">{{ counts.others }}</div>
+              <div class="mb-2 card-box-title">Tags Not Programmed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

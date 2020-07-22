@@ -1,0 +1,41 @@
+
+.control-caption {
+    padding: 5px;
+    text-align: left;
+    font-weight: bold;
+}
+.custom-size{
+    font-size: 17px;
+}
+.div_content{
+    width: 100%; display: grid;
+}
+.header_div{
+    background-color:#0885c5 !important;
+    color: #ffff !important;
+    font-size: 20px
+}
+
+.paneldiv{
+    display: inline-block; 
+    width: 100%; 
+    text-align: left;
+    div{
+        width: 100%; 
+        text-align: left;
+    }
+    img{
+        min-height: 100px; 
+        max-height: 100px; 
+        min-width: 100px; 
+        max-width: 300px; 
+        border: 1px solid #CCC;
+    }
+}
+.body_div{
+    display: inline-block; 
+    width: 100%;
+}
+.custom-height{
+    margin-bottom: 50px !important;
+}

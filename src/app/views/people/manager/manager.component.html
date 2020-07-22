@@ -1,0 +1,104 @@
+<div class="content-heading">
+    <div>
+        <button class="custom-search"> 
+            <input class="form-control" [(ngModel)]="searchOpt.managername" (input)="onChangeSearchValue('managername',searchOpt.managername)" placeholder="Search">
+        </button>
+        <!-- <button class="btn btn-success"  *ngIf=" isAdmin == -1 ? true: false" style="float: right;"  (click)="onCreateManager()">Add Manager</button> -->
+        <!-- new api -->
+        <!-- <button class="btn btn-success" *ngIf=" role == 3 ? true: false"(click)="onCreateManager()">Add Manager</button> -->
+    </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{managerList?.length}}</strong> Users</div>
+       <br/>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="managerList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th *ngIf=" role==0" style="width: 5%;"></th>
+                <th style="width: 5%;" >
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;">
+                    <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 20%; ">
+                    <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td *ngIf=" role==0" ><span class="del-icon fa fa-trash" (click)="onDelete(item)" tooltip="Delete Manager"></span></td>
+                <td >{{idx + 1}}</td>
+                <td>{{item.profile.displayName}}</td>
+                <td>{{item.auth.email}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>   
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+</div>
+
+<modal #addDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">
+        <h3>Add Manager</h3>
+    </modal-header>
+
+    <!-- new api -->
+
+  <modal-body style="text-align:center;">
+
+    <form [formGroup]="managerFrom" class="form-validate mb-lg" role="form" name="managerForm" novalidate="">
+            <div class="control-caption">Email <span style="color:red">*</span></div>
+            <div class="modal_div">
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputEmail" [(ngModel)]="email" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                <span class="text-danger" *ngIf="managerFrom.controls['email'].hasError('required') && (managerFrom.controls['email'].dirty || managerFrom.controls['email'].touched)">This field is required</span>
+                <span class="text-danger" *ngIf="managerFrom.controls['email'].hasError('email') && (managerFrom.controls['email'].dirty || managerFrom.controls['email'].touched)">This field must be a valid email address</span>
+            </div>
+            </div>
+            <div class="control-caption">Password</div>
+            <div class="modal_div">
+                <div class="col-sm-12">
+                <input class="form-control" id="exampleInputpassword" [(ngModel)]="password" type="password" name="password" placeholder="Enter password" autocomplete="off" formControlName="password"/>
+                <span class="text-danger" *ngIf="managerFrom.controls['password'].hasError('required') && (managerFrom.controls['password'].dirty || managerFrom.controls['password'].touched)">This field is required</span>
+                </div> 
+            </div>
+
+        <div class="control-caption">Name <span style="color:red">*</span></div>
+        <div class="modal_div">
+            <div class="col-sm-6">
+                <input class="form-control" id="exampleInputFirstName" [(ngModel)]="firstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+                <span class="text-danger" *ngIf="managerFrom.controls['firstName'].hasError('required') && (managerFrom.controls['firstName'].dirty || managerFrom.controls['firstName'].touched)">This field is required</span>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" id="exampleLastName" [(ngModel)]="lastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+                <span class="text-danger" *ngIf="managerFrom.controls['lastName'].hasError('required') && (managerFrom.controls['lastName'].dirty || managerFrom.controls['lastName'].touched)">This field is required</span>
+            </div>
+        </div>
+
+        <div class="control-caption">Phone</div>
+        <div class="modal_div">
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputphone" [(ngModel)]="phone" type="text" name="phoneNumber" placeholder="Enter phone Number" autocomplete="off" formControlName="phone"/>
+                <span class="text-danger" *ngIf="managerFrom.controls['phone'].hasError('required') && (managerFrom.controls['phone'].dirty || managerFrom.controls['phone'].touched)">This field is required</span>
+             </div>
+         </div>
+    </form>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="checkValidation()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelManager()">Cancel</button>
+    </modal-footer>
+</modal>

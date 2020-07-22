@@ -1,0 +1,12 @@
+<app-list-template 
+    [tableList]="permissions" 
+    [listTitle]="'Permissions'"
+    [listTableHeads]="tableHead"
+    [listTableType]="'permissions'"
+    [displayActivity]="false"
+    [viewUser]="viewUser"
+    [singleTable]="true"
+    [userType]="userType"
+    (searchResult)="updateCurrentSearch($event)"
+    >
+</app-list-template>

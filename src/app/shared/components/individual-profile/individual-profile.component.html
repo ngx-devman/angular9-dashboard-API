@@ -1,0 +1,156 @@
+<div class="individualProfile" *ngIf="accountDetail">
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">account_circle</mat-icon>
+                <span class="ml-10">Accounts</span>
+            </ng-template>
+            <div class="accountDetail col-sm-12">
+                <div class="col-sm-5 accounts mt-2">
+                    <mat-card class="accountsCard">
+                        <h3>Account Details</h3>
+                        <div class="centeredContent" *ngIf="userType == 'Vendor'">
+                            <div class="img" *ngIf="accountDetail.info.logoUrl == ''">
+                                <img src="assets/img/user_avatar.png">
+                            </div>
+                            <div class="img" *ngIf="accountDetail.info.logoUrl != ''">
+                                <img src="{{accountDetail.info.logoUrl}}">
+                            </div>
+                            <h3>{{accountDetail.info.companyName}}</h3>
+                        </div>
+                        <div class="centeredContent" *ngIf="userType != 'Vendor'">
+                            <div class="img" *ngIf="accountDetail.profile.imageUrl == ''">
+                                <img src="assets/img/user_avatar.png">
+                            </div>
+                            <div class="img" *ngIf="accountDetail.profile.imageUrl != ''">
+                                <img src="{{accountDetail.profile.imageUrl}}">
+                            </div>
+                            <h3>{{accountDetail.profile.displayName}}</h3>
+                        </div>
+                        <div class="contact" *ngIf="userType == 'Vendor'">
+                            <h3>Contact</h3>
+                            <div class="singleContact">
+                                <div class="leftHead">
+                                    <mat-icon class="example-tab-icon">email</mat-icon>
+                                    <p>Email Address</p>
+                                </div>
+                                <div class="text">
+                                    <p>{{accountDetail.info.companyEmail}}</p>
+                                </div>
+                            </div>
+                            <div class="singleContact">
+                                <div class="leftHead">
+                                    <mat-icon class="example-tab-icon">phonelink_ring</mat-icon>
+                                    <p>Phone Number</p>
+                                </div>
+                                <div class="text">
+                                    <p>{{accountDetail.contact.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="singleContact">
+                                <div class="leftHead">
+                                    <mat-icon class="example-tab-icon">location_on</mat-icon>
+                                    <p>Location</p>
+                                </div>
+                                <div class="text">
+                                    <p>{{accountDetail.address.street}} {{accountDetail.address.city}} {{accountDetail.address.state}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact" *ngIf="userType != 'Vendor'">
+                            <h3>Contact</h3>
+                            <div class="singleContact">
+                                <div class="leftHead">
+                                    <mat-icon class="example-tab-icon">email</mat-icon>
+                                    <p>Email Address</p>
+                                </div>
+                                <div class="text">
+                                    <p>{{accountDetail.auth.email}}</p>
+                                </div>
+                            </div>
+                            <div class="singleContact">
+                                <div class="leftHead">
+                                    <mat-icon class="example-tab-icon">phonelink_ring</mat-icon>
+                                    <p>Phone Number</p>
+                                </div>
+                                <div class="text">
+                                    <p>{{accountDetail.contact.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="singleContact">
+                                <div class="leftHead">
+                                    <mat-icon class="example-tab-icon">location_on</mat-icon>
+                                    <p>Location</p>
+                                </div>
+                                <div class="text">
+                                    <p>{{accountDetail.address.street}} {{accountDetail.address.city}} {{accountDetail.address.state}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </mat-card>
+                    <div class="editProfile" *ngIf="loggedUser._id === accountDetail._id">
+                        <button class="btn custom-danger custom-btn badge-danger" type="button" (click)="editProfile()">
+                            Edit Profile
+                        </button>
+                    </div>
+                    <div class="editProfile" *ngIf="loggedUser._id === accountDetail._id">
+                        <button class="btn custom-danger custom-btn badge-danger" type="button" (click)="editPassword()">
+                            Update Password
+                        </button>
+                    </div>
+                </div>
+                <div class="recentJobs col-sm-7">
+                    <app-list-template 
+                        [tableList]="accountJobList" 
+                        [listTitle]="'Jobs'"
+                        [listTableHeads]="listTableHeads"
+                        [listTableType]="'vendorJobs'"
+                        [displayActivity]="false"
+                        [userCurrentJobs]="true"
+                        [singleTable]="true"
+                        (searchResult)="updateCurrentSearch($event)"
+                        (editJob)="editTheJob($event)"
+                        (updateJobStatus)="updateCurrentJobStatus($event)"
+                        >
+                    </app-list-template>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Permissions">
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">info</mat-icon>
+                <span class="ml-10">Permissions</span>
+            </ng-template>
+            <div class="permissionDetails">
+                <div class="permissionList col-sm-8">
+                    <app-permissions [permissions]="permissions" [userType]="userType" [tableHead]="tableHead" [viewUser]="accountDetail._id"></app-permissions>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="History">
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">history</mat-icon>
+                <span class="ml-10">History</span>
+            </ng-template>
+            <div class="historyDetails">
+                <div class="historyJobs col-sm-8">
+                    <app-list-template 
+                        [tableList]="historyJobList" 
+                        [listTitle]="'Jobs'"
+                        [listTableHeads]="listTableHeads"
+                        [listTableType]="'vendorJobs'"
+                        [displayActivity]="false"
+                        [userHistoryJobs]="true"
+                        [singleTable]="true"
+                        [jobStatus]="'complete'"
+                        (searchResult)="updatesHistorySearch($event)"
+                        (editJob)="editTheJob($event)"
+                        (updateJobStatus)="updateHistoryJobStatus($event)"
+                        >
+                    </app-list-template>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,43 @@
+<div class="panel panel-default custom-size">
+    <table class="table table-striped" [mfData]="techinfo" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%;text-align: center" >
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center" >
+                    <mfDefaultSorter by="No">Date</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center" >
+                    <mfDefaultSorter by="name"> Sign in</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center" >
+                    <mfDefaultSorter by="name"> Sign out</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center">
+                    <mfDefaultSorter by="email">Location</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center">
+                    <mfDefaultSorter by="phonenumber">Reports</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td style="text-align: center;">{{item.no}}</td>
+                <td style="text-align: center; ">{{item.date}}</td>
+                <td style="text-align: center;">{{item.signin}}</td>
+                <td style="text-align: center;">{{item.signout}}</td>
+                <td style="text-align: center;">{{item.location}}</td>
+                <td style="text-align: center;font-size: 15px;"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

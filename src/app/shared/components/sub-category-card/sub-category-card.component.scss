@@ -1,0 +1,14 @@
+.sub-category {
+  cursor: pointer;
+  border: 1px solid #fbfbfb;
+  background: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 40px;
+
+  &:focus {
+    outline: none;
+  }
+}

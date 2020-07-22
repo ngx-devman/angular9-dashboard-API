@@ -1,0 +1,52 @@
+.card-header{
+    font-size: 18px;
+    font-weight: bold;
+}
+i{
+    font-size: 50px;
+    color: #00C5FB;
+}
+.card-body:hover{   
+    cursor: pointer;
+}
+.carddiv{
+    // display:flex;
+    // justify-content: center; 
+    // margin: 20px 0px;
+    margin-bottom: 35px;
+}
+.cards-body{
+    text-align: center;
+}
+h2{
+    margin-top: 20px;
+}
+modal-body{
+    text-align:center;
+}
+.custom_inputs{
+    width: 100%
+}
+.modal_div{
+    display: inline-block; 
+    width: 100%;
+    
+}
+.group_div{
+    margin-left: 15px; 
+    margin-right: 15px;
+}
+.caption_div{
+    margin-left: 18px;
+    text-align: left !important
+}
+.error{
+    color:red
+}
+.users{
+    background-color: white;
+    text-align: center;
+    height: 65px;
+    margin-top: inherit;
+}
+

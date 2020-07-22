@@ -1,0 +1,248 @@
+<app-back-button [backRoute]="'/customer'"></app-back-button>  
+<div class="row">
+  <div class="col-md-7">
+    <div class="card customTableHeaderTop">
+      <div class="card-header customTableHeader p-0">
+        <label class="p-10 m-0 customTableTitleLeft">
+          Equipment List for Customer: {{ customer_name }} (Number In List
+          {{ equipmentList?.length }} )</label
+        >
+        <small
+          class="m-0 float-right  tableRightBack"
+          *ngIf="role == 3 ? true : false"
+          (click)="onCreateCustomer()"
+          ><i class="fa fa-plus"></i> New Customer</small
+        >
+      </div>
+      <div class="table-container card-body p-0">
+        <table
+          class="table table-responsive-sm table-hover table-outline mb-0"
+          [mfData]="equipmentList"
+          #mf="mfDataTable"
+          [mfRowsOnPage]="10"
+        >
+          <thead>
+            <tr>
+              <th style="width: 5%;">
+                <mfDefaultSorter by="No">No.</mfDefaultSorter>
+              </th>
+              <th style="width: 20% ;">Image</th>
+              <th style="width: 15%  ;">
+                <mfDefaultSorter by="type">Machine Type</mfDefaultSorter>
+              </th>
+              <th style="width: 15%;">
+                <mfDefaultSorter by="brandName">Brand</mfDefaultSorter>
+              </th>
+              <th style="width: 15%;">
+                <mfDefaultSorter by="model">Model</mfDefaultSorter>
+              </th>
+              <th style="width: 10%;">Serial Number</th>
+              <th style="width: 20%; ">Location of Unit</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="mf.data.length > 0">
+            <tr *ngFor="let item of mf.data; let idx = index">
+              <td>{{ idx + 1 }}</td>
+              <td>
+                <img
+                  style="width: 25%"
+                  src="{{ item.info.imageUrl }}"
+                  (click)="onDetailImg(item.imgUrl)"
+                />
+              </td>
+              <td *ngIf="item.type == null"></td>
+              <td *ngIf="item.type != null">{{ item.type.title }}</td>
+              <td>{{ item.brand.title }}</td>
+              <td>{{ item.info.model }}</td>
+              <td>{{ item.info.serialNumber }}</td>
+              <td>{{ item.info.location }}</td>
+              <td></td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="mf.data.length == 0">
+            <tr>
+              <td colspan="8">
+                No Record Found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="card customTableHeaderTop">
+      <div class="card-header customTableHeader p-0">
+        <label class="p-10 m-0 customTableTitleLeft">Recent Activity</label>
+      </div>
+      <div class="table-container card-body p-0">
+        <table class="table table-responsive-sm table-hover table-outline mb-0">
+          <thead>
+            <tr>
+              <th>Tech</th>
+              <th>Equipment</th>
+              <th>Recent Activity</th>
+              <th>Report</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AB Test</td>
+              <td>A876ASQOIJH78</td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box blue_background">
+                  <div class="status_dot blue_dot"></div>
+                  <div>Job Schedule</div>
+                </div>
+              </td>
+              <td>
+                <i class="fa fa-eye pr-1 custom-pointer" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Test B</td>
+              <td>PI8EYER464ETO</td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box green_background">
+                  <div class="status_dot green_dot"></div>
+                  <div>Active</div>
+                </div>
+              </td>
+              <td>
+                <i class="fa fa-eye pr-1 custom-pointer" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Test C</td>
+              <td>ZUI6YER464ETO</td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box yellow_background">
+                  <div class="status_dot yellow_dot"></div>
+                  <div>Pending</div>
+                </div>
+              </td>
+              <td>
+                <i class="fa fa-eye pr-1 custom-pointer" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Test C</td>
+              <td>QUIRY2R364ETZ</td>
+              <td class="custom-text-color">
+                <div class="recent_activity_box grey_background">
+                  <div class="status_dot grey_dot"></div>
+                  <div>Not Schedule</div>
+                </div>
+              </td>
+              <td>
+                <i class="fa fa-eye pr-1 custom-pointer" aria-hidden="true"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="panel panel-default custom-size">
+  <div class="panel-heading">
+    <div class="pull-right text-muted">
+      <em class="fa fa-user mr-sm"></em> Number In List:
+      <strong>{{ equipmentList?.length }}</strong>
+    </div>
+    <br />
+  </div>
+  <table
+    class="table table-striped"
+    [mfData]="equipmentList"
+    #mf="mfDataTable"
+    [mfRowsOnPage]="10"
+  >
+    <thead>
+      <tr>
+        <th style="width: 5%;">
+          <mfDefaultSorter by="No">No.</mfDefaultSorter>
+        </th>
+        <th style="width: 20% ;">Image</th>
+        <th style="width: 15%  ;">
+          <mfDefaultSorter by="type">Machine Type</mfDefaultSorter>
+        </th>
+        <th style="width: 15%;">
+          <mfDefaultSorter by="brandName">Brand</mfDefaultSorter>
+        </th>
+        <th style="width: 15%;">
+          <mfDefaultSorter by="model">Model</mfDefaultSorter>
+        </th>
+        <th style="width: 10%;">Serial Number</th>
+        <th style="width: 20%; ">Location of Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <button class="custom-search">
+            <input
+              class="form-control"
+              [(ngModel)]="searchOpt.typename"
+              (input)="onChangeSearchValue('typename', searchOpt.typename)"
+              placeholder="Search"
+            />
+          </button>
+        </td>
+        <td>
+          <button class="custom-search">
+            <input
+              class="form-control"
+              [(ngModel)]="searchOpt.brandname"
+              (input)="onChangeSearchValue('brandname', searchOpt.brandname)"
+              placeholder="Search"
+            />
+          </button>
+        </td>
+        <td>
+          <button class="custom-search">
+            <input
+              class="form-control"
+              [(ngModel)]="searchOpt.modelname"
+              (input)="onChangeSearchValue('modelname', searchOpt.modelname)"
+              placeholder="Search"
+            />
+          </button>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="line-hover" *ngFor="let item of mf.data; let idx = index">
+        <td>{{ idx + 1 }}</td>
+        <td>
+          <img
+            style="width: 25%"
+            src="{{ item.info.imageUrl }}"
+            (click)="onDetailImg(item.imgUrl)"
+          />
+        </td>
+        <td *ngIf="item.type == null"></td>
+        <td *ngIf="item.type != null">{{ item.type.title }}</td>
+        <td>{{ item.brand.title }}</td>
+        <td>{{ item.info.model }}</td>
+        <td>{{ item.info.serialNumber }}</td>
+        <td>{{ item.info.location }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="8">
+          <mfBootstrapPaginator
+            [rowsOnPageSet]="[5, 10, 15]"
+          ></mfBootstrapPaginator>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <toaster-container [toasterconfig]="config"></toaster-container>
+</div> -->

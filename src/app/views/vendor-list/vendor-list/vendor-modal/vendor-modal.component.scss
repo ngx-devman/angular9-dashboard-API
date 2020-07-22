@@ -1,0 +1,59 @@
+.vendorModal{
+    margin: -24px;
+}
+.vendorContent{
+    padding: 30px
+}
+.heading{
+    display: flex;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    background: #0885c5;
+    color: #fff;
+}
+.vendorSearch{
+    display: flex;
+    margin-bottom: 15px;
+    form{
+        display: flex;
+        flex: 1;
+    }
+    .search{
+        flex: 1;
+        margin-right: 10px;
+        input{
+            border-radius: 0;
+        }
+    }
+    .searchAction{
+        button{
+            border-radius: 0;
+        }
+    }
+}
+.inviteUser{
+    display: flex;
+    align-items: center;
+    .title{
+        margin-right: 10px;
+        flex: 1;
+        p{
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+    }
+    .actionBtn{
+        button{
+            border-radius: 0;
+        }
+    }
+}
+.searchedUser{
+    .userAction{
+        text-align: right;
+        button{
+            border-radius: 0;
+        }
+    }
+}

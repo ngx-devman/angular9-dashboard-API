@@ -1,0 +1,85 @@
+<div class="admin-element-container" cdkDropListGroup>
+    <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+    <div cdkDropList *ngFor="let item of navItems"
+        [cdkDropListEnterPredicate]="dropListEnterPredicate" 
+        (cdkDropListDropped)="dropListDropped($event)"
+        >
+        <app-admin-card cdkDrag [item]="item" (onClick)="OnClick($event)" (cdkDragMoved)="dragMoved($event);" style="border-radius: 15px !important;"></app-admin-card>
+    </div>
+</div>
+
+<div class="row carddiv" >
+    <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container>
+</div>
+<modal #brandDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+            <div class="modal-header" class="text-center">
+                <h2 >Add Brand</h2>
+            </div>
+    </modal-header>
+    <modal-body >
+        <div class="control-caption">Brand Name <span style="color:red">*</span></div>
+        <input class="form-control" style="width: 100%" type="text"   [(ngModel)]="brandtitle" (keyup)="addBrand($event)" list="dynmicUserIds" id="autocomplete">
+        <datalist id="dynmicUserIds">
+            <option *ngFor="let k of Brands">  {{k.title}} </option>
+         </datalist>
+        <span class="valmsg">*Field Required</span>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmBrand()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelBrand()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #typeDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+            <h2 style="margin-top: 20px;">Add Equipment Type</h2>
+    </modal-header>
+    
+    <modal-body >
+        <div class="control-caption">Equipment Type Name</div>
+        <input class="form-control custom_inputs" type="text" [(ngModel)]="typetitle" (keyup)="addEquipType($event)" list="dynmicUserTypeIds" id="autocomplete">
+        <datalist id="dynmicUserTypeIds">
+            <option *ngFor="let typeLists of typeData">  {{typeLists.name}} </option>
+        </datalist>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmType()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelType()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #groupDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header  class="modelHeader">
+        <h2 >{{actionType == 0 ? 'Add Group' : 'Update Group'}}</h2>
+    </modal-header>
+    <modal-body >
+        <div class="control-caption">Group Name   </div>
+            <div  class="modal_div group_div">
+                <input class="form-control custom_inputs" type="text" placeholder="Name" [(ngModel)]="groupInfo.Name" (keyup)="addGroup($event)" list="dynmicGroupIds" id="autocomplete">
+                <datalist id="dynmicGroupIds">
+                        <option *ngFor="let listGroups of listGroup">  {{listGroups.group_name}} </option>
+                </datalist>
+            </div>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmGroupAdd()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelGroupAdd()">Cancel</button>
+    </modal-footer>
+</modal>
+<modal #JobDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+            <h2>{{actionType == 0 ? 'Add Job Type' : 'Update Job Type'}}</h2>
+    </modal-header>
+
+    <modal-body >
+        <div class="control-caption">Job Type</div>
+        <input class="form-control" id="title" [(ngModel)]="title" type="text" name="title" placeholder="Title" />
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmJobType()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelJobType()">Cancel</button>
+    </modal-footer>
+  
+</modal>

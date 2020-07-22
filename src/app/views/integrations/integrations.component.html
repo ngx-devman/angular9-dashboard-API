@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-sm-6">
+    <app-quickbooks
+      (callToast)="toast($event)">
+    </app-quickbooks>
+  </div>
+</div>
+
+<toaster-container 
+  [toasterconfig]="config">
+</toaster-container>

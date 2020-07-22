@@ -1,0 +1,8 @@
+
+<app-back-button [backRoute]="'/admin'"></app-back-button>
+
+<div class="row" style="margin: 0px;">
+    <div class="admin-element-container" *ngFor="let role of roles">
+        <app-admin-card [item]="role" (click)="navigate(role.href)"></app-admin-card>
+    </div>
+</div>

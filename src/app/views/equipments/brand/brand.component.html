@@ -1,0 +1,62 @@
+<div class="content-heading">
+    <div class="header_div">
+        <button class="custom-search"> 
+                <td><input class="form-control" [(ngModel)]="searchOpt.brand" (input)="onChangeValue('brand',searchOpt.brand)" placeholder="Search"></td>
+        </button>
+        <!-- <button class="btn btn-success" (click)="onCreateBrand()">Add</button> -->
+    </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"> Number In List: <strong>{{brandList?.length}}</strong></div>
+    <br/>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="brandList" #mf="mfDataTable" [mfRowsOnPage]="10" >
+        <thead>
+            <tr>
+                <th style="width: 5%;text-align: center;">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20% ;text-align: center;" >
+                    <mfDefaultSorter by="name">Brand</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td  style="width: 10%;text-align: center; ">{{idx + 1}}</td>
+                <td  style="width: 10%;text-align: center;">{{item.title}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+</div>
+<modal #brandDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+            <div class="modal-header" class="text-center">
+                <h2 >Add Brand</h2>
+            </div>
+    </modal-header>
+    <modal-body >
+        <div class="control-caption">Brand Name <span style="color:red">*</span></div>
+        <input class="form-control" style="width: 100%" type="text"   [(ngModel)]="title" (keyup)="addBrand($event)" list="dynmicUserIds" id="autocomplete">
+        <datalist id="dynmicUserIds">
+            <option *ngFor="let k of Brands">  {{k.title}} </option>
+         </datalist>
+        <span class="valmsg">*Field Required</span>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmBrand()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelBrand()">Cancel</button>
+    </modal-footer>
+</modal>

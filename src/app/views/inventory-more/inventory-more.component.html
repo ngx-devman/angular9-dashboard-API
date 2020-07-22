@@ -1,0 +1,41 @@
+<div class="content-heading">
+    <div class= "header_div">
+        <button class="custom-search"> 
+                <input class="form-control"  placeholder="Search">
+        </button>
+    </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <table class="table table-striped" [mfData]="inventoryName" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+          <tr>
+            <th style="width: 10%;text-align: center;" >
+                <mfDefaultSorter by="name">Product Id</mfDefaultSorter>
+            </th>
+            <th style="width:10%;text-align: center;" >
+                <mfDefaultSorter by="name">Brand</mfDefaultSorter>
+            </th>
+            <th style="width:10%;text-align: center;" >
+                <mfDefaultSorter by="name">Count</mfDefaultSorter>
+            </th>
+
+          </tr>
+      </thead> 
+      <tbody>
+          <tr  class="line-hover" > 
+               <td style=" text-align: center;">2353</td>
+               <td style="text-align: center;">Brand 1</td>
+               <td style="text-align: center;">1</td>
+          </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+            <td colspan="5">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+      </tfoot>
+    </table>
+
+</div>

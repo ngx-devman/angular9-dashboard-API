@@ -1,0 +1,55 @@
+
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div>
+            <div class="row" >
+                <div class="col-2" style="text-align: center">
+                    <div class="control-caption">Select technician </div>
+                </div>
+                <div class="col-4">
+                    <input class="form-control" type="text"   [(ngModel)]="techname" (keyup)="addtechnician($event)" list="dynmicUserIds" id="autocomplete">
+                    <datalist id="dynmicUserIds">
+                        <option *ngFor="let technicianLists of technicianList"> {{technicianLists.firstName}} {{technicianLists.lastName}}</option>
+                    </datalist>
+                </div>
+            </div>  
+        </div>
+    </div>
+   
+    <table class="table table-striped" [mfData]="technicianList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 40%;text-align: center;" >
+                    <mfDefaultSorter by="name">Functionility</mfDefaultSorter>
+                </th>
+                <th style="width: 15%;text-align: center;">
+                    <mfDefaultSorter by="name">View</mfDefaultSorter>
+                </th>
+                <th style="width: 15%;text-align: center;">
+                    <mfDefaultSorter by="name">Add / Edit</mfDefaultSorter>
+                </th>    
+            </tr>
+        </thead> 
+        <tbody>
+            <tr  class="line-hover"  *ngFor="let navItem of items " >
+                 <td style="width: 5%; text-align: center;" >{{navItem.name}}</td>
+                 <td style="width: 15%;text-align: center;">
+                    <input type="checkbox" value="" name="View" />
+                </td>
+                <td style="width: 15%;text-align: center;">
+                    <input type="checkbox" value="" name="Add" />
+                </td>
+                <td></td> 
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+</div>

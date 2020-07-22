@@ -1,0 +1,9 @@
+<div class="row">
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <div class="singleOption" *ngFor="let item of navItems; let i = index;" [class.active]="item.active">
+                <p (click)="updateRoute(item, i)">{{item.label}}</p>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</div>

@@ -1,0 +1,481 @@
+<!-- <div class="content-heading" >
+    <div class= "header_div">
+        <button class="custom-search"> 
+                <input class="form-control" [(ngModel)]="searchOpt.name" (input)="onChangeSearchValue('name',searchOpt.name)" placeholder="Search">
+        </button>
+        <button class="btn btn-success" *ngIf=" role == 3 ? true: false"   (click)="onCreateCustomer()">Add Customer</button>
+    </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+            <button class="btn btn-oval btn-default" type="button"  (click)="getCustomer('true','false')">Active</button>
+            <button class="btn btn-oval btn-default" type="button" (click)="getCustomer('false','true')">Inactive</button>
+            <div class="pull-right text-muted custom_label"> Number In List: <strong>{{custList?.length}}</strong></div>
+        <br/>
+    </div>
+    <br/>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="custList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%;">
+                    <mfDefaultSorter by="View"> </mfDefaultSorter>
+                </th>
+                <th style="width: 5%;">
+                    <mfDefaultSorter by="View"> </mfDefaultSorter>
+                </th>
+             
+                    
+                <th  style="width: 5%;" >
+                    <mfDefaultSorter by="View">View</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;" >
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20% ;">
+                    <mfDefaultSorter by="name ">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 20% ;">
+                    <mfDefaultSorter by="email">Email</mfDefaultSorter> 
+                </th>
+                <th style="width: 20% ;">
+                    <mfDefaultSorter by="phoneNumber">Phone Number </mfDefaultSorter>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td ><span class="cui-file"  aria-hidden="true" tooltip="View Job List" (click)="goToVisitList(item)" ></span> </td>
+                <td ><span  class="cui-wrench"  tooltip="View Equipment"(click)="Equiplist(item)"></span></td>
+                <td><span class="edit-icon fa fa-edit" (click)="onEditCustomer(item)"  tooltip="Edit Contact Information"></span></td>
+                <td  *ngIf="role==0"><span class="del-icon fa fa-trash" (click)="Opendelete()" tooltip="Delete Customer" ></span></td>     
+                <td>{{idx + 1}}</td>
+                <td>{{item?.info?.name}}</td>
+                <td>{{item?.info?.email}}</td>
+                <td>{{item?.contact?.phone}}</td>
+                <td><button  class="btn btn-success"  (click)="goToViewCustomer(item)">View Customer</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>  
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table> 
+</div>
+    <toaster-container [toasterconfig]="config" class="toaster-icon "></toaster-container>
+</div>
+
+
+<modal #custDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <div class="modal-header" class="text-center">
+            <h2 *ngIf="!flag" style="margin-top: 20px;">Add Customer</h2>
+            <h2 *ngIf="flag" style="margin-top: 20px;">Update Customer</h2>
+        </div>
+    </modal-header>
+
+    <modal-body style="text-align:center;">
+        <form [formGroup]="customerFrom" class="form-validate mb-lg" role="form" name="customerFrom" novalidate="">
+            <div class="control-caption">Name  
+                <div class="model_body_div" >
+                    <input class="form-control"  type="text" placeholder="Name" [(ngModel)]="name"  formControlName="name" required="" >
+                    <span class="text-danger" *ngIf="customerFrom.controls['name'].hasError('required') && (customerFrom.controls['name'].dirty || customerFrom.controls['name'].touched)">This field is required</span>
+                </div>
+            </div>
+        
+            <div class="control-caption">Email  
+                <div class="model_body_div">
+                    <input class="form-control"  type="text" placeholder="Email" [(ngModel)]="email" formControlName="email" required="" >
+                    <span class="text-danger" *ngIf="customerFrom.controls['email'].hasError('required') && (customerFrom.controls['email'].dirty || customerFrom.controls['email'].touched)">This field is required</span>
+                    <span class="text-danger" *ngIf="customerFrom.controls['email'].hasError('email') && (customerFrom.controls['email'].dirty || customerFrom.controls['email'].touched)">This field must be a valid email address</span>
+                </div>
+            </div>
+        </form>
+        <div class="control-caption">Other Information
+            <div class="model_body_div">
+                <div class="col-sm-6">
+                    <div class="control-caption">Contact Name</div>
+                    <input class="form-control" type="text" placeholder="Contact Name" [(ngModel)]="contactName">
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-caption">Phone Number</div>
+                    <input class="form-control"  type="text" placeholder="Phone Number" [(ngModel)]="phone">
+                </div>
+            </div>
+    
+            <div class="model_body_div">
+                <div class="col-sm-6">
+                    <div class="control-caption">Street</div>
+                    <input class="form-control" type="text" placeholder="Street" [(ngModel)]="street">
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-caption">City</div>
+                    <input class="form-control"  type="text" placeholder="City" [(ngModel)]="city">
+                </div>
+            </div>
+    
+            <div class="model_body_div">
+                <div class="col-sm-6">
+                    <div class="control-caption">State</div>
+                    <input class="form-control"  type="text" placeholder="State" [(ngModel)]="state">
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-caption">ZipCode</div>
+                    <input class="form-control"  type="text" placeholder="Zip Code" [(ngModel)]="zipCode">
+                </div>
+            </div>
+        </div>
+    </modal-body>
+    <modal-footer class="footer">
+        <button class="btn btn-success" (click)="onConfirmCustomer()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelCustomer()">Cancel</button>
+    </modal-footer>
+</modal> -->
+
+<div class="content-heading">
+    <div class="header_div">
+      <button class="custom-search">
+        <input
+          class="form-control"
+          [(ngModel)]="searchOpt.name"
+          (input)="onChangeSearchValue('name', searchOpt.name)"
+          placeholder="Search"
+        />
+      </button>
+      <button
+        class="btn btn-success"
+        *ngIf="role == 3 ? true : false"
+        (click)="onCreateCustomer()"
+      >
+        Add Customer
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-8">
+      <div class="panel panel-default custom-size">
+        <div class="panel-heading">
+          <!-- <div> -->
+          <button
+            class="btn btn-oval btn-default"
+            type="button"
+            (click)="getCustomer('true', 'false')"
+          >
+            Active
+          </button>
+          <button
+            class="btn btn-oval btn-default"
+            type="button"
+            (click)="getCustomer('false', 'true')"
+          >
+            Inactive
+          </button>
+          <div class="pull-right text-muted custom_label">
+            Number In List: <strong>{{ custList?.length }}</strong>
+          </div>
+          <!-- </div> -->
+          <br />
+        </div>
+        <br />
+        <div class="table-responsive">
+          <table
+            class="table table-striped"
+            [mfData]="custList"
+            #mf="mfDataTable"
+            [mfRowsOnPage]="10"
+          >
+            <thead>
+              <tr>
+                <th style="width: 5%;">
+                  <mfDefaultSorter by="View"> </mfDefaultSorter>
+                </th>
+                <th style="width: 5%;">
+                  <mfDefaultSorter by="View"> </mfDefaultSorter>
+                </th>
+                <!-- <th style="width: 5%;">
+                                  <mfDefaultSorter by="View"> </mfDefaultSorter>
+                              </th> -->
+  
+                <th style="width: 5%;">
+                  <mfDefaultSorter by="View">View</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;">
+                  <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20% ;">
+                  <mfDefaultSorter by="name ">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 20% ;">
+                  <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 20% ;">
+                  <mfDefaultSorter by="phoneNumber"
+                    >Phone Number
+                  </mfDefaultSorter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="line-hover"
+                *ngFor="let item of mf.data; let idx = index"
+              >
+                <td>
+                  <span
+                    class="cui-file"
+                    aria-hidden="true"
+                    tooltip="View Job List"
+                    (click)="goToVisitList(item)"
+                  ></span>
+                </td>
+                <td>
+                  <span
+                    class="cui-wrench"
+                    tooltip="View Equipment"
+                    (click)="Equiplist(item)"
+                  ></span>
+                </td>
+                <td>
+                  <span
+                    class="edit-icon fa fa-edit"
+                    (click)="onEditCustomer(item)"
+                    tooltip="Edit Contact Information"
+                  ></span>
+                </td>
+                <td *ngIf="role == 0">
+                  <span
+                    class="del-icon fa fa-trash"
+                    (click)="Opendelete()"
+                    tooltip="Delete Customer"
+                  ></span>
+                </td>
+                <td>{{ idx + 1 }}</td>
+                <td>{{ item?.info?.name }}</td>
+                <td>{{ item?.info?.email }}</td>
+                <td>{{ item?.contact?.phone }}</td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5">
+                  <mfBootstrapPaginator
+                    [rowsOnPageSet]="[5, 10, 15]"
+                  ></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <toaster-container
+          [toasterconfig]="config"
+          class="toaster-icon "
+        ></toaster-container>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Recent Activity
+        </div>
+        <div class="card-body p0">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0 table-middle-align">
+              <thead>
+                <tr>
+                  <th>Logo</th>
+                  <th>Name</th>
+                  <th>Recent Activity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="avatar">
+                      <img
+                        src="assets/img/user_avatar.png"
+                        class="img-avatar"
+                        alt="admin@bootstrapmaster.com"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div>Jon</div>
+                  </td>
+                  <td>
+                    <div class="clearfix">
+                      <div>
+                        Job Schedule
+                      </div>
+                      <small class="text-muted">--</small>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-oval btn-default ">
+                      View more
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <modal
+    #custDlg
+    data-toggle="modal"
+    data-backdrop="static"
+    data-keyboard="false"
+  >
+    <modal-header class="modelHeader">
+      <div class="modal-header" class="text-center">
+        <h2 *ngIf="!flag" style="margin-top: 20px;">Add Customer</h2>
+        <h2 *ngIf="flag" style="margin-top: 20px;">Update Customer</h2>
+      </div>
+    </modal-header>
+  
+    <modal-body style="text-align:center;">
+      <form
+        [formGroup]="customerFrom"
+        class="form-validate mb-lg"
+        role="form"
+        name="customerFrom"
+        novalidate=""
+      >
+        <div class="control-caption">
+          Name
+          <div class="model_body_div">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="name"
+              formControlName="name"
+              required=""
+            />
+            <span
+              class="text-danger"
+              *ngIf="
+                customerFrom.controls['name'].hasError('required') &&
+                (customerFrom.controls['name'].dirty ||
+                  customerFrom.controls['name'].touched)
+              "
+              >This field is required</span
+            >
+          </div>
+        </div>
+  
+        <div class="control-caption">
+          Email
+          <div class="model_body_div">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Email"
+              [(ngModel)]="email"
+              formControlName="email"
+              required=""
+            />
+            <span
+              class="text-danger"
+              *ngIf="
+                customerFrom.controls['email'].hasError('required') &&
+                (customerFrom.controls['email'].dirty ||
+                  customerFrom.controls['email'].touched)
+              "
+              >This field is required</span
+            >
+            <span
+              class="text-danger"
+              *ngIf="
+                customerFrom.controls['email'].hasError('email') &&
+                (customerFrom.controls['email'].dirty ||
+                  customerFrom.controls['email'].touched)
+              "
+              >This field must be a valid email address</span
+            >
+          </div>
+        </div>
+      </form>
+      <div class="control-caption">
+        Other Information
+        <div class="model_body_div">
+          <div class="col-sm-6">
+            <div class="control-caption">Contact Name</div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Contact Name"
+              [(ngModel)]="contactName"
+            />
+          </div>
+          <div class="col-sm-6">
+            <div class="control-caption">Phone Number</div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Phone Number"
+              [(ngModel)]="phone"
+            />
+          </div>
+        </div>
+  
+        <div class="model_body_div">
+          <div class="col-sm-6">
+            <div class="control-caption">Street</div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Street"
+              [(ngModel)]="street"
+            />
+          </div>
+          <div class="col-sm-6">
+            <div class="control-caption">City</div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="City"
+              [(ngModel)]="city"
+            />
+          </div>
+        </div>
+  
+        <div class="model_body_div">
+          <div class="col-sm-6">
+            <div class="control-caption">State</div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="State"
+              [(ngModel)]="state"
+            />
+          </div>
+          <div class="col-sm-6">
+            <div class="control-caption">ZipCode</div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Zip Code"
+              [(ngModel)]="zipCode"
+            />
+          </div>
+        </div>
+      </div>
+    </modal-body>
+    <modal-footer class="footer">
+      <button class="btn btn-success" (click)="onConfirmCustomer()">OK</button>
+      <button class="btn btn-danger" (click)="onCancelCustomer()">Cancel</button>
+    </modal-footer>
+  </modal>
+  

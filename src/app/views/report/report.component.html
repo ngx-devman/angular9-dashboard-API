@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-md-12">
+    <app-back-button [backRoute]="'/schedule'"></app-back-button>
+    <div class="card customTableHeaderTop" *ngIf="currentReport">
+      <div class="card-header customTableHeader p-0">
+        <label class="p-10 m-0 customTableTitleLeft">
+          Work Report: {{currentReport.job.jobId}}
+        </label>
+        <button class="btn print-btn"><i class="fa fa-print" style="margin-right: 10px;"></i>Print</button>
+      </div>
+      <div class="reports-container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-4 no-padding">
+              <div class="card detail-card mr-15">
+                <div class="report-card-header">
+                  <p>From</p>
+                </div>
+                <div class="reportCardLogo">
+                  <img src="{{currentReport.job.company.info.logoUrl}}">
+                </div>
+                <div class="report-card-title">
+                  <p>{{currentReport.job.company.info.companyName}}</p>
+                </div>
+                <ul>
+                  <li>
+                    <i class="fa fa-map-marker" style="font-size: 16px;"></i><span>{{currentReport.job.company?.address?.street}}</span> 
+                  </li>
+                  <li>
+                    <span>{{currentReport.job.company?.address?.city}} {{currentReport.job.company?.address?.state}} {{currentReport.job.company?.address?.zipCode}}</span> 
+                  </li>
+                  <li>
+                    <i class="fa fa-mobile" style="font-size: 18px;"></i><span>{{currentReport.job.company?.contact?.phone}}</span></li>
+                  <li>
+                    <i class="fa fa-envelope-o" style="font-size: 12px;"></i><span>{{currentReport.job.company?.auth?.email}}</span> 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4 no-padding">
+              <div class="card detail-card mr-15">
+                <div class="report-card-header">
+                  <p>To</p>
+                </div>
+                <div class="report-card-title">
+                  <p>{{currentReport.job.customer?.profile?.displayName}}</p>
+                </div>
+                <ul>
+                  <li>
+                    <i class="fa fa-mobile" style="font-size: 18px;"></i><span>{{currentReport.job.customer?.contact?.phone}}</span></li>
+                  <li>
+                    <i class="fa fa-map-marker" style="font-size: 16px;"></i><span>{{currentReport.job.customer?.address?.street}} {{currentReport.job.customer?.address?.city}} {{currentReport.job.customer?.address?.state}}</span> 
+                  </li>
+                  <li>
+                    <i class="fa fa-envelope-o" style="font-size: 12px;"></i><span>{{currentReport.job.customer.info.email}}</span> 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4 no-padding">
+              <div class="card detail-card details">
+                <div class="report-card-header">
+                  <p>Details</p>
+                </div>
+                <div class="row m-0">
+                  <div class="col-md-12 card-item">
+                    <div class="col-md-6 no-padding sub-title"><span>Job Type</span></div>
+                    <div class="col-md-6 text-right no-padding sub-content"><span>{{currentReport.job.type.title}}</span></div>
+                  </div>
+                  <div class="col-md-12 card-item">
+                    <div class="col-md-6 no-padding sub-title"><span>Date</span></div>
+                    <div class="col-md-6 text-right no-padding sub-content"><span>{{currentReport.job.dateTime | date:'longDate'}}</span></div>
+                  </div>
+                  <div class="col-md-12 card-item">
+                    <div class="col-md-6 no-padding sub-title"><span>Time</span></div>
+                    <div class="col-md-6 text-right no-padding sub-content"><span>{{currentReport.job.dateTime | date:'shortTime'}}</span></div>
+                  </div>
+                  <div class="col-md-12 card-item">
+                    <div class="col-md-6 no-padding sub-title"><span>Technician</span></div>
+                    <div class="col-md-6 text-right no-padding sub-content"><span>{{currentReport.job.technician.profile.displayName}}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-15">
+            <div class="description-card">
+              <p class="description-title">Job Details</p>
+              <p class="description-content">
+                {{currentReport.job.ticket.note}}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <!-- <div class="description-card mb-15">
+              <div class="singleDesc" *ngFor="let scan of currentReport.scans">
+                <p class="description-title">Technician Notes</p>
+                <p class="description-content">
+                  {{scan.comment}}
+                </p>
+              </div>
+            </div> -->
+            <div class="table-custom-container mb-15" *ngFor="let scan of currentReport.scans">
+              <table class="table table-responsive-sm table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>Picture</th>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Equipment ID</th>
+                    <th>Equipment Type</th>
+                    <th>Equipment Brand</th>
+                    <th>Date</th>
+                    <th>Time Of Scan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="avatar">
+                        <img
+                          src="{{scan.equipment.images[0]}}"
+                          class="img-avatar"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      {{scan.equipment.info.model}}
+                    </td>
+                    <td>
+                      {{scan.equipment.info.serialNumber}}
+                    </td>
+                    <td>
+                      {{scan.equipment.info.nfcTag}}
+                    </td>
+                    <td>
+                      {{scan.equipment.type.title}}
+                    </td>
+                    <td>
+                      {{scan.equipment.brand.title}}
+                    </td>
+                    <td>
+                      {{scan.timeOfScan | date:'mediumDate'}}
+                    </td>
+                    <td>
+                      {{scan.timeOfScan | date:'shortTime'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>  
+              <div class="singleDesc mt-15">
+                <p class="description-title">Technician Notes</p>
+                <p class="description-content">
+                  {{scan.comment}}
+                </p>
+              </div>            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

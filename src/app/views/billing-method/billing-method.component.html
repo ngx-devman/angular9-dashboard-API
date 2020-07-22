@@ -1,0 +1,224 @@
+
+<div class="content-heading" >
+  <div style= "text-align: center;">
+      <button class="btn btn-success" style="float: right;"  (click)="onCreateCard()">Add Card</button>
+  </div>
+  <br/>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+  <div class="panel-heading">
+    <div>
+      <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em> Number In List: <strong>{{cardData?.length}}</strong></div>
+    </div>
+      <br/>
+  </div>
+  <table class="table table-striped" [mfData]="cardData" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <thead>
+          <tr>
+              <th style="width: 10%;text-align: center;">
+                <mfDefaultSorter by="View"> </mfDefaultSorter>
+              </th>
+              <th style="width: 10%;text-align: center;">
+                <mfDefaultSorter by="View"> </mfDefaultSorter>
+              </th>
+              <!-- <th style="width: 10%;text-align: center;" >
+                  <mfDefaultSorter by="No">No.</mfDefaultSorter>
+              </th> -->
+              <th style="width: 25% ;text-align: center;">
+                  <mfDefaultSorter by="cardname ">CardHolder Name</mfDefaultSorter>
+              </th>
+              <th style="width: 25% ;text-align: center;">
+                  <mfDefaultSorter by="cardnumber">Card Number</mfDefaultSorter> 
+              </th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;"   >
+            <td style="text-align: center;"><span class="cui-file" style="color: brown; font-size: 20px;" aria-hidden="true" tooltip="View card" (click)="viewcard(item)"></span> </td>
+            <td style="text-align: center;"><span style="color: brown; font-size: 20px;"  class="del-icon fa fa-trash" (click)="onDelete(item)" tooltip="Delete card"></span></td>
+            <!-- <td style="text-align: center;">{{idx + 1}}</td> -->
+            <td style="text-align: center;">{{item.cardname}}</td>
+            <td style="text-align: center;">{{item.ending}}</td>
+          </tr>
+      </tbody>
+      <tfoot>
+        <tr>  
+          <td colspan="5">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+  </table> 
+  <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container>
+</div>
+
+<div bsModal #cardDlg="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cardDlgLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Payment Details</h4>
+        <button type="button" class="close" (click)="cardDlg.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <form class="stripe-form">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                  </div>
+                  <input type="text" id="nameOnCard" name="nameOnCard" [(ngModel)]="nameOnCard" class="form-control field is-empty" placeholder="Name On Card">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row monthdiv">
+              <label>Credit or debit card </label>
+                <div class="col-md-12">
+                  <div id="card-element" class="field is-empty">
+                  </div>
+                </div>
+
+              <div class="outcome">
+                <div class="error" role="alert"></div>
+                    <div class="success" >
+                    Success! Your Stripe token is <span class="token"></span>
+                </div>
+              </div>
+            </div>  
+            <div class="form-group row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                    </div>
+                    <input type="text" id="input1-group1" name="address" [(ngModel)]="addressForPayment" class="form-control field is-empty" placeholder="Address">
+                  </div>
+              </div>
+            </div>   
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-building-o"></i></span>
+                  </div>
+                  <input type="text" id="city" name="city" [(ngModel)]="cityForPayment" class="form-control field is-empty"  placeholder="City">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                </div>
+                <input type="text" id="state" name="state" [(ngModel)]="stateForPayment" class="form-control field is-empty" placeholder="State">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-file-archive-o"></i></span>
+                  </div>
+                  <input type="text" id="zip" name="zip" [(ngModel)]="zipForPayment" class="form-control field is-empty" placeholder="Zip">
+                </div>
+              </div>
+            </div>                                                    
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <img class="block-center img-rounded" src="assets/img/stripe_img/outd_powered_by_stripe.png" style="position: absolute; left:10px;" alt="Image" />
+        <button type="button" class="btn btn-secondary" (click)="cardDlg.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onPay()" >Pay</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<modal #viewCard data-toggle="modal" data-backdrop="static" data-keyboard="false" class="">
+  <div  class="modal-body">
+    <div class="panel-heading " style="background-color:#0885c5 !important;color: #ffff !important;font-size: 17px">
+        Card Info
+    </div>
+    <div class="panel-body .modal-body ">
+        <div class="row viewcard_row" >
+          <div class="col-sm-12"  >
+            <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">Select card :</div>
+            <select class="form-control" id="industry" [(ngModel)]="ViewCard">
+                <option *ngFor="let card of items" [value]="card.name" selected>{{ViewCard}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row viewcard_row" >
+          <div class="col-sm-12"  >
+            <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">Billing Address :</div>
+            <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text"  [(ngModel)]= "Viewaddress">
+          </div>
+        </div>
+
+        <div class="row viewcard_row">
+          <div class="col-sm-12"  >
+              <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">City :</div>
+              <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text"  [(ngModel)]= "ViewCity">
+          </div>
+        </div>
+
+        <div class="row viewcard_row">
+          <div class="col-sm-12"  >
+            <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">State:</div>
+            <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text"  [(ngModel)]= "ViewState">
+          </div>
+        </div>
+
+        <div class="row viewcard_row">
+          <div class="col-sm-12"  >
+            <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">Zip code:</div>
+            <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text"  [(ngModel)]= "ViewZipcode">
+          </div>
+        </div>
+
+        <div class="row viewcard_row">
+          <div class="col-sm-12"  >
+            <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">Name on card :</div>
+            <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text"  [(ngModel)]= "Viewname">
+          </div>
+        </div>
+
+        <div class="row viewcard_row" >
+          <div class="col-sm-12" >
+            <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">Expiration date</div>
+            <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text" [(ngModel)]="Viewbsvalue">
+          </div> 
+        </div>
+
+        <div class="row viewcard_row" >  
+          <div class="col-sm-12" >
+              <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">CVV</div>
+              <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text" [(ngModel)]= "Viewcvv">
+          </div>
+        </div>
+
+        <div class="row viewcard_row" >
+          <div class="col-sm-12">
+              <div class="control-caption" style="float: left;font-weight: 600;font-size: 17px">Card number</div>
+              <input class="form-control" style="width: 100%;font-size: 17px;background-color: white !important" type="text"  [(ngModel)]= "lastDigit">
+          </div>   
+        </div>
+    </div>
+  </div>
+       <!-- </modal-body>  -->
+  <modal-footer>
+      <button class="mb-sm btn btn-success btn-outline" (click)="onConfirmviewCard()">Update</button>
+      <button class="mb-sm btn btn-danger btn-outline" (click)="onCancelviewCard()">Cancel</button>
+  </modal-footer>
+    <!-- </div> -->
+</modal>

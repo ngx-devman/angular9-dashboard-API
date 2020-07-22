@@ -1,0 +1,218 @@
+.job-status {
+  border: 2px solid;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.line-hover {
+  cursor: pointer;
+}
+
+.line-hover:hover {
+  background: #fdffe0;
+}
+
+.edit-icon {
+  color: rgb(88, 106, 146);
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    color: rgb(179, 213, 241);
+  }
+}
+
+.report-icon {
+  color: rgb(88, 146, 93);
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    color: rgb(179, 241, 189);
+  }
+}
+
+.control-caption {
+  padding: 5px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bold;
+}
+.customtoast {
+  .ion-success {
+    display: none !important;
+    background-image: none !important;
+  }
+}
+.custom-size {
+  font-size: 17px;
+}
+.header_div {
+  text-align: center;
+  .custom-search {
+    width: 30%;
+    background: none !important;
+    border: none !important;
+  }
+  input {
+    text-align: center;
+    height: 45px;
+  }
+  .btn {
+    float: right;
+  }
+}
+.panel-heading {
+  button {
+    background-color: #5d9cec;
+    font-size: 15px;
+    color: white;
+  }
+}
+.table {
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+  span {
+    font-size: 20px;
+    color: brown;
+  }
+}
+.model_body_div {
+  display: inline-block;
+  width: 100%;
+}
+
+/* new css start here */
+.card-box-inner {
+  border-radius: 15px;
+}
+.card-box-count {
+  font-size: 18px;
+  font-weight: bold;
+}
+.card-box-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.box-purple {
+  background-color: #6f3bdd;
+  border-color: #6f3bdd;
+}
+.box-primary {
+  background-color: #48b8ff;
+  border-color: #48b8ff;
+}
+.box-orange {
+  background-color: #e95b23;
+  border-color: #e95b23;
+}
+.box-info {
+  background-color: #0282c5;
+  border-color: #0282c5;
+}
+.customTableHeader {
+  background: #282c31;
+  color: darkgray;
+  font-weight: bold;
+  border-radius: 8px;
+}
+.float-right {
+  float: right;
+}
+.tableRightBack {
+  background: #575b62;
+  color: #d4d3d8;
+  padding: 17px 15px 14px 15px !important;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.customTableHeaderTop {
+  border-radius: 8px;
+}
+.customTableTitleLeft {
+  padding: 14px 16px;
+}
+.searchMainBox {
+  padding: 5px 15px;
+  margin: 10px 0px !important;
+}
+.custom-btn {
+  padding: 10px;
+  width: 100%;
+  font-size: 14px;
+}
+.inactive-btn-custom {
+  background-color: #e5fdf0;
+  border: #e5fdf0;
+  color: #5d9cec;
+}
+.search-box-field {
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+.search-box-div {
+  background: #d2d3cd33;
+  padding: 5px 5px;
+}
+.custom-text-color {
+  color: #5f5f5f;
+  font-weight: 600;
+}
+.activity_view_more {
+  text-decoration: underline;
+}
+.status_dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+.yellow_dot {
+  background-color: yellow;
+}
+
+.yellow_background {
+  background: #ffff0030;
+  color: gold;
+}
+.recent_activity_box {
+  display: inline-flex;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+}
+.blue_background {
+  background: #6495ed47;
+  color: blue;
+}
+.blue_dot {
+  background-color: blue;
+}
+.green_dot {
+  background-color: green;
+}
+.green_background {
+  background: #0fc30f2b;
+  color: green;
+}
+.grey_dot {
+  background-color: grey;
+}
+.grey_background {
+  background: #80808033;
+  color: grey;
+}
+.custom-pointer {
+  cursor: pointer;
+}
+
+.table-outline {
+  border: 1px solid #e9edf0;
+}

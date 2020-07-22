@@ -1,0 +1,26 @@
+
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 15px;
+}
+
+.card-header{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+i{
+    font-size: 40px;
+    color: black;
+}
+
+.card-body:hover{   
+  cursor: pointer;
+}
+
+.back-fab-custom-button {
+  position: absolute;
+  right: 20px;
+}

@@ -1,0 +1,63 @@
+
+<div class="content-heading" >
+  <div class= "header_div">
+      <!-- <button class="custom-search"> 
+              <input class="form-control" [(ngModel)]="searchOpt.name" (input)="onChangeSearchValue('name',searchOpt.name)" placeholder="Search">
+      </button> -->
+  </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+       <div class="pull-right text-muted"> Number In List: <strong>{{Employeedata?.length}}</strong></div>
+        <br/>
+    </div>
+  <div class="table-responsive">
+<table class="table table-striped" [mfData]="Employeedata" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+      <tr>
+          <th style="width: 5%;" ></th>
+          <th style="width: 20% ;text-align: center;">
+              <mfDefaultSorter by="name">Employee</mfDefaultSorter>
+          </th>
+         
+      </tr>
+  </thead>
+  <tbody>
+      <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;" >     
+          <td style="text-align: center;"><span style="color: brown; font-size: 20px;"  class="del-icon fa fa-trash" (click)=" activeDlg(item)" tooltip="Make Inactive"></span></td>    
+          <td style="text-align: center;" >{{item.profile.displayName}}</td>   
+         
+        
+      </tr>
+  </tbody>
+  <tfoot>
+      <tr>
+          <td colspan="5">
+              <!-- <p *ngIf="mf.data.length == 0" style="margin: 100%;">No Data Found</p> -->
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+          </td>
+      </tr>
+  </tfoot>
+</table>
+</div>
+<toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #cancelDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader" >
+        <div class="modal-header" style="border-bottom: none !important;" >
+            <h2  style="margin-top: 20px;">Inactive Employee</h2>
+        </div>
+    </modal-header>
+    <modal-body>
+        <div class="modalDiv">
+        <p class="agreeTxt">Do you want to make this user Inactive?</p>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="activeEmployee()">Yes</button>
+        <button class="btn btn-danger" (click)="dismissView()">No</button>
+    </modal-footer>
+</modal>

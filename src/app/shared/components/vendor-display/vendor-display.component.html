@@ -1,0 +1,30 @@
+<div class="userInfo" *ngIf="searchedUser">
+    <h3>Searched Vendor</h3>
+    <div class="col-sm-12 companyLogo">
+        <img src="{{searchedUser.info.logoUrl}}">
+    </div>
+    <div class="col-sm-12 contactDetails">
+        <div class="col-sm-6">
+            <div class="userName">
+                <p><strong>Name:</strong> {{searchedUser.info.companyName}}</p>
+            </div>
+            <div class="userEmail">
+                <p><strong>Email:</strong> {{searchedUser.info.companyEmail}}</p>
+            </div>
+            <div class="userPhone">
+                <p><strong>Phone:</strong> {{searchedUser.contact.phone | slice:0:3}}-{{searchedUser.contact.phone | slice:3:6}}-{{searchedUser.contact.phone | slice:6:10}}</p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="userName">
+                <p><strong>Street:</strong> {{searchedUser.address.street}}</p>
+            </div>
+            <div class="userEmail">
+                <p><strong>City & State:</strong> {{searchedUser.address.city}} {{searchedUser.address.state}}</p>
+            </div>
+            <div class="userPhone">
+                <p><strong>Zip Code:</strong> {{searchedUser.address.zipCode}}</p>
+            </div>
+        </div>
+    </div>
+</div>

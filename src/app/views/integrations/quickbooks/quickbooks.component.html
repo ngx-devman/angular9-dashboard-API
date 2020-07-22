@@ -1,0 +1,60 @@
+<div
+  class="card"
+  style="background-image: url('/assets/img/integration-bg/quickbooks.png');"
+>
+  <small *ngIf="customersSynced" class="text-right"
+    >Last Sync: {{ customersSyncedAt | date: 'long'  }}</small
+  >
+  <h3 class="pb-2">QuickBooks Online Integration</h3>
+  <p class="pb-1">
+    You can easily sync your customers from QuickBooks to BlueClerk by
+    authorizing your QuickBooks account.
+  </p>
+
+  <ng-container>
+    <h5>What you would like to sync?</h5>
+    <form>
+      <p class="pb-3">
+        <input
+          [(ngModel)]="customerSelection"
+          name="customer-check-box"
+          class="form-check-input"
+          type="checkbox"
+          id="customers-check-box"
+        />
+        <label
+          class="form-check-label font-weight-normal"
+          style="margin-left: 18px;"
+          for="customers-check-box"
+        >
+          Customers
+        </label>
+      </p>
+    </form>
+  </ng-container>
+
+  <button
+    *ngIf="!qbAuthorized"
+    [disabled]="!customerSelection"
+    class="btn btn-success"
+    (click)="authorizeUri()"
+  >
+    Authorize & Sync
+  </button>
+  <button
+    *ngIf="qbAuthorized"
+    [disabled]="!customerSelection"
+    class="btn btn-success"
+    (click)="syncCustomers()"
+  >
+    Sync
+  </button>
+  <div class="space"></div>
+
+  <div *ngIf="syncingCustomers" class="loadingState">
+    <p>
+      <span class="inline-block mb-4">Syncing Customers... Please wait...</span>
+      <img src="./assets/blue-clerk_loading.gif" />
+    </p>
+  </div>
+</div>

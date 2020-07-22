@@ -1,0 +1,28 @@
+<div class="content-heading">
+    Profile
+    <small>{{ 'dashboard.WELCOME' | translate }} !</small>
+</div>
+<br/>
+<div style="width: 100%; display: grid;">
+    <div class="panel panel-default col-xs-6 col-sm-4" style="margin: auto; padding: 0;">
+        <div class="panel-heading">
+            User Profile
+        </div>
+
+        <div class="panel-body">
+            <div class="control-caption">First Name</div>
+            <input class="form-control" style="width: 100%" type="text" [(ngModel)]="firstName">
+            <div class="control-caption">Last Name</div>
+            <input class="form-control" style="width: 100%" type="text" [(ngModel)]="lastName">
+            <div class="control-caption">New Password (more than 8 characters)</div>
+            <input class="form-control" style="width: 100%" type="password" [(ngModel)]="password">
+            <div class="control-caption">Confirm New Password</div>
+            <input class="form-control" style="width: 100%" type="password" [(ngModel)]="passwordC">
+            <span *ngIf="err" class="err">{{err}}</span>
+            <button class="btn btn-success" style="margin-top: 10px; float: right;" (click)="onUpdateProfile()">Update Profile</button>
+        </div>
+
+        <toaster-container [toasterconfig]="config"></toaster-container>
+
+    </div>
+</div>

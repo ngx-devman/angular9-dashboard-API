@@ -1,0 +1,70 @@
+.table {
+    th {
+      text-align: center;
+    }
+    td {
+      text-align: center;
+    }
+    span {
+      font-size: 20px;
+      color: brown;
+    }
+  }
+.activity_view_more {
+    text-decoration: underline;
+  }
+  .status_dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: 3px;
+  }
+  .yellow_dot {
+    background-color: yellow;
+  }
+  
+  .yellow_background {
+    background: #ffff0030;
+    color: gold;
+  }
+  .recent_activity_box {
+    display: inline-flex;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .blue_background {
+    background: #6495ed47;
+    color: blue;
+  }
+  .blue_dot {
+    background-color: blue;
+  }
+  .green_dot {
+    background-color: green;
+  }
+  .green_background {
+    background: #0fc30f2b;
+    color: green;
+  }
+  .grey_dot {
+    background-color: grey;
+  }
+  .grey_background {
+    background: #80808033;
+    color: grey;
+  }
+  .custom-pointer {
+    cursor: pointer;
+  }
+  
+  .table-outline {
+    border: 1px solid #e9edf0;
+  }
+  .customLink{
+    text-decoration: underline!important;
+    color: #5d9cec!important;
+    cursor: pointer;
+  }

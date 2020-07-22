@@ -1,0 +1,36 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+.custom-size{
+    font-size: 17px;
+}
+.custom-search{
+    width: 30%;    
+    background: none !important;
+    border: none !important;
+}
+.table{
+    th{
+      text-align: center;
+    }
+    td{
+      text-align: center;
+    }
+  }

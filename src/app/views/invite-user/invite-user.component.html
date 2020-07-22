@@ -1,0 +1,31 @@
+<!-- <div class="app-body"> -->
+  <!-- <main class="main d-flex align-items-center"> -->
+    <!-- <div class="container"> -->
+      <div class="row" style="flex-direction: row; float: cenetr;justify-content: center;">
+        <!-- <div class="col-md-4 mx-auto"> -->
+          <div class="card-group">
+            <div class="card col-10">
+              <img class="block-center img-rounded" style="width: 75%; padding-top: 20px; margin:0 auto;" src="assets/img/logo.jpg" alt="Image" />
+              <div class="card-body">
+                <p class="text-center pv">INVITE </p>
+                <form class="form-validate">
+                    <!-- <div class="error-text" *ngIf="errText != ''">{{errText}}</div> -->
+                    <p class="text-center">Please enter login email to send invite link.</p>
+                    <div class="form-group has-feedback">
+                      <label class="text-muted">Email address</label>
+                      <input class="form-control" type="email" name="email" placeholder="Enter email" autocomplete="off"/>
+                      <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                      <!-- <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">*This field is required</span>
+                      <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span> -->
+                    </div>
+                    <button class="btn btn-danger btn-block" type="submit">Invite</button>
+                    <p class="pt-lg text-center"></p><a class="btn btn-block btn-primary" (click)="goToUser()">Cancel</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+    <!-- </div> -->
+  <!-- </main> -->
+<!-- </div> -->

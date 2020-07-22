@@ -1,0 +1,129 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.agm-map {
+    height: 600px;
+}
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.membership {
+    width: 200px;
+    height: 270px;
+    background-color: #ffffff;
+    margin: 8px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 3px 5px 6px 0px #00000033;
+    border-radius: 3px;
+
+    p {
+        color: #ffffff;
+        font-size:18px; 
+        font-weight:normal;
+        padding: 10px;
+    }
+
+    label {
+        color: #929292; 
+        font-size:30px; 
+        font-weight:normal;
+    }
+}
+
+.membership-detail {
+    height: 50px;
+    background-color: #7266ba;
+    border-radius: 3px 3px 0px 0px;    
+}
+.model-div{
+    width: 786px;
+    height: auto;
+    background-color: white;
+}
+.labeltext {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-top: 25px;
+}   
+.title{
+    color: cornflowerblue;
+    font-size: 20px;
+} 
+.custom-size{
+    font-size: 17px;
+}
+.cardDiv{
+    padding: 10px;
+    margin:10px;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+.addressTitle{
+    text-align: initial;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: 900;
+}
+.custom-size{
+    font-size: 15px;
+}
+.modal-footer{
+    display:inherit !important;
+    border: none;
+}
+@media screen and (max-width: 768px) {
+   
+//     .custom_label{
+//       float: none!important;
+//       margin-top: 10px;
+//     }
+//   }
+.custom_label{
+    float: none!important;
+    margin-top: 10px;
+.custom_label {
+  float: none !important;
+  margin-top: 10px;
+}
+}
+.p0 {
+padding: 0;
+}
+.table-middle-align {
+tbody {
+  tr {
+    td {
+      vertical-align: middle;
+    }
+  }
+}
+}
+}

@@ -1,0 +1,17 @@
+<app-back-button [backRoute]="'/admin'"></app-back-button>
+<app-list-template 
+  [tableList]="jobsList" 
+  [listTitle]="listTitle"
+  [createTitle]="'New Job Type'"
+  [statusAction]="false"
+  [listTableHeads]="listTableHeads"
+  [listTableIcons]="false"
+  [role]="role"
+  [listTableType]="'jobs'"
+  [displayActivity]="false"
+  [displaySideText]="true"
+  [sideText]="'Types of jobs technicians can perform'"
+  (searchResult)="updateSearch($event)"
+  (createNew)="onCreateJobType()"
+></app-list-template>
+<toaster-container [toasterconfig]="config"></toaster-container>

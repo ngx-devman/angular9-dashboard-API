@@ -1,0 +1,41 @@
+<div class="content-heading">
+  <div style="font-size: 20px;">
+    <div class="d-inline-block">
+        <app-back-button [backRoute]="'/buytag'"></app-back-button>
+    </div>
+
+    <div class="d-inline-block pull-right">
+        <button 
+            class="btn btn-oval btn-primary btn-default mr-2 mb-2" 
+            style="font-size: 15px;"
+            type="button" 
+            (click)="onBuyTag()">
+            Buy More
+        </button>
+        <b>{{ curTagCnt }}</b> tags not coded
+    </div>
+  </div>
+  <br/>
+</div>
+<br/>
+
+<app-list-template 
+  [displayActivity]="false"
+  [tableList]="tagList" 
+  [listTitle]="listTitle"
+  [createTitle]="'Purchases'"
+  [statusAction]="false"
+  [listTableHeads]="['Tags Bought', 'Invoice#', 'Amount']"
+  [listTableIcons]="false"
+  [listTableType]="'buyTags'"
+  (rowClicked)="goToInvoice($event)"
+></app-list-template>
+
+<app-buy-blue-tags-modal
+    #buyDlg
+    (responseMessage)="FromBuyTagModal($event)">
+</app-buy-blue-tags-modal>
+
+<div>
+  <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container>
+</div>

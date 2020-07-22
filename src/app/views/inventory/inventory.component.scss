@@ -1,0 +1,63 @@
+
+.list{
+    top: 76%;
+    text-align: center;
+    margin-left: 16px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    left: 0;
+    z-index: 1000;
+    padding: 5px 0;
+    }
+    
+.custom-size{
+    font-size: 17px;
+}
+.custom-search{  
+    width: 30%;
+    background: none !important;
+    border: none !important;
+  }
+  .header_div{
+    text-align: center;
+  }
+  .table{
+    th{
+      text-align: center;
+    }
+    td{
+      text-align: center;
+    }
+    span{
+      font-size: 20px;
+      color: brown;
+    }
+  }
+.label-row{
+    margin-left: 1px;
+    font-size: 17px;
+}
+.butttonNew{
+    width: 35%;
+}
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }

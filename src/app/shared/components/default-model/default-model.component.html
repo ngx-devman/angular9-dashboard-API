@@ -1,0 +1,684 @@
+<div class="defaultModal">
+    <div class="closeModel">
+        <mat-icon (click)="close()">close</mat-icon>
+    </div>
+    <div class="cusModel" [class.cusHeight]="inputData.dataValues.createJob">
+        <div class="modalHeading">
+            <h4>{{inputData.dataValues?.title}}</h4>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status == 'scheduleJob'">
+            <form #f1="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup">
+                    <label>Select Customer <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.selectCustomer" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.selectedCustomer"
+                        name="customer"
+                        #customer="ngModel"
+                        required
+                        [disabled]="inputData.dataValues.hideCustomer"
+                        (ngModelChange)="updateCustomer($event)"
+                        >
+                    </ng-select>
+                </div>
+                <!-- <div class="formGroup">
+                    <label>Comment</label>
+                    <textarea type="text" class="form-control" rows="3" [(ngModel)]="inputData.dataValues.comment" name="comment" #comment="ngModel" required></textarea>
+                </div> -->
+                <div class="formGroup" >
+                    <label>Note / Special Instructions</label>
+                    <textarea type="text" class="form-control" rows="5" [(ngModel)]="inputData.dataValues.note" name="note" #note="ngModel"></textarea>
+                </div>
+                <div class="createJob">
+                    <mat-checkbox class="example-margin" [(ngModel)]="inputData.dataValues.createJob" name="createJob">
+                        Generate Job
+                    </mat-checkbox>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob && inputData.dataInputs.selectVendor.length > 0">
+                    <label>Employee Type</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.employeeType" name="employeeType" #employeeType="ngModel">
+                        <option [value]="0">Employee</option>
+                        <option [value]="1">Vendor</option>
+                    </select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob">
+                    <label>Job Type <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.jobTypes" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.jobType"
+                        name="jobType"
+                        #jobType="ngModel"
+                        (ngModelChange)="updateCharges(inputData.dataValues.jobType)"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob && inputData.dataValues.employeeType == 0">
+                    <label>Select Technician <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.selectTechnicians" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.selectedTechnician"
+                        name="techinician"
+                        #techinician="ngModel"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob && inputData.dataValues.employeeType == 1">
+                    <label>Select Technician <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.selectVendor" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.selectedTechnician"
+                        name="techinician"
+                        #techinician="ngModel"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob">
+                    <label>Select Equipment</label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.customEquipment" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.customEquipment"
+                        name="equipment"
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob">
+                    <!-- <label>Fixed / Hourly</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.isFixed" name="isFixed" #isFixed="ngModel" required>
+                        <option [value]="true">Fixed</option>
+                        <option [value]="false">Hourly</option>
+                    </select> -->
+                    <label id="fixedHourly">Fixed Or Hourly</label>
+                    <mat-radio-group
+                    aria-labelledby="fixedHourly"
+                    class="example-radio-group"
+                    [(ngModel)]="inputData.dataValues.isFixed" name="isFixed" #isFixed="ngModel" required>
+                        <mat-radio-button class="example-radio-button" [value]="true">Fixed</mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="false">Hourly</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.createJob">
+                    <label>Amount</label>
+                    <input type="number" [(ngModel)]="inputData.dataValues.charges" name="charges" #charges="ngModel" class="form-control"/>
+                </div>
+                <!-- <mat-form-field *ngIf="inputData.dataValues.createJob">
+                    <input matInput [matDatepicker]="picker" placeholder="Schedule Date & Time * required" [(ngModel)]="inputData.dataValues.date" (focus)="picker.open()"
+                        (keyup)="picker.open()" (click)="picker.open()" name="date" #date="ngModel" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+                </mat-form-field> -->
+                <div class="formGroup customTimePicker" *ngIf="inputData.dataValues.createJob">
+                    <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Schedule Date & Time * required" [(ngModel)]="inputData.dataValues.date" name="date" #date="ngModel" required>
+                    <owl-date-time #dt2 hour12Timer="true"></owl-date-time>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid">
+                        Okay
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status == 'scheduleServiceJob'">
+            <form #f1="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup" *ngIf="inputData.dataInputs.selectVendor.length > 0 && !inputData.dataValues.updateJob">
+                    <label>Employee Type</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.employeeType" name="employeeType" #employeeType="ngModel">
+                        <option [value]="0">Employee</option>
+                        <option [value]="1">Vendor</option>
+                    </select>
+                </div>
+                <div class="formGroup" *ngIf="!inputData.dataValues.updateJob">
+                    <label>Job Type <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.jobTypes" 
+                        bindLabel="name"
+                        autofocus
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.jobType"
+                        name="jobType"
+                        #jobType="ngModel"
+                        (ngModelChange)="updateCharges(inputData.dataValues.jobType)"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.employeeType == 0">
+                    <label>Select Technician <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.selectTechnicians" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.selectedTechnician"
+                        name="techinician"
+                        #techinician="ngModel"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.employeeType == 1">
+                    <label>Select Technician <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.selectVendor" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.selectedTechnician"
+                        name="techinician"
+                        #techinician="ngModel"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup" *ngIf="!inputData.dataValues.updateJob">
+                    <label>Select Equipment</label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.customEquipment" 
+                        bindLabel="name"
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.customEquipment"
+                        name="equipment"
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup">
+                    <!-- <label>Fixed / Hourly</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.isFixed" name="isFixed" #isFixed="ngModel" required>
+                        <option [value]="true">Fixed</option>
+                        <option [value]="false">Hourly</option>
+                    </select> -->
+                    <label id="fixedHourly">Fixed Or Hourly</label>
+                    <mat-radio-group
+                    aria-labelledby="fixedHourly"
+                    class="example-radio-group"
+                    [(ngModel)]="inputData.dataValues.isFixed" name="isFixed" #isFixed="ngModel" required>
+                        <mat-radio-button class="example-radio-button" [value]="true">Fixed</mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="false">Hourly</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="formGroup">
+                    <label>Amount</label>
+                    <input type="number" [(ngModel)]="inputData.dataValues.charges" name="charges" #charges="ngModel" class="form-control"/>
+                </div>
+                <div class="formGroup">
+                    <label>Description</label>
+                    <textarea type="text" class="form-control" rows="3" [(ngModel)]="inputData.dataValues.description" name="comment" #comment="ngModel"></textarea>
+                </div>
+                <!-- <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Schedule Date & Time * required" [(ngModel)]="inputData.dataValues.date" (focus)="picker.open()"
+                        (keyup)="picker.open()" (click)="picker.open()" name="date" #date="ngModel" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+                </mat-form-field> -->
+                <div class="formGroup customTimePicker">
+                    <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Schedule Date & Time * required" [(ngModel)]="inputData.dataValues.date" name="date" #date="ngModel" required>
+                    <owl-date-time #dt2 hour12Timer="true"></owl-date-time>
+                </div>
+                
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="!inputData.dataValues.updateJob">
+                        Okay
+                    </button>
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="inputData.dataValues.updateJob">
+                        Update Job
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                    <!-- <button class="btn custom-danger btn-default custom-btn " type="button" (click)="cancelJob()" *ngIf="inputData.dataValues.updateJob">
+                        Cancel
+                    </button> -->
+                </div>
+                <div class="formGroup mb-0 mt-15" *ngIf="inputData.dataValues.updateJob">
+                    <a class="cancelJobText custom-pointer" (click)="cancelJob()">
+                        Click here if you would like to cancel this job
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'brand' || inputData.dataValues?.status === 'equipment'">
+            <form #f="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup">
+                    <label>{{inputData.dataInputs.brandLabel}}</label>
+                    <input type="text" [(ngModel)]="inputData.dataValues.newBrand" name="brand" #brand="ngModel" required class="form-control"/>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f.form.valid">
+                        Okay
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'jobType'">
+            <form #f="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup">
+                    <label>{{inputData.dataInputs.jobLabel}}</label>
+                    <input type="text" [(ngModel)]="inputData.dataValues.newJob" name="job" #job="ngModel" required class="form-control" placeholder="title"/>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f.form.valid">
+                        Okay
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'employee'">
+            <form #f="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup">
+                    <label>{{inputData.dataInputs.jobLabel}}</label>
+                    <input type="text" [(ngModel)]="inputData.dataValues.newJob" name="job" #job="ngModel" required class="form-control" placeholder="title"/>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f.form.valid">
+                        Okay
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'serviceInfo'">
+            <div class="ticketInfo">
+                <div class="createdBy">
+                    <p>Created by: {{inputData.dataValues?.data.createdBy.profile.displayName}}</p>
+                </div>
+                <div class="createdOn">
+                    <p>Creation Date: {{inputData.dataValues?.data.createdAt | date:'medium'}}</p>
+                </div>
+            </div>    
+            <div class="actionBtn">
+                <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                    Close
+                </button>
+            </div>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'jobInfo'">
+            <div class="ticketInfo">
+                <div class="createdBy">
+                    <p>Created by: {{inputData.dataValues?.data.createdBy.profile.displayName}}</p>
+                </div>
+                <div class="createdOn">
+                    <p>Creation Date: {{inputData.dataValues?.data.createdAt | date:'medium'}}</p>
+                </div>
+            </div>    
+            <div class="actionBtn">
+                <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                    Close
+                </button>
+            </div>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'saveChanges'">
+            <div class="ticketInfo">
+                <div class="createdBy">
+                    <p>{{inputData.dataInputs?.label}}</p>
+                </div>
+            </div>    
+            <div class="actionBtn">
+                <button class="btn custom-danger btn-default custom-btn dark-blue-bg" type="button" (click)="closed(true)">
+                    Confirm
+                </button>
+                <button class="btn custom-success btn-default custom-btn blue-gray-bg" type="button" (click)="closed(false)">
+                    Close
+                </button>
+            </div>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'contracts'">
+            <div class="pendingContract">
+                <div class="singleContract" *ngFor="let contract of inputData.dataInputs?.pendingContracts">
+                    <div class="userName">
+                        <!-- <p><strong>Company Name:</strong> {{contract.company.info.companyName}}</p> -->
+                        <p>You have been added as a vendor by <strong>{{contract.company.info.companyName}}</strong>.</p>
+                    </div>
+                    <div class="userAction">
+                        <button class="btn btn-primary btn-default custom-btn " type="button" (click)="acceptContract(contract)">
+                            Accept
+                        </button>
+                        <button class="btn btn-danger btn-default custom-btn " type="button" (click)="rejectContract(contract)">
+                            Reject
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modalContent reportNumber" *ngIf="inputData.dataValues?.status === 'reportNumber'">
+            <p>The report number will be the same for Jobs and reports generated from the same ticket will have the same number</p>
+            <div class="currentTicketNumber" *ngIf="!inputData.dataValues?.editNumber">
+                <p class="largeContent" *ngIf="inputData.dataValues.hyphenNumber">Starting Number: {{inputData.dataValues?.hyphenNumber}}-{{inputData.dataValues?.initialNumber}}</p>
+                <p class="largeContent" *ngIf="!inputData.dataValues.hyphenNumber">Starting Number: {{inputData.dataValues?.initialNumber}}</p>
+                <div class="editButton">
+                    <button class="btn btn-primary btn-default custom-btn " type="button" (click)="inputData.dataValues.editNumber = true">
+                        Edit
+                    </button>
+                </div>
+            </div>
+            <div class="editTicketNumber" *ngIf="inputData.dataValues?.editNumber">
+                <p><strong>* Tickets, jobs and report numbers can contain numbers, letters, and one hyphen. Example: Starting number can be 20, or 20-1 the number before the hyphen will remain static and after will go in sequence</strong></p>
+                <form #f="ngForm" (ngSubmit)="addNew()">
+                    <div class="formGroup">
+                        <label>{{inputData.dataInputs.initialNumber}}</label>
+                        <input type="text" [(ngModel)]="inputData.dataValues.initialNumber" name="startingNumber" #startingNumber="ngModel" required class="form-control"/>
+                    </div>
+                    <div class="formGroup" matTooltip="Leave blank if prefixes are not required">
+                        <label>{{inputData.dataInputs.hyphen}}</label>
+                        <input type="text" [(ngModel)]="inputData.dataValues.hyphenNumber" name="hyphens" #hyphens="ngModel" class="form-control"/>
+                    </div>
+                    <div class="actionBtn">
+                        <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f.form.valid">
+                            Okay
+                        </button>
+                        <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modalContent editProfile" *ngIf="inputData.dataValues?.status == 'editUser'">
+            <div class="paneldiv">
+                <div class="image_div" *ngIf="inputData.dataValues.data.details.profile.imageUrl != ''">
+                    <img #productImg src="{{inputData.dataValues.data.details.profile.imageUrl}}"/>
+                </div>
+                <div class="image_div" *ngIf="inputData.dataValues.data.details.profile.imageUrl == ''">
+                    <img #productImg src="assets/img/user_avatar.png"/>
+                </div>
+                <label id="#bb" class="btn btn-primary" style="margin: 10px;"> Select File
+                    <input #fileInput 
+                    type="file"
+                    size="60"
+                    (change)="chooseFile($event)"
+                    accept="image/x-png,image/gif,image/jpeg"
+                    style="display: none;">
+                </label>
+            </div>
+            <form #f1="ngForm" (ngSubmit)="updateProfile()">
+                <div class="singleRow">
+                    <div class="formGroup">
+                        <label>First Name</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            placeholder="First Name"
+                            [(ngModel)]="inputData.dataValues.data.details.profile.firstName"
+                            name="firstnames"
+                            #firstnames="ngModel" 
+                            required
+                        />
+                    </div>
+                    <div class="formGroup">
+                        <label>Last Name</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Last Name"
+                            [(ngModel)]="inputData.dataValues.data.details.profile.lastName"
+                            name="lastnames"
+                            #lastnames="ngModel" 
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="formGroup">
+                    <label>Street</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Street"
+                        [(ngModel)]="inputData.dataValues.data.details.address.street"
+                        name="street"
+                        #street="ngModel" 
+                    />
+                </div>
+                <div class="singleRow">
+                    <div class="formGroup">
+                        <label>City</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            placeholder="City"
+                            [(ngModel)]="inputData.dataValues.data.details.address.city"
+                            name="city"
+                            #city="ngModel" 
+                        />
+                    </div>
+                    <div class="formGroup">
+                        <label>State</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            placeholder="State"
+                            [(ngModel)]="inputData.dataValues.data.details.address.state"
+                            name="state"
+                            #state="ngModel" 
+                        />
+                    </div>
+                </div>
+                <div class="singleRow">
+                    <div class="formGroup">
+                        <label>Zip Code</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Zip Code"
+                            [(ngModel)]="inputData.dataValues.data.details.address.zipCode"
+                            name="zipCode"
+                            #zipCode="ngModel" 
+                        />
+                    </div>
+                    <div class="formGroup">
+                        <label>Phone</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Phone"
+                            [(ngModel)]="inputData.dataValues.data.details.contact.phone"
+                            name="phone"
+                            #phone="ngModel" 
+                        />
+                    </div>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid">
+                        Okay
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent editProfile" *ngIf="inputData.dataValues?.status == 'editUserPassword'">
+            <form #f1="ngForm" (ngSubmit)="updateProfile()">
+                <div class="formGroup">
+                    <label>Current Password</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Current Password"
+                        [(ngModel)]="inputData.dataValues.data.prevPassword"
+                        name="prevPassword"
+                        #prevPassword="ngModel" 
+                        required
+                    />
+                </div>
+                <div class="formGroup">
+                    <label>New Password</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="New Password"
+                        [(ngModel)]="inputData.dataValues.data.newPassword"
+                        name="newPassword"
+                        #newPassword="ngModel" 
+                        required
+                    />
+                </div>
+                <div class="formGroup">
+                    <label>Confirm Password</label>
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Confirm Password"
+                        [(ngModel)]="inputData.dataValues.data.confirmPassword"
+                        name="confirmPassword"
+                        #confirmPassword="ngModel" 
+                        required
+                    />
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid || validatePassword()">
+                        Okay
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status == 'jobRate'">
+            <form #f1="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup">
+                    <label>Job Type <span [ngStyle]="{color:'red'}">* required</span></label>
+                    <ng-select 
+                        [items]="inputData.dataInputs.jobTypes" 
+                        bindLabel="name"
+                        autofocus
+                        bindValue="id"
+                        [(ngModel)]="inputData.dataValues.jobType"
+                        name="jobType"
+                        #jobType="ngModel"
+                        required
+                        >
+                    </ng-select>
+                </div>
+                <div class="formGroup">
+                    <!-- <label>Fixed  Hourly</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.isFixed" name="isFixed" #isFixed="ngModel" required>
+                        <option [value]="true">Fixed</option>
+                        <option [value]="false">Hourly</option>
+                    </select> -->
+                    <label id="fixedHourly">Fixed Or Hourly</label>
+                    <mat-radio-group
+                    aria-labelledby="fixedHourly"
+                    class="example-radio-group"
+                    [(ngModel)]="inputData.dataValues.isFixed" name="isFixed" #isFixed="ngModel" required>
+                        <mat-radio-button class="example-radio-button" [value]="true">Fixed</mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="false">Hourly</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="formGroup">
+                    <label>Amount</label>
+                    <input type="number" [(ngModel)]="inputData.dataValues.charges" name="charges" #charges="ngModel" class="form-control"/>
+                </div>
+                <div class="createJob">
+                    <mat-checkbox class="example-margin" [(ngModel)]="inputData.dataValues.taxable" name="createJob">
+                        Taxable
+                    </mat-checkbox>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.taxable">
+                    <label>Sale Tax</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.tax" name="saleTax" #saleTax="ngModel">
+                        <option [value]="tax._id" *ngFor="let tax of inputData.dataInputs.saleTax">{{tax.tax}}</option>
+                        <!-- <option [value]="false">Hourly</option> -->
+                    </select>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="!inputData.dataValues.updateJob">
+                        Okay
+                    </button>
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="inputData.dataValues.updateJob">
+                        Update Job Rate
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+                
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status == 'saleTax'">
+            <form #f1="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup">
+                    <label>Location</label>
+                    <input type="text" [(ngModel)]="inputData.dataValues.state" name="state" #state="ngModel" class="form-control" required [disabled]='inputData.dataValues.updateJob && !inputData.dataValues.editSaleTax' />
+                </div>
+                <div class="formGroup">
+                    <label>Tax</label>
+                    <input type="number" [(ngModel)]="inputData.dataValues.tax" name="tax" #tax="ngModel" class="form-control" required [disabled]='inputData.dataValues.updateJob && !inputData.dataValues.editSaleTax'/>
+                </div>
+                <div class="createJob">
+                    <mat-checkbox class="example-margin" [(ngModel)]="inputData.dataValues.editSaleTax" name="createJob" *ngIf="inputData.dataValues.updateJob">
+                        Edit Sale Tax
+                    </mat-checkbox>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="!inputData.dataValues.updateJob">
+                        Okay
+                    </button>
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid || !inputData.dataValues.editSaleTax" *ngIf="inputData.dataValues.updateJob">
+                        Update Sale Tax
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modalContent" *ngIf="inputData.dataValues?.status === 'invoice'">
+            <form #f1="ngForm" (ngSubmit)="addNew()">
+                <div class="formGroup" *ngIf="!inputData.dataValues.updateJob">
+                    <label>Sale Tax</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.tax" name="saleTax" #saleTax="ngModel">
+                        <option [value]="tax._id" *ngFor="let tax of inputData.dataInputs.taxes">{{tax.tax}}</option>
+                    </select>
+                </div>
+                <div class="formGroup" *ngIf="inputData.dataValues.updateJob">
+                    <label>Sale Tax</label>
+                    <select class="form-control" [(ngModel)]="inputData.dataValues.tax" name="saleTax" #saleTax="ngModel">
+                        <option [value]="tax.tax" *ngFor="let tax of inputData.dataInputs.taxes">{{tax.tax}}</option>
+                    </select>
+                </div>
+                <div class="formGroup">
+                    <label>Amount</label>
+                    <input type="number" [(ngModel)]="inputData.dataValues.charges" name="charges" #charges="ngModel" class="form-control" [disabled]="!inputData.dataValues.editCharges"/>
+                </div>
+                <div class="createJob">
+                    <mat-checkbox class="example-margin" [(ngModel)]="inputData.dataValues.editCharges" name="createJob">
+                        Edit Amount
+                    </mat-checkbox>
+                </div>
+                <div class="actionBtn">
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="!inputData.dataValues.updateJob">
+                        Generate Invoice
+                    </button>
+                    <button class="btn custom-success btn-default custom-btn " type="submit" [disabled]="!f1.form.valid" *ngIf="inputData.dataValues.updateJob">
+                        Update Invoice
+                    </button>
+                    <button class="btn custom-danger btn-default custom-btn " type="button" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

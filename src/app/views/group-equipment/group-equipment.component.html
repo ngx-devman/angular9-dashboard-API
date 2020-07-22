@@ -1,0 +1,129 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateEquipment()">Add</button>
+    <br/>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{equipList?.length}}</strong> equipments</div>
+        Equipment List
+    </div>
+    <table class="table table-striped" [mfData]="equipList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 5%" class="text-center">Image</th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="type">Machine Type</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="tag_id">Blue Tag</mfDefaultSorter>
+                </th>
+                <th style="width: 5%">
+                    <mfDefaultSorter by="brand">Brand</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="model">Model</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-right"><span class="del-icon fa fa-trash" (click)="onDeleteEquipment(item)" title="Delete Equipment"></span></td>
+                <td class="text-right"><span class="edit-icon fa fa-edit" (click)="onEditEquipment(item)" title="Edit Equipment"></span></td>
+                <td class="text-right">{{item.No}}</td>
+                <td class="text-center"><img src="{{item.imgUrl}}" style="width: 40px;" (click)="onDetailImg(item.imgUrl)"></td>
+                <td>{{item.type}}</td>
+                <td>{{item.tag_id}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.model}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #equipmentDlg class="large-modal" item-width="80%" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header" class="text-center">
+        <h2 style="margin-top: 20px;">{{actionType == 0 ? 'Add Blue Tag ID' : 'Update Blue Tag ID'}}</h2>
+    </div>
+
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Equipment List</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{groupEquipList?.length}}</strong> equipments</div>
+                Equipment List
+            </div>
+            <table class="table table-striped" [mfData]="groupEquipList" #mfData="mfDataTable" [mfRowsOnPage]="10">
+                <thead>
+                    <tr>
+                        <th style="width: 5%" class="text-right">No.</th>
+                        <th style="width: 5%" class="text-center">Image</th>
+                        <th style="width: 10%">Machine Type</th>
+                        <th style="width: 10%">Brand</th>
+                        <th style="width: 10%">Model</th>
+                        <th style="width: 10%">Serial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td></td>
+                        <td></td>
+                        <td><input class="form-control" [(ngModel)]="searchOpt.brand" (input)="onChangeValue('brand',searchOpt.brand)"></td>
+                        <td><input class="form-control" [(ngModel)]="searchOpt.model" (input)="onChangeValue('model',searchOpt.model)"></td>
+                        <td></td>
+                    </tr>
+                    <tr class="line-hover" *ngFor="let item of mfData.data; let idx=index;" (click)="onSelectEquipment(item)"
+                        [class.selected]="item.id == templateId">
+                        <td class="text-right">{{item.No}}</td>
+                        <td class="text-center"><img src="{{item.imgUrl}}" style="width: 40px;" (click)="onDetailImg(item.imgUrl, $evt)"></td>
+                        <td class="text-left">{{item.type}}</td>
+                        <td class="text-left">{{item.brand}}</td>
+                        <td class="text-left">{{item.model}}</td>
+                        <td class="text-left">{{item.note}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        
+            <toaster-container [toasterconfig]="config"></toaster-container>
+        </div>
+        <div>
+            <div class="control-caption">Blue Tag ID</div>
+            <input class="form-control" style="width: 100%" type="text" [(ngModel)]="tagId">
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmEquipment()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelEquipment()">Cancel</button>
+    </modal-footer>
+</modal>

@@ -1,0 +1,108 @@
+<ngx-spinner
+  bdOpacity = 0.3
+
+  size = "large"
+  color = "#5d9cec"
+  type = "ball-spin-clockwise-fade-rotating"
+  [fullScreen] = "true"
+  >
+  <p style="color: white" > Please wait... </p>
+</ngx-spinner>
+<div class="app-body">
+    <main class="main d-flex align-items-center custom-height">
+        <div class="row custom_row">
+            <div class="col-sm-12 col-md-6 col-md-offset-6 signin_col">
+                <div class=" middle-form">
+                    <div class="row Reg">
+                        <div class="col-md-8 mx-auto">
+                            <div class="card mx-6">
+                                <div class="card-body p-4 custom_card signin_card">
+                                    <form [formGroup]="valForm" class="form-validate mb-lg" role="form" name="loginForm" novalidate="" (submit)="submitForm($event, valForm.value)">
+                                    <img class="block-center img-rounded" style="width: 90%; margin: 0 auto;" src="assets/img/logo.jpg" alt="Image" />
+                                    <div class="error-text" *ngIf="errText != ''">{{errText}}</div>
+                                    <div class="row text-bottom">
+                                        <div class="col-md-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                            </div>
+                                            <input class="form-control" type="email" name="email" placeholder="Email" autocomplete="off" formControlName="email" required="" />
+                                            <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</span>
+                                            <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span>
+                                        </div>
+                                        </div>
+                
+                                        <div class="col-md-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                            </div>
+                                            <div>
+                                            <input class="form-control" matInput placeholder="Password" [type]="hide ? 'text' : 'password'" formControlName="password" required=""/>
+                                            <a href="javascript:void(0);" class="password-visibity-icon" (click)="hide = !hide"><mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon></a>
+                                            </div>
+                                            <!-- <input class="form-control" id="exampleInputPassword1" type="password" name="password" placeholder="Password" formControlName="password" required=""/> -->
+                
+                                            <span class="text-danger" *ngIf="valForm.controls['password'].hasError('required') && (valForm.controls['password'].dirty || valForm.controls['password'].touched)">This field is required</span>
+                                        </div>
+                                        </div> 
+                                        <div class=" row custom_remember">
+                                        <div class=" col -6 checkbox c-checkbox pull-left mt0">
+                                            <label>
+                                            <input type="checkbox" value="" name="account_remember" formControlName='remember'/>
+                                            <!-- <span class="fa fa-check"></span>Remember Me -->
+                                            <span></span>Remember Me
+                                            </label>
+                                        </div>
+                                        <div class=" col-6 pull-right password_div">
+                                            <span ><a class="text-muted" [routerLink]="'/recover'">Forgot your password?</a></span>
+                                        </div>
+                                        </div>
+                                    </div>   
+                                    <div>
+                                        <div class="row">
+                                        <div class="col-12">
+                                            <button class="btn btn-block btn-primary pt-3 pb-3">Login</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 mt-3 pr-md-2">
+                                            <button class="btn btn-block btn-primary pt-3 pb-3 px-md-0" (click)="loginSocial('1')">
+                                                <span class="button-span-text">
+                                                    <img class="social-login-logo" src="https://img.icons8.com/color/48/000000/google-logo.png">
+                                                    <span class="d-inline-block ml-2">Login with Google</span>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 mt-3 pl-md-2">
+                                            <button class="btn btn-block btn-primary pt-3 pb-3 px-md-0" style="overflow: hidden;" (click)="loginSocial('0')">
+                                                <span class="button-span-text">
+                                                    <img class="social-login-logo" src="https://img.icons8.com/color/48/000000/facebook-circled.png">
+                                                    <span class="d-inline-block ml-2">Login with Facebook</span>
+                                                </span>
+                                            </button>    
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 mt-3" style="text-align: center;">
+                                            <p>Don't have an account? <a href="/signup">Register</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <toaster-container   class="custom-toast" [toasterconfig]="toasterconfig"></toaster-container>
+    </main>
+</div>
+  
+<app-footer>
+    <span><a href="https://www.blueclerk.com">BlueClerk</a> &copy; 2018 <a href="https://www.dasolgroup.com">DasolGroup</a>.</span>
+    <span class="ml-auto" style="text-align: center">Phone:512-846-6035 </span>
+    <span class="ml-auto" style="margin-right: 130px"><a href="https://help@dasolgroup.com">help@dasolgroup.com</a></span>
+</app-footer>

@@ -1,0 +1,74 @@
+<!-- <div class="content-heading">
+    <div style= "text-align: center;">
+        <button class="custom-search"> 
+            <input class="form-control" [(ngModel)]="searchOpt.name" (input)="onChangeSearchValue('name',searchOpt.name)" placeholder="Search" style="text-align: center;height: 45px;">
+        </button>
+        <button class="btn btn-success" style="float: right;" *ngIf=" isAdmin == -1? true: false" (click)="onCreateType()">Add</button>
+        <button class="btn btn-success" style="float: right;"  (click)="onCreateType()">Add</button>
+    </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"> Number In List: <strong>{{industryList?.length}}</strong></div>
+       <br/>
+    </div>
+    <table class="table table-striped" [mfData]="industryList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            
+            <tr>
+                <th style="width: 15%;">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;">
+                    <mfDefaultSorter by="name">Equipment Type</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+             
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">      
+                <td style="width: 10%;">{{idx + 1}}</td>
+                <td style="width: 20%;">{{item.title}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    
+</div>
+
+<modal #typeDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <h2 style="margin-top: 20px;">Add Equipment Type</h2>
+    </modal-header>
+
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Equipment Type Name</div>
+        <input class="form-control"  type="text" [(ngModel)]="title">
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmType()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelType()">Cancel</button>
+    </modal-footer>
+</modal> -->
+<app-back-button [backRoute]="'/admin'"></app-back-button>
+<app-list-template 
+  [tableList]="industryList" 
+  [listTitle]="listTitle"
+  [createTitle]="'New Equipment Type'"
+  [statusAction]="false"
+  [listTableHeads]="listTableHeads"
+  [listTableIcons]="false"
+  [role]="role"
+  [listTableType]="'equipments'"
+  [displayActivity]="false" 
+  (searchResult)="updateSearch($event)"
+  (createNew)="onCreateType()"
+></app-list-template>
+<toaster-container [toasterconfig]="config"></toaster-container>

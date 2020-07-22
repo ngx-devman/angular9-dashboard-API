@@ -1,0 +1,82 @@
+.custom-size{
+    font-size: 17px;
+}
+.custom-select{
+    height: 40px;
+    min-width: 300px;
+    width: 100%;
+    font-size: 17px;
+}
+.custom_row{
+    background-color: #e8e8e8;
+    padding: 10px;
+}
+.custom_tab{
+    text-align: center;
+    font-weight: 800;
+}
+.custom_tab_p{
+    text-align: center;
+}
+.custom_ul{
+    font-size: 17px;
+}
+.custome_checkbox{
+    width: 20px;
+    height: 18px;
+}
+.required_div{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.user:hover {
+    background-color:#e6e6e6;
+}
+    
+.selected {
+background-color: lightgrey;
+}
+.col_div{
+    border-right: 1px solid #e4e4e4;
+    border-top: 1px solid #e4e4e4;
+}
+.star{
+    margin-right: 5px;
+    color: red;
+}
+.form_div{
+    margin: 20px;
+}
+.header_div{
+    background-color:#0885c5 !important;color: #ffff !important;font-size: 17px
+}
+.awesome {
+    color: red;
+    }
+.modalDiv{
+    text-align: center;
+    padding: 10px;
+    font-size: 17px;
+}
+.agreeTxt{
+    text-align: start;
+}
+mat-step{
+    display: flex ;
+    justify-content: flex-end ;
+}
+    
+@media screen and (max-width: 768px) {
+    .responsive-col{
+        max-width: unset !important;
+    }
+    .content{
+        padding: 0px !important;
+    }
+    .resp_label{
+        float:none !important;
+    }
+    .resp_content{
+    padding: 8px !important;
+    }
+}

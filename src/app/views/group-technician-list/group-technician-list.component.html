@@ -1,0 +1,103 @@
+<div class="content-heading">      
+    <div style= "text-align: center;">
+        <p style="font-size: 20px;float: left;"> <strong >Group Name :</strong> {{GroupName}}</p> 
+        <p style="font-size: 20px;float: left;margin-left: 20px;"><strong>Manager Name:</strong> Tester</p> 
+        <button class="custom-search" style="margin-right: 20%;"> 
+            <input class="form-control" [(ngModel)]="searchOpt.techname" (input)="onChangeSearchValue('techname',searchOpt.techname)" placeholder="Search" style="text-align: center;height: 45px;">
+        </button>
+        <button class="btn btn-success" style="float: right;"  *ngIf=" isAdmin == -1 ? true: false" (click)="onCreateTechnician()">Add Technician</button>  
+    </div>
+</div>
+<br/>
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div class="pull-right text-muted" style="font-size: 17px"><em class="fa fa-user mr-sm"></em><strong>{{technicianList?.length}}</strong> Technicians</div>
+        Members
+    <br/>
+    </div>
+    <table class="table table-striped" [mfData]="technicianList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%"></th>
+                <th style="width: 5%;text-align: center" >
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;text-align: center" >
+                    <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center">
+                    <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 10%;text-align: center">
+                    <mfDefaultSorter by="phonenumber">Phone Number</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+                <!-- <tr>
+                    <td  style="width: 5% ;text-align: center"></td>
+                    <td style="width: 5%; ;text-align: center"  ></td>
+                    <td style="width: 20%;text-align: center"><input class="form-control" [(ngModel)]="searchOpt.name" (input)="onChangeSearchValue('name',searchOpt.name)"></td>
+                    <td style="width: 20%;text-align: center" ></td>
+                    <td style="width: 20%;text-align: center"></td>
+                </tr> -->
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td style="text-align: center;"><span class="fa fa-folder" (click)="onInfo(item)"  style="font-size: 20px;color: brown;"  tooltip="View Technician"></span></td>
+                <td style="text-align: center; ">{{item.No}}</td>
+                <td style="text-align: center;">{{item.name}}</td>
+                <td style="text-align: center;">{{item.email}}</td>
+                <!-- <td>{{item.userType}}</td> -->
+                <td style="text-align: center;    font-size: 15px;">{{item.phonenumber}}</td>
+                <!-- <td></td> -->
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+</div>
+
+<modal #addDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">
+        <h3>Add Technician</h3>
+    </modal-header>
+    <modal-body style="text-align:center;">
+        <form [formGroup]="managerFrom" class="form-validate mb-lg" role="form" name="managerForm" novalidate="">
+            <div class="control-caption">Name <span style="color:red">*</span></div>
+            <div style="display: inline-block; width: 100%;">
+                <div class="col-sm-6">
+                    <input class="form-control" id="exampleInputFirstName" [(ngModel)]="manager.FirstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+                    <span class="valmsg">*Field Required</span>
+                    <!-- <span class="text-danger" *ngIf="managerFrom.controls['firstName'].hasError('required') && (managerFrom.controls['firstName'].dirty || managerFrom.controls['firstName'].touched)">This field is required</span> -->
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" id="exampleLastName" [(ngModel)]="manager.LastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+                    <span class="valmsg">*Field Required</span>
+                    <!-- <span class="text-danger" *ngIf="managerFrom.controls['lastName'].hasError('required') && (managerFrom.controls['lastName'].dirty || managerFrom.controls['lastName'].touched)">This field is required</span> -->
+                </div>
+            </div>
+            <div class="control-caption">Phone</div>            
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputphoneNumber" [(ngModel)]="manager.PhoneNumber" type="text" name="phoneNumber" placeholder="Enter phone Number" autocomplete="off" formControlName="phoneNumber"/>
+            </div>
+            <div class="control-caption">Email <span style="color:red">*</span></div>
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputEmail1" [(ngModel)]="manager.Email" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                <span class="valmsg">*Field Required</span>
+                <!-- <span class="text-danger" *ngIf="managerFrom.controls['email'].hasError('required') && (managerFrom.controls['email'].dirty || managerFrom.controls['email'].touched)">This field is required</span> -->
+                <span class="text-danger" *ngIf="managerFrom.controls['email'].hasError('email') && (managerFrom.controls['email'].dirty || managerFrom.controls['email'].touched)">This field must be a valid email address</span>
+            </div>
+        </form>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="checkValidation()">OK</button>
+        <button class="btn btn-danger" (click)=" onCancelTechnician()">Cancel</button>
+    </modal-footer>
+</modal>
+

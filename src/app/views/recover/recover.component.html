@@ -1,0 +1,115 @@
+<!-- <div class="wrapper">
+    <div class="block-center mt-xl wd-xl">
+
+        <div class="panel panel-dark panel-flat">
+            <div class="panel-heading text-center" style="background: white;">
+                <img class="block-center img-rounded" style="width: 75%; padding-top: 20px;" src="assets/img/logo.jpg" alt="Image" />
+            </div>
+            <div class="panel-body">
+                <p class="text-center pv">PASSWORD RESET</p>
+                <form [formGroup]="valForm" class="form-validate" role="form" name="recoverForm" novalidate="" (submit)="submitForm($event, valForm.value)">
+                    <div class="error-text" *ngIf="errText != ''">{{errText}}</div>
+                    <p class="text-center">Please enter your email to receive a link on how to reset your password. Please click button only once.</p>
+                    <div class="form-group has-feedback">
+                        <label class="text-muted">Email address</label>
+                        <input class="form-control" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email"/>
+                        <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</span>
+                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span>
+                    </div>
+                    <button class="btn btn-danger btn-block" type="submit">Reset</button>
+                    <p class="pt-lg text-center"></p><a class="btn btn-block btn-default" [routerLink]="'/register'">Login</a>
+                </form>
+            </div>
+            <div class="p-lg text-center">
+                <span>&copy;</span>
+                <span>{{ settings.app.year }}</span>
+                <span>-</span>
+                <span>{{ settings.app.name }}</span>
+                <br/>
+                <span>{{ settings.app.description }}</span>
+            </div>
+        </div>
+    </div>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div> -->
+<div class="app-body">
+    <main class="main d-flex align-items-center custom-height">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mx-auto">
+            <div class="card-group">
+              <div class="card p-4">
+                    <img class="block-center img-rounded" style="width: 75%; padding-top: 20px; margin:0 auto;" src="assets/img/logo.jpg" alt="Image" />
+                <div class="card-body">
+                        <p class="text-center pv">PASSWORD RESET</p>
+                        <form [formGroup]="valForm" class="form-validate" role="form" name="recoverForm" novalidate="" (submit)="submitForm($event, valForm.value)">
+                            <div class="error-text" *ngIf="errText != ''">{{errText}}</div>
+                            <p class="text-center">Please enter login email to receive a password reset link.</p>
+                            <div class="form-group has-feedback">
+                                <label class="text-muted">Email address</label>
+                                <input class="form-control" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email"/>
+                                <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                                <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">*This field is required</span>
+                                <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span>
+                            </div>
+                            <button class="btn btn-danger btn-block" type="submit">Reset</button>
+                            <p class="pt-lg text-center"></p><a class="btn btn-block btn-primary" [routerLink]="'/login'">Login</a>
+                        </form>
+                        <!-- <form [formGroup]="valForm" class="form-validate mb-lg" role="form" name="loginForm" novalidate="" (submit)="submitForm($event, valForm.value)">
+                                <div class="error-text" *ngIf="errText != ''">{{errText}}</div>
+                                <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                        </div>
+                                        <input class="form-control" id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</span>
+                                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                        </div>
+                                        <input class="form-control" id="exampleInputPassword1" type="password" name="password" placeholder="Password" formControlName="password" required="" />
+                                        <span class="text-danger" *ngIf="valForm.controls['password'].hasError('required') && (valForm.controls['password'].dirty || valForm.controls['password'].touched)">This field is required</span>
+                                </div>
+
+                                <div class="clearfix">
+                                    <div class="checkbox c-checkbox pull-left mt0">
+                                        <label>
+                                            <input type="checkbox" value="" name="account_remember" formControlName='remember'/>
+                                            <span class="fa fa-check"></span>Remember Me</label>
+                                    </div>
+                                    <div class="pull-right"><a class="text-muted" [routerLink]="'/recover'">Forgot your password?</a>
+                                    </div>
+                                </div>
+                                <button class="btn btn-block btn-primary mt-lg" >Login</button>
+                            </form> -->
+                </div>
+              </div>
+              <!-- <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+                <div class="card-body text-center">
+                  <div>
+                    <h2>Sign up</h2>
+                     <img class="block-center img-rounded" style="width: 75%; padding-top: 20px;" src="assets/img/logo.jpg" alt="Image" />
+                
+                <p class="text-center free-msg">Free 30 day trial no credit card required</p>
+                <button type="button" class="btn btn-primary active mt-3" (click)="onGetAccess()">Get the access</button>
+                
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <toaster-container [toasterconfig]="config" class="toaster-icon"></toaster-container>
+  </div>
+  <app-footer>
+    <span><a href="https://www.blueclerk.com">BlueClerk</a> &copy; 2018 <a href="https://www.dasolgroup.com">DasolGroup</a>.</span>
+    <span class="ml-auto">Phone: 512-519-9691 | help@dasolgroup.com</span>
+  </app-footer>

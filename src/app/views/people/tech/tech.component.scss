@@ -1,0 +1,62 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+.custom-size{
+    font-size: 17px;
+}
+.del-icon {
+  color: rgb(146, 88, 88);
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+      color: rgb(241, 179, 179);
+  }
+}
+.header_div{
+    text-align: center;
+    .custom-search{
+      width: 30%;    
+      background: none !important;
+      border: none !important;
+    }
+    input{
+      text-align: center;height: 45px;
+    }
+    .btn{
+      float: right;
+    }
+  }
+.table{
+    th{
+      text-align: center;
+    }
+    td{
+      text-align: center;
+    }
+    span{
+      font-size: 20px;
+      color: brown;
+    }
+  }
+  .model_body_div{
+    display: inline-block; 
+    width: 100%;
+    
+  }

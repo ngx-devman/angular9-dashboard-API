@@ -1,0 +1,85 @@
+<div class="row" style="margin: 0px;">
+    <div class="admin-element-container" *ngFor="let employeer of employeerTypes">
+        <app-admin-card [item]="employeer" (click)="goemployeerType(employeer.type)"></app-admin-card>
+    </div>
+</div>
+
+<modal #managerDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">
+        <h2>Add Manager</h2>
+    </modal-header>
+    <modal-body>
+        <form [formGroup]="managerFrom" class="form-validate mb-lg" role="form" name="managerForm" novalidate="">
+            <div class="control-caption caption_div">Name <span class="error">*</span></div>
+            <div class="modal_div">
+                <div class="col-sm-6">
+                    <input class="form-control" id="exampleInputFirstName" [(ngModel)]="manager.FirstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+                    <span class="valmsg">*Field Required</span>
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" id="exampleLastName" [(ngModel)]="manager.LastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+                    <span class="valmsg caption_div">*Field Required</span>
+                </div>
+            </div>
+
+            <div class="control-caption caption_div">Phone</div>
+            <div  class="modal_div">
+                <div class="col-sm-6">
+                <input class="form-control" id="exampleInputphoneNumber" [(ngModel)]="manager.PhoneNumber" type="text" name="phoneNumber" placeholder="Enter phone Number" autocomplete="off" formControlName="phoneNumber"/>
+                </div>
+                <div class="col-sm-6"></div>
+            </div>
+
+            <div class="control-caption caption_div">Email <span class="error">*</span></div>
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputEmail1" [(ngModel)]="manager.Email" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                <span class="valmsg caption_div">*Field Required</span>
+                <span class="text-danger" *ngIf="managerFrom.controls['email'].hasError('email') && (managerFrom.controls['email'].dirty || managerFrom.controls['email'].touched)">This field must be a valid email address</span>
+            </div>
+        </form>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="checkValidation()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelManager()">Cancel</button>
+    </modal-footer>
+</modal>
+
+
+<modal #techDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">
+        <h2>Add Technician</h2>
+    </modal-header>
+    <modal-body >
+        <form [formGroup]="techFrom" class="form-validate mb-lg" role="form" name="techFrom" novalidate="">
+            <div class="control-caption caption_div" >Name <span class="error">*</span></div>
+            <div  class="modal_div">
+                <div class="col-sm-6">
+                    <input class="form-control" id="exampleInputFirstName" [(ngModel)]="tech.FirstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+                    <span class="valmsg">*Field Required</span>
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" id="exampleLastName" [(ngModel)]="tech.LastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+                    <span class="valmsg">*Field Required</span>
+                </div>
+            </div>
+
+            <div class="control-caption caption_div">Phone</div>            
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputphoneNumber" [(ngModel)]="tech.PhoneNumber" type="text" name="phoneNumber" placeholder="Enter phone Number" autocomplete="off" formControlName="phoneNumber"/>
+            </div>
+                
+            <div class="control-caption caption_div">Email <span class="error">*</span></div>
+            <div class="col-sm-12">
+                <input class="form-control" id="exampleInputEmail1" [(ngModel)]="tech.Email" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                <span class="valmsg">*Field Required</span>
+                <span class="text-danger" *ngIf="techFrom.controls['email'].hasError('email') && (techFrom.controls['email'].dirty || techFrom.controls['email'].touched)">This field must be a valid email address</span>
+            </div>
+        </form>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="checkTechValidatio()">OK</button>
+        <button class="btn btn-danger" (click)=" onCancelTechnician()">Cancel</button>
+    </modal-footer>
+</modal>

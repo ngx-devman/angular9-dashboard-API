@@ -1,0 +1,6 @@
+<!-- <button mat-mini-fab color="primary" class="back-fab-custom-button" (click)="goBack()"><mat-icon style="color: white;">keyboard_arrow_left</mat-icon></button> -->
+<div class="row" style="margin: 0px;">
+    <div class="admin-element-container" *ngFor="let vendor of vendorTypes">
+        <app-admin-card [item]="vendor" (onClick)="goVendorType(vendor.type)"></app-admin-card>
+    </div>
+</div>

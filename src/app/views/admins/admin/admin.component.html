@@ -1,0 +1,111 @@
+
+<div class="row carddiv" >
+    <div  class="col-md-4"  *ngFor="let role of navItems">
+        <div class="card"  (mouseenter)="role.hovered = true" (mouseleave)="role.hovered = false"  [style.background-color]="role.hovered ? 'red' : 'white'" *ngIf= "role.name != '' ? true : false "style="width: 30rem;margin:20px" (click)="OnClick(role.click)" >
+            <div class="card-header">{{role.name}}</div>
+            <div class="card-body cards-body">
+                <i class="{{role.i}}" aria-hidden="true"></i> 
+            </div>
+        </div>
+    </div>
+
+    <!-- <div  class="col-md-4"  *ngFor="let works of work">
+        <div class="card"  (mouseenter)="works.hovered = true" (mouseleave)="works.hovered = false"  [style.background-color]="works.hovered ? 'red' : 'white'" *ngIf= "works.name != '' ? true : false "style="width: 30rem;margin:20px" (click)="OnClick(works.click)" >
+            <div class="card-header">{{works.name}}</div>
+            <div class="card-body cards-body">
+                <i class="{{works.i}}" aria-hidden="true"></i> 
+            </div>
+        </div>
+    </div> -->
+    <div  class="col-md-4"  *ngFor="let works of work">
+        <div class="card" style="width: 30rem;margin:20px"  >
+            <!-- <div class="card-header users" (click)=goToViewUser()>{{works.name}}</div> -->
+            <div class="card-header users"><a routerLink="/viewnewuser" tooltip="View Users"> {{works.name}}</a></div>
+            <div class="card-body cards-body">
+               <button class="btn btn-success btn-block" (click)="goToUser()" >New User</button>
+            </div>
+        </div>
+    </div>
+    <toaster-container [toasterconfig]="config" class="toaster-icon "></toaster-container>
+</div>
+<modal #brandDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <div class="modal-header" class="text-center">
+            <h2 >Add Brand</h2>
+        </div>
+    </modal-header>
+    <modal-body>
+        <div class="control-caption">Brand Name <span style="color:red">*</span></div>
+        <input class="form-control" style="width: 100%" type="text"   [(ngModel)]="brandtitle" (keyup)="addBrand($event)" list="dynmicUserIds" id="autocomplete">
+        <datalist id="dynmicUserIds">
+            <option *ngFor="let k of Brands">  {{k.title}} </option>
+        </datalist>
+        <span class="valmsg">*Field Required</span>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmBrand()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelBrand()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #typeDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <h2 style="margin-top: 20px;">Add Equipment Type</h2>
+    </modal-header>
+    
+    <modal-body >
+        <div class="control-caption">Equipment Type Name</div>
+        <input class="form-control custom_inputs" type="text" [(ngModel)]="typetitle" (keyup)="addEquipType($event)" list="dynmicUserTypeIds" id="autocomplete">
+        <datalist id="dynmicUserTypeIds">
+            <option *ngFor="let typeLists of typeData">  {{typeLists.name}} </option>
+        </datalist>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmType()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelType()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #JobDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+        <h2>{{actionType == 0 ? 'Add Job Type' : 'Update Job Type'}}</h2>
+    </modal-header>
+
+    <modal-body >
+        <div class="control-caption">Job Type</div>
+        <input class="form-control" id="title" [(ngModel)]="title" type="text" name="title" placeholder="Title" />
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmJobType()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelJobType()">Cancel</button>
+    </modal-footer>
+  
+</modal>
+<modal #groupDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+            <h2>Add Group</h2>
+    </modal-header>
+
+    <modal-body >
+        <div class="control-caption">Group Name</div>
+        <input class="form-control" id="title" [(ngModel)]="grouptitle" type="text" name="title" placeholder="Title" />
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmGroup()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelGroup()">Cancel</button>
+    </modal-footer>
+</modal>
+<modal #contractDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader">         
+            <h2>Add  Outside Users</h2>
+    </modal-header>
+
+    <modal-body >
+        <div class="control-caption">Search User</div>
+        <input class="form-control" id="title" [(ngModel)]="grouptitle" type="text" name="title" placeholder="Email" />
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success">OK</button>
+        <button class="btn btn-danger" (click)="onCancelAddContractor()">Cancel</button>
+    </modal-footer>
+</modal>

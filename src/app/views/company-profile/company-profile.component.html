@@ -1,0 +1,72 @@
+<div class="div_content">
+    <app-back-button [backRoute]="'/admin'"></app-back-button>
+    <div class="panel panel-default col-md-9 col-sm-12 custom-size custom-height " style="margin: auto; padding: 0;">
+        <div class="panel-heading header_div" >
+            Company Profile
+        </div>
+
+        <div class="panel-body ">
+            <div class="control-caption" >Company Logo L</div>
+            <div class="paneldiv">
+                <div class="image_div">
+                        <img #productImg src="{{logoUrl}}"/>
+                </div>
+                <label id="#bb" class="btn btn-primary" style="margin: 10px;"> Select File
+                    <input #fileInput 
+                        type="file"
+                        size="60"
+                        (change)="chooseFile($event)"
+                        accept="image/x-png,image/gif,image/jpeg"
+                        style="display: none;">
+                </label>
+            </div>
+            <div class="control-caption">
+                <p> Company Information</p>
+                <div class="body_div">
+                    <div class="col-sm-6">
+                        <div class="control-caption">Company Name</div>
+                        <input class="form-control" type="text" placeholder="Company Name" [(ngModel)]="companyName">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="control-caption">Company Email</div>
+                        <input class="form-control" type="email" placeholder="Company Email" [(ngModel)]="companyEmail">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="control-caption">Street</div>
+                        <input class="form-control"  type="text" placeholder="Street" [(ngModel)]="companyStreet">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="control-caption">City</div>
+                        <input class="form-control"  type="text" placeholder="City" [(ngModel)]="companyCity">
+                    </div>
+                </div>
+    
+                <div class="body_div">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="control-caption">State</div>
+                        <input class="form-control" type="text" placeholder="State" [(ngModel)]="companyState">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="control-caption">Zip Code</div>
+                        <input class="form-control" type="text" placeholder="Zip Code" [(ngModel)]="companyZipCode">
+                    </div>
+                </div>
+
+                <div class="body_div">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="control-caption">Phone Number</div>                
+                        <input class="form-control" type="text" placeholder="Phone" [(ngModel)]="companyPhone">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="control-caption">Fax</div>                
+                        <input class="form-control" type="text" placeholder="Fax" [(ngModel)]="companyFax">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success" style="margin-top: 10px; float: right;" (click)="onUpdateProfile()">Update Profile</button>
+        </div>
+
+        <toaster-container [toasterconfig]="config"></toaster-container>
+
+    </div>
+</div>

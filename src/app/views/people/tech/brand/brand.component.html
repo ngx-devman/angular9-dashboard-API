@@ -1,0 +1,73 @@
+<div class="content-heading">
+    <button class="btn btn-success" style="float: right;" (click)="onCreateBrand()">Add Brand</button>
+    <br/>
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/> 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{brandList?.length}}</strong> brands</div>
+        Brand List
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="brandList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 20%">
+                    <mfDefaultSorter by="name">Brand</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 5%"></td>
+                <td style="width: 20%"><input class="form-control" [(ngModel)]="searchOpt.brand" (input)="onChangeValue('brand',searchOpt.brand)"></td>
+                <td></td>
+            </tr>
+
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-right">{{item.No}}</td>
+                <td>{{item.name}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>
+
+<modal #confirmDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-body style="text-align:center;">
+        Do you really delete it?
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmDelete()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelDelete()">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal #brandDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header" class="text-center">
+        <h2 style="margin-top: 20px;">{{actionType == 0 ? 'Add Brand' : 'Update Brand'}}</h2>
+    </div>
+
+    <modal-body style="text-align:center;">
+        <div class="control-caption">Brand Name</div>
+        <input class="form-control" style="width: 100%" type="text" [(ngModel)]="name">
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmBrand()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelBrand()">Cancel</button>
+    </modal-footer>
+</modal>

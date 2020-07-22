@@ -1,0 +1,17 @@
+<app-back-button [backRoute]="'/invoice'"></app-back-button>
+<!-- <app-page-navbar [navItems]="navItem" (itemedClicked)="openPopUp($event)"></app-page-navbar> -->
+<app-list-template 
+    [tableList]="charges" 
+    [listTitle]="'Job Rates'"
+    [createTitle]="'New Job Rate'"
+    [statusAction]="false"
+    [listTableHeads]="listTableHeads"
+    [listTableIcons]="false"
+    [listTableType]="'jobRates'"
+    [displayActivity]="false"
+    [role]="userData.permissions.role"
+    (searchResult)="updateSecondSearch($event)"
+    (editJob)="editTheJob($event)"
+    (createNew)="createJobRate()"
+    >
+</app-list-template>

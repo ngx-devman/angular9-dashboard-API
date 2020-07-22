@@ -1,0 +1,81 @@
+<div class="content-heading">
+        <button class="btn btn-success" style="float: right;" (click)="onCreateSubscription()">Add More</button>
+    <br/>
+    </div>
+    <br/>
+    <div class="panel panel-default custom-size">
+    <table class="table table-striped" [mfData]="groupList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                
+                <th style="width: 20% ;text-align: center;">
+                    <mfDefaultSorter by="name">Number Of Managers</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;text-align: center;">
+                    <mfDefaultSorter by="email">Number Of Technicians</mfDefaultSorter>
+                </th>
+                <th style="width: 20%;text-align: center;">
+                    <mfDefaultSorter by="role">Number Of Office Admins</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" >         
+                <td style="text-align: center;" >10</td>   
+                <td style="text-align: center;">10</td>              
+                <td style="text-align: center;">10</td>
+              
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <!-- <p *ngIf="mf.data.length == 0" style="margin: 100%;">No Data Found</p> -->
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+    
+    </div>
+    
+    <modal #subscriptionDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <modal-header class="modelHeader">         
+            <div class="modal-header" class="text-center">
+                <h2>Subscriptions</h2>
+            </div>
+        </modal-header>
+        <modal-body>
+            <div class="panel-body ">
+                <div class="control-caption">Number Of Office Admins</div>
+                <input class="form-control" style="width: 100%;font-size: 17px;margin-bottom: 10px;" type="text" [(ngModel)]="noadmins">
+                <div class="control-caption">Number Of Managers</div>
+                <input class="form-control" style="width: 100%;font-size: 17px;margin-bottom: 10px;" type="text" [(ngModel)]="nomanagers">
+                <div class="control-caption">Number Of Technicians</div>
+                <input class="form-control" style="width: 100%;font-size: 17px;margin-bottom: 10px;" type="text" [(ngModel)]="notechnicians">
+                <!-- <button class="btn btn-success" style="margin-top: 10px; float: right;"  (click)="getSubscriptions()">Get Subscriptions</button> -->
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-success" style="float: right;"  (click)="getSubscriptions()">Get Subscriptions</button>
+            <button class="btn btn-danger" (click)="onCancelsubscription()">Cancel</button>
+        </modal-footer>
+    </modal>
+    <!-- <div style="width: 100%; display: grid;margin-bottom: 50px;">
+      <div class="panel panel-default col-xs-6 col-sm-4 custom-size" style="margin: auto; padding: 0; font-size: 17px">
+          <div class="panel-heading " style="background-color:#0885c5 !important;color: #ffff !important;font-size: 17px">
+            Subscriptions
+          </div>
+          <div class="panel-body ">
+              <div class="control-caption">Number Of Office Admins</div>
+              <input class="form-control" style="width: 100%;font-size: 17px;margin-bottom: 10px;" type="text" [(ngModel)]="noadmins">
+              <div class="control-caption">Number Of Managers</div>
+              <input class="form-control" style="width: 100%;font-size: 17px;margin-bottom: 10px;" type="text" [(ngModel)]="nomanagers">
+              <div class="control-caption">Number Of Technicians</div>
+              <input class="form-control" style="width: 100%;font-size: 17px;margin-bottom: 10px;" type="text" [(ngModel)]="notechnicians">
+              <button class="btn btn-success" style="margin-top: 10px; float: right;"  (click)="getSubscriptions()">Get Subscriptions</button>
+          </div>
+        <toaster-container [toasterconfig]="config"></toaster-container>
+      </div>
+    </div> -->

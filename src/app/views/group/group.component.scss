@@ -1,0 +1,76 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+
+.edit-icon {
+    color: rgb(88, 106, 146);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(179, 213, 241);
+    }
+}
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.agm-map {
+    height: 600px;
+}
+.custom-size{
+    font-size: 17px;
+}
+
+  .content-heading{
+    text-align: center;
+    .custom-search{
+        width: 30%;    
+        background: none !important;
+        border: none !important;
+      }
+    input{
+        text-align: center;height: 45px;
+    }
+    .btn{
+        float: right;
+    }
+  }
+  table{
+    th{
+        text-align: center;
+    }
+    td{
+        text-align: center;
+    }
+    span{
+        color: brown; font-size: 20px;
+    }
+}
+modal{
+    h3{
+        margin-top: 20px;
+    }
+    modal-body{
+        text-align:center;
+        control-caption{
+            div{
+                display: inline-block; width: 100%;
+                margin-right: 15px;
+            }
+        }
+    }
+}

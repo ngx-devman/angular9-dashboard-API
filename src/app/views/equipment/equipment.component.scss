@@ -1,0 +1,172 @@
+.job-status {
+  border: 2px solid;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.line-hover {
+  cursor: pointer;
+}
+
+.line-hover:hover {
+  background: #fdffe0;
+}
+
+.control-caption {
+  padding: 5px;
+  font-size: 17px;
+  text-align: left;
+  font-weight: bold;
+}
+.custom-size {
+  font-size: 17px;
+}
+table {
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+}
+modal {
+  h2 {
+    margin-top: 20px;
+  }
+}
+.model_div {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  div {
+    width: 100%;
+    text-align: left;
+  }
+  img {
+    min-height: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    max-width: 300px;
+    border: 1px solid #ccc;
+  }
+}
+.custom-search {
+  // width: 30%;
+  background: none !important;
+  border: none !important;
+  input {
+    text-align: center;
+    height: 45px;
+  }
+}
+.customerName {
+  width: 25%;
+  margin-left: 20px;
+  font-size: 17px;
+}
+.viewButton {
+  float: right;
+}
+
+.customTableHeader {
+  background: #282c31;
+  color: darkgray;
+  font-weight: bold;
+  border-radius: 8px;
+}
+.float-right {
+  float: right;
+}
+.tableRightBack {
+  background: #575b62;
+  color: #d4d3d8;
+  padding: 17px 15px 14px 15px !important;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.customTableHeaderTop {
+  border-radius: 8px;
+}
+.customTableTitleLeft {
+  padding: 14px 16px;
+}
+.searchMainBox {
+  padding: 5px 15px;
+  margin: 10px 0px !important;
+}
+.custom-btn {
+  padding: 10px;
+  width: 100%;
+  font-size: 14px;
+}
+.inactive-btn-custom {
+  background-color: #e5fdf0;
+  border: #e5fdf0;
+  color: #5d9cec;
+}
+.search-box-field {
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+.search-box-div {
+  background: #d2d3cd33;
+  padding: 5px 5px;
+}
+.custom-text-color {
+  color: #b2aaa7;
+  font-weight: 600;
+}
+.activity_view_more {
+  text-decoration: underline;
+}
+.status_dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+.yellow_dot {
+  background-color: yellow;
+}
+
+.yellow_background {
+  background: #ffff0030;
+  color: gold;
+}
+.recent_activity_box {
+  display: inline-flex;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+}
+.blue_background {
+  background: #6495ed47;
+  color: blue;
+}
+.blue_dot {
+  background-color: blue;
+}
+.green_dot {
+  background-color: green;
+}
+.green_background {
+  background: #0fc30f2b;
+  color: green;
+}
+.grey_dot {
+  background-color: grey;
+}
+.grey_background {
+  background: #80808033;
+  color: grey;
+}
+.custom-pointer {
+  cursor: pointer;
+}
+
+.table-outline {
+  border: 1px solid #e9edf0;
+}

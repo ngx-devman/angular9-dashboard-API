@@ -1,0 +1,47 @@
+<div class="content-heading">
+    Subscribe
+    <small>{{ 'dashboard.WELCOME' | translate }} !</small>
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{equipList?.length}}</strong> subscribes</div>
+        Subscribe List
+    </div>
+    <table class="table table-striped" [mfData]="equipList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%" class="text-left">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                
+                <th style="width: 30%">
+                    <mfDefaultSorter by="brandName">Email</mfDefaultSorter>
+                </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td><input style="width: 20%" class="form-control" [(ngModel)]="searchOpt.brand" (input)="onChangeValue('brand',searchOpt.brand)"></td>
+            </tr>
+
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td class="text-left">{{item.No}}</td>
+                <td>{{item.brandName}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+   
+    <toaster-container [toasterconfig]="config"></toaster-container>
+</div>
+

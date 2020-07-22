@@ -1,0 +1,52 @@
+
+<div class="panel panel-default custom-size">
+    <div class="panel-heading">
+        <div>
+            <div class="row" >
+                <div class="col-2" style="text-align: center">
+                    <div class="control-caption">Select Authorized User </div>
+                </div>
+                <div class="col-4">
+                    <input class="form-control" type="text"  (keyup)="addUser($event)" list="dynmicUserIds" id="autocomplete"  (change)="selectUser()">
+                    <datalist id="dynmicUserIds">
+                        <option *ngFor="let k of user" [value]="k.user"></option>
+                    </datalist>
+                </div>
+                <button class="btn btn-success" style="float: right;" >Update</button>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" [mfData]="" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="text-align: center;" >
+                    <mfDefaultSorter by="name"> Permissions</mfDefaultSorter>
+                </th>
+                <th style="text-align: center;">
+                    <mfDefaultSorter by="name">Change Permissions </mfDefaultSorter>
+                </th>
+                <th style="text-align: center;">
+                    <mfDefaultSorter by="name">Remove permissions </mfDefaultSorter>
+                </th>    
+            </tr>
+        </thead> 
+        <tbody>
+            <tr  class="line-hover" *ngFor="let item of permissions;let i=index" >
+                <td style=" text-align: center;" >{{item.permission}}</td>
+                <td style="text-align: center;"  >
+                    <input type="checkbox"/>
+                </td>
+                <td style="text-align: center;"><span style="color: brown; font-size: 20px;"  class="del-icon fa fa-trash" tooltip="Delete User"  ></span></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+</div>

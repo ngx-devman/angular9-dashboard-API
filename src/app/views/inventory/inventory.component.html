@@ -1,0 +1,78 @@
+<app-list-template
+  [displayActivity]="false"
+  [tableList]="equipData"
+  [listTitle]="listTitle"
+  [createTitle]="'Purchases'"
+  [statusAction]="false"
+  [listTableHeads]="['No', 'Image', 'Brand', 'Type', 'Model', 'Serial']"
+  [listTableIcons]="false"
+  [listTableType]="'companyInventory'"
+  (detailedImage)="onDetailImg($event)"
+></app-list-template>
+
+<!-- <div>
+  <div class="card customTableHeaderTop">
+    <div class="card-header customTableHeader p-0">
+      <label class="p-10 m-0 customTableTitleLeft"
+        ><em class="fa fa-user mr-sm"></em> Number In List:
+        <strong>{{ equipData?.length }}</strong></label
+      >
+    </div>
+    <div class="table-container card-body p-0">
+      <table
+        class="table table-responsive-sm table-hover table-outline mb-0"
+        [mfData]="equipData"
+        #mf="mfDataTable"
+        [mfRowsOnPage]="10"
+      >
+        <thead>
+          <tr>
+            <th style="width: 5%; text-align: center;">No</th>
+            <th style="width: 20%; text-align: center;">
+              <mfDefaultSorter by="name">Image</mfDefaultSorter>
+            </th>
+            <th style="width: 10%; text-align: center;">
+              <mfDefaultSorter by="name">Brand</mfDefaultSorter>
+            </th>
+            <th style="width: 10%; text-align: center;">
+              <mfDefaultSorter by="name">Type</mfDefaultSorter>
+            </th>
+            <th style="width: 10%; text-align: center;">
+              <mfDefaultSorter by="name">Model</mfDefaultSorter>
+            </th>
+            <th style="width: 10%; text-align: center;">
+              <mfDefaultSorter by="name">Serial</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="line-hover" *ngFor="let item of mf.data; let idx = index">
+            <td style="text-align: center;">{{ idx + 1 }}</td>
+            <td style="text-align: center;">
+              <img
+                style="width: 25px; height: 25px;"
+                src="{{ item.info.imageUrl }}"
+                (click)="onDetailImg(item.imgUrl)"
+              />
+            </td>
+            <td style="text-align: center;">{{ item.brand?.title }}</td>
+            <td style="width: 40px; text-align: center;">
+              {{ item.type?.title }}
+            </td>
+            <td style="text-align: center;">{{ item.info.model }}</td>
+            <td style="text-align: center;">{{ item.info.serialNumber }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <mfBootstrapPaginator
+                [rowsOnPageSet]="[5, 10, 15]"
+              ></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div> -->

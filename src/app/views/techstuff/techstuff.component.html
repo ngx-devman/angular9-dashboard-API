@@ -1,0 +1,42 @@
+<div class="content-heading">
+    Technician Action
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{multiEquipmentList?.length}}</strong> Actions</div>
+        Technician Action List
+    </div>
+    <table class="table table-striped" [mfData]="multiEquipmentList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 5%" class="text-right">
+                    <mfDefaultSorter by="No">No.</mfDefaultSorter>
+                </th>
+                <th style="width: 1%">
+                </th>
+                <th style="width: 80%" class="text-left">
+                    <mfDefaultSorter by="Name">Name</mfDefaultSorter>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="line-hover" *ngFor="let item of mf.data; let idx=index;" (click)="onDetailEquipment(item)">
+                <td class="text-right">{{item.No}}</td>
+                <td></td>
+                <td>{{item.Name}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>

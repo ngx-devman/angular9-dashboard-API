@@ -1,0 +1,54 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+
+.edit-icon {
+    color: rgb(88, 106, 146);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(179, 213, 241);
+    }
+}
+
+.report-icon {
+    color: rgb(88, 146, 93);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(179, 241, 189);
+    }
+}
+
+.del-icon {
+    color: rgb(146, 88, 88);
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+        color: rgb(241, 179, 179);
+    }
+}
+
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.err {
+    color: red;
+}

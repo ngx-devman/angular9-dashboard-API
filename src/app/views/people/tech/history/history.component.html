@@ -1,0 +1,71 @@
+<div class="content-heading">
+    History Page
+    <!-- <small>{{ 'dashboard.WELCOME' | translate }} !</small> -->
+</div>
+<br/>
+
+<!-- <div *ngIf="calendarOptions" style="max-width: 500px;">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions" (dayClick)="eventClick($event.detail)" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+        (eventResize)="updateEvent($event.detail)"></ng-fullcalendar>
+</div> -->
+
+<div class="panel panel-default" style="margin-top:30px;">
+    <div class="panel-heading">
+        <div class="pull-right text-muted"><em class="fa fa-user mr-sm"></em><strong>{{trainerList?.length}}</strong> Histories</div>
+        History
+    </div>
+
+    <!-- <div class="panel-default" *ngFor="let item of trainerList; let id=index;">
+        <div> Gym Name: {{item.gymName}}</div>
+        <div> Machine Type: {{item.machineType}}</div>
+        <div> Model: {{item.model}}</div>
+    </div> -->
+<div class="table-responsive">
+    <table class="table table-striped" [mfData]="trainerList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th style="width: 2%">
+                <th style="width: 15%">
+                    <mfDefaultSorter by="use_date">When</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="gymName">Location</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="machineType">Machine Type</mfDefaultSorter>                    
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="model">Model</mfDefaultSorter>                    
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="exercise">Service</mfDefaultSorter>                    
+                </th>
+                <th style="width: 10%">
+                    <mfDefaultSorter by="setVal">Action</mfDefaultSorter>                    
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr [class.odd]="idx % 2 == 1" class="line-hover" *ngFor="let item of mf.data; let idx=index;">
+                <td></td>
+                <td>{{item.use_date}}</td>
+                <td>{{item.gymName}}</td>
+                <td>{{item.machineType}}</td>
+                <td>{{item.model}}</td>
+                <td>{{item.action}}</td>
+                <td>{{item.stuff}}</td>
+
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+</div>

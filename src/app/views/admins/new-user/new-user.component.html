@@ -1,0 +1,292 @@
+<!-- <div style= "padding:7%;padding-top: 0px !important;">
+  <div style="color:black !important;font-size: 17px;margin-bottom: 10px;">
+    New User
+  </div>
+  <div class="panel-heading" style="background-color:#0885c5 !important;color: #ffff !important;font-size: 17px">
+    Personal Info
+  </div>
+  
+ 
+    <div class="panel panel-default custom-size" >
+      <div clas="panel-body"  >
+          <div class="row required_div">
+          <p class="star">*</p><span> All Fields Required </span> 
+          </div>
+          <form [formGroup]="managerFrom" class="form-validate mb-lg" role="form" name="managerForm" novalidate="">
+          <div class="form_div">
+            <input class="form-control" id="exampleInputFirstName" [(ngModel)]="firstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+          </div>
+          <div class="form_div">
+            <input class="form-control" id="exampleLastName" [(ngModel)]="lastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+          </div>
+          <div class="form_div">
+            <input class="form-control" id="exampleInputEmail" [(ngModel)]="email" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required=""  />
+          </div>
+          <div class="form_div">
+            <input class="form-control" id="exampleInputphone"  [(ngModel)]="phone" type="text" name="phoneNumber" placeholder="Enter phone Number {{error}} " autocomplete="off" formControlName="phone"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <toaster-container [toasterconfig]="config" class="toaster-icon icon-success"></toaster-container>
+ 
+
+  <div class="panel-heading header_div" >
+      Permissions
+      <div class="checkbox c-checkbox pull-right " style="margin-top: 0px !important">
+          <label>
+              <input type="checkbox" value="" />
+              <span >Make Administrator</span></label>
+      </div>
+  </div>
+
+    <div class="panel panel-default custom-size" >
+      <div clas="panel-body" style="margin: 20px" >
+        <div>
+          What level of permission would you like this user to have?
+        </div>
+        <div class="row" style="margin-top: 20px;" >
+            <div class="col-3 user col_div" *ngFor="let user of Users" (click)="onClick(user)" [ngClass]="{ 'selected': user == selectedItem }">
+              <p style="font-weight: bold;margin-top: 20px;">{{user.name}}</p>
+                <p> Can View their schedule,mark work complete </p> 
+                <div>
+                  <button *ngIf="user == selectedItem " style="background-color: #55cb19;color:white;margin: 13px;"  >{{btnSelect}}</button>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div>
+        <ul class="nav nav-tabs" style="justify-content: space-between;margin-top: 4%;">
+          <li><a data-toggle="tab" href="#Group">Group</a></li>
+          <li><a data-toggle="tab" href="#Permissions">Advanced Permissions</a></li>
+        </ul>
+        <div class="tab-content" style="padding: 30px;">
+         
+          <div id="Group" class="tab-pane fade">
+            <div class="content-heading">
+              <div style= "text-align: center;">
+                  <button class="btn btn-success" (click)="addgroup()"  >Add To Group</button>
+             </div>
+             <br/>
+          </div><br/>
+          </div>
+          <div id="Permissions" class="tab-pane fade">
+            <label  type="checkbox">
+                 <ul style=" border: 1px solid lightgrey;list-style: none;">
+                    <li class="dropdown" style="padding: 10px">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color: black"> View all permissions</a>
+                        <ul class="dropdown-menu custom_ul">
+                            <li>
+                                <div class="checkbox " style="margin: 10px;">
+                                    <label>
+                                        <input type="checkbox" class="custome_checkbox">
+                                        <p style="margin-left: 10px"> Add User</p>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox" style="margin: 10px;">
+                                    <label>
+                                        <input type="checkbox" class="custome_checkbox">
+                                        <p style="margin-left: 10px">Add Group</p>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </label>
+          </div>    
+        </div>
+    </div>
+  </div>
+  <modal #groupDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header>
+        <h3 style="margin-top: 20px;">Add to Group</h3>
+    </modal-header>
+    <modal-body style="text-align:center;">
+      <div style="text-align: center">
+        <div class="control-caption">Select Group  </div>
+      </div>
+      <div>
+          <input class="form-control" type="text" [(ngModel)]="title"   (keyup)="addGroup($event)" list="dynmicUserIds" id="autocomplete" (change)="selectGroup('')">
+          <datalist id="dynmicUserIds">
+              <option *ngFor="let k of groupData" [value]="k.title"></option>
+          </datalist>
+        
+      </div>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-success" (click)="onConfirmAdd()">OK</button>
+        <button class="btn btn-danger" (click)="onCancelAdd()">Cancel</button>
+    </modal-footer>
+</modal>
+  <div>
+  <button style="float: right;background-color: #44a225;color:white;font-size: 19px;padding: 3px 15px;border-radius: 4px;"(click)="onConfirmUser()">Add</button>
+  </div>
+</div>    
+
+<modal #addDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader" >
+        <div class="modal-header" style="border-bottom: none !important;" >
+            <h2  style="margin-top: 20px;">Add User</h2>
+        </div>
+    </modal-header>
+<modal-body>
+  <div class="modalDiv">
+    <p class="agreeTxt">By clicking the confirm button below, customer agrees to be charged for added user at monthly rate.<br>If you do not agree to this, please click cancel</p>
+  </div>
+</modal-body>
+<modal-footer>
+    <button class="btn btn-success" (click)="onAddUser()">Confirm</button>
+    <button class="btn btn-danger" (click)="onCancelUser()">Cancel</button>
+</modal-footer>
+</modal>
+ -->
+<mat-vertical-stepper style="margin-bottom: 50px;" #stepper >
+  <mat-step [stepControl]="managerFrom"  [completed]="false">
+    <div class="panel-heading" style="background-color:#0885c5 !important;color: #ffff !important;font-size: 17px">
+        Personal Info
+    </div>
+    <div class="panel panel-default custom-size" >
+      <div clas="panel-body"  >
+          <div class="row required_div">
+           <p class="star">*</p><span> All Fields Required </span> 
+          </div>
+          <form [formGroup]="managerFrom" class="form-validate mb-lg" role="form" name="managerForm" novalidate="">
+            <div class="form_div">
+              <input class="form-control" id="exampleInputFirstName" [(ngModel)]="firstName" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required="" />
+            </div>
+            <div class="form_div">
+              <input class="form-control" id="exampleLastName" [(ngModel)]="lastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required="" />
+            </div>
+            <div class="form_div">
+              <input class="form-control" id="exampleInputEmail" [(ngModel)]="email" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email" required=""  />
+            </div>
+            <div class="form_div">
+              <input class="form-control" id="exampleInputphone"  [(ngModel)]="phone" type="text" name="phoneNumber" placeholder="Enter phone Number {{error}} " autocomplete="off" formControlName="phone"/>
+            </div>
+        </form>
+      </div>
+    </div>
+    <button style="float: right;background-color: #44a225;color:white;font-size: 19px;padding: 3px 15px;border-radius: 4px;" mat-button matStepperNext>Next</button>
+  </mat-step>
+  <mat-step  [stepControl]="Group"  [completed]="false"  class="content">
+    <div class="panel-heading header_div resp_content " >
+      Permissions
+      <div class="checkbox c-checkbox pull-right resp_label" style="margin-top: 0px !important">
+        <label>
+          <input type="checkbox" value="" />
+          <span >Make Administrator</span>
+        </label>
+      </div>
+    </div>
+      
+    <div class="panel panel-default custom-size" >
+      <div clas="panel-body" style="margin: 20px" >
+        <div>
+          What level of permission would you like this user to have?
+        </div>
+        <div class="row" style="margin-top: 20px;" >
+          <div class="col-md-3 user col_div responsive-col" *ngFor="let user of Users" (click)="onClick(user)" [ngClass]="{ 'selected': user == selectedItem }">
+            <p style="font-weight: bold;margin-top: 20px;">{{user.name}}</p>
+              <p> Can View their schedule,mark work complete </p> 
+              <div>
+                <button *ngIf="user == selectedItem " style="background-color: #55cb19;color:white;margin: 13px;"  >{{btnSelect}}</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    <div>
+      <ul class="nav nav-tabs" style="justify-content: space-between;margin-top: 4%;">
+        <li><a s data-toggle="tab" href="#Group">Group</a></li>
+        <li><a data-toggle="tab" href="#Permissions">Advanced Permissions</a></li>
+      </ul>
+        <div class="tab-content" style="padding: 30px;">
+          <div id="Group" class="tab-pane fade">
+            <div class="content-heading">
+              <div style= "text-align: center;">
+                  <button class="btn btn-success" (click)="addgroup()"  >Add To Group</button>
+              </div>
+              <br/>
+            </div><br/>
+          </div>
+          <div id="Permissions" class="tab-pane fade">
+            <label  type="checkbox">
+              <ul style=" border: 1px solid lightgrey;list-style: none;">
+                <li class="dropdown" style="padding: 10px">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color: black"> View all permissions</a>
+                  <ul class="dropdown-menu custom_ul">
+                    <li>
+                      <div class="checkbox " style="margin: 10px;">
+                        <label>
+                          <input type="checkbox" class="custome_checkbox">
+                          <p style="margin-left: 10px"> Add User</p>
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="checkbox" style="margin: 10px;">
+                        <label>
+                          <input type="checkbox" class="custome_checkbox">
+                          <p style="margin-left: 10px">Add Group</p>
+                        </label>
+                      </div>    
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </label>
+          </div>    
+        </div>
+      </div>
+      <div>
+        <button style="float: right;background-color: #44a225;color:white;font-size: 19px;padding: 3px 15px;border-radius: 4px;margin: 20px;"(click)="onConfirmUser()">Add</button>
+      </div>
+    </div>
+
+    <modal #groupDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <modal-header>
+            <h3 style="margin-top: 20px;">Add to Group</h3>
+        </modal-header>
+        <modal-body style="text-align:center;">
+          <div style="text-align: center">
+            <div class="control-caption">Select Group  </div>
+          </div>
+          <div>
+            <input class="form-control" type="text" [(ngModel)]="title"   (keyup)="addGroup($event)" list="dynmicUserIds" id="autocomplete" (change)="selectGroup('')">
+            <datalist id="dynmicUserIds">
+              <option *ngFor="let k of groupData" [value]="k.title"></option>
+            </datalist>
+          </div>
+        </modal-body>
+        <modal-footer>
+            <button class="btn btn-success" (click)="onConfirmAdd()">OK</button>
+            <button class="btn btn-danger" (click)="onCancelAdd()">Cancel</button>
+        </modal-footer>
+    </modal>
+  </mat-step>
+</mat-vertical-stepper>
+  
+
+  <toaster-container [toasterconfig]="config" class="toaster-icon"></toaster-container>
+  
+  <modal #addDlg data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <modal-header class="modelHeader" >
+      <div class="modal-header" style="border-bottom: none !important;" >
+        <h2  style="margin-top: 20px;">Add User</h2>
+      </div>
+    </modal-header>
+    <modal-body>
+      <div class="modalDiv">
+        <p class="agreeTxt">By clicking the confirm button below, customer agrees to be charged for added user at monthly rate.<br>If you do not agree to this, please click cancel</p>
+      </div>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-success" (click)="onAddUser()">Confirm</button>
+        <button class="btn btn-danger" (click)="onCancelUser()">Cancel</button>
+    </modal-footer>
+  </modal>
+  
+  

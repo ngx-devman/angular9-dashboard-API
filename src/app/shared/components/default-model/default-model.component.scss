@@ -1,0 +1,149 @@
+.defaultModal{
+    position: relative;
+    .closeModel{
+        position: absolute;
+        right: -70px;
+        background: #fff;
+        padding: 10px 12px;
+        display: flex;
+        mat-icon{
+            cursor: pointer;
+        }
+    }
+    .modalHeading{
+        margin-bottom: 25px;
+        h4{
+            font-size: 20px;
+            font-stretch: normal;
+            line-height: 1.35;
+            letter-spacing: normal;
+            text-align: left;
+            color: #0885c5;
+        }
+    }
+    .cusModel.cusHeight{
+        overflow: scroll;
+        height: 65vh;
+    }
+    .modalContent{
+        .formGroup{
+            margin-bottom: 15px;
+            label{
+                font-size: 12px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.17;
+                letter-spacing: normal;
+                text-align: left;
+                color: #262a2e;
+                font-family: Roboto;
+            }
+            select{
+                height: 40px;
+                border-radius: 3px;
+                border: solid 1px #f1f2f5;
+                background-color: #ffffff;
+                text-indent: 15px;
+            }
+        }
+        mat-form-field{
+            width: 100%;
+        }
+        .createJob{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            .mat-checkbox-label{
+                font-weight: normal;
+            }
+        }
+        .actionBtn{
+            text-align: right;
+            button{
+                border-radius: 3px;
+                min-width: 104px;
+                font-size: 13px;
+                font-family: 'Roboto';
+                color: #fff;
+            }
+            .custom-success{
+                background-color: #27c24c;
+            }
+            .custom-danger{
+                background-color: #f04f4f;
+            }
+        }
+        .singleContract{
+            margin-bottom: 20px;
+            display: flex;
+            .userName{
+                flex: 1;
+                align-items: center;
+                display: flex;
+                p{
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+    }
+    
+}
+.custom-pointer{
+    cursor: pointer;
+}
+.mb-0{
+    margin-bottom: 0;
+}
+.mt-15{
+    margin-top: 15px;
+}
+.customTimePicker{
+    input{
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+}
+.cancelJobText{
+    color: #5d9cec !important;
+    text-decoration: underline !important;
+    font-weight: 800;
+}
+.reportNumber{
+    .largeContent{
+        font-size: 16px;
+        font-weight: 800;
+    }
+}
+.editProfile{
+    .paneldiv{
+        text-align: center;
+        margin-bottom: 10px;
+        .image_div{
+            width: 35%;
+            margin: auto;
+            margin-bottom: 10px;
+            img{
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+            }
+        }
+    }
+    .singleRow{
+        display: flex;
+        .formGroup{
+            flex: 1;
+            padding: 0 5px;
+        }
+    }
+}
+.example-radio-group {
+    display: flex;
+    margin: 5px;
+  }
+  
+.example-radio-button {
+    margin: 5px;
+}

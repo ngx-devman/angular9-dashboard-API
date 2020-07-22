@@ -1,0 +1,88 @@
+.job-status {
+    border: 2px solid;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.line-hover {
+    cursor: pointer;
+}
+
+.line-hover:hover {
+    background: #fdffe0;
+}
+
+
+.control-caption {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+
+
+
+.section-header {
+    margin-bottom: 25px;
+    padding-bottom: 0px;
+    height: auto;
+    position: relative;
+}
+
+.mt-xll {
+    padding: 20px 30px;
+}
+
+.text-center {
+    text-align: center;
+}
+.row {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.text-bottom {
+    margin-bottom: 10px;
+}
+
+.mt-xl {
+    margin-top: 60px !important;
+}
+
+.mt-xl-1 {
+    margin-top: -40px !important;
+}
+
+.wrapper {
+    // background: url('../../../assets/img/2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
+
+
+.selected {
+    background: rgb(217, 239, 255) !important;
+}
+
+.app-body{
+    // background: url('../../../assets/img/2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
+
+.regclass
+{
+    margin-top: 10%;
+}
+.imgdiv{
+    text-align: center;
+    img{
+        width: 30%;
+    }
+}
+.buttonsize{
+    font-size: 20px;
+}

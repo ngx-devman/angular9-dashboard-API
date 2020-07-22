@@ -1,0 +1,15 @@
+<app-back-button [toLastPage]="true"></app-back-button>
+
+<app-list-template 
+  [tableList]="ticketsList" 
+  [listTitle]="listTitle"
+  [createTitle]="'New Employee'"
+  [statusAction]="false"
+  [listTableHeads]="listTableHeads"
+  [listTableIcons]="false"
+  [listTableType]="'serviceTicket'"
+  [displayActivity]="false"
+  (searchResult)="updateSearch($event)"
+  (jobDetails)="showJobDetail($event)"
+  (showServiceTicketInfo)="showServiceTicketInfo($event)"  
+></app-list-template>

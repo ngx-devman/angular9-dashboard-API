@@ -1,0 +1,207 @@
+<div class="animated fadeIn">
+  <toaster-container
+    [toasterconfig]="config"
+    class="toaster-icon icon-success"
+  ></toaster-container>
+  <app-back-button [backRoute]="'/customer'" *ngIf="showBackButton"></app-back-button>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          {{customerHeading}}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <form
+                
+                class="form-validate mb-lg"
+                role="form"
+                name="customerFrom"
+                #f="ngForm"
+                (ngSubmit)="f.form.valid && onSubmit()"
+              >
+                <div class="control-div">
+                  Company Name
+                  <div class="model_body_div">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Name"
+                      [(ngModel)]="name"
+                      name="companyName"
+                      (ngModelChange)="formIsEdit()"
+                    />
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="
+                        customerFrom.controls['name'].hasError('required') &&
+                        (customerFrom.controls['name'].dirty ||
+                          customerFrom.controls['name'].touched)
+                      "
+                      >This field is required</span
+                    > -->
+                  </div>
+                </div>
+
+                <div class="control-div">
+                  Email <span [ngStyle]="{color:'red'}">* required</span>
+                  <div class="model_body_div">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Email"
+                      [(ngModel)]="email"
+                      name="emails"
+                      #emails="ngModel"
+                      required
+                      (ngModelChange)="formIsEdit()"
+                    />
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="
+                        email.errors.required &&
+                        (customerFrom.controls['email'].dirty ||
+                          customerFrom.controls['email'].touched)
+                      "
+                      >This field is required</span
+                    > -->
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="
+                        customerFrom.controls['email'].hasError('email') &&
+                        (customerFrom.controls['email'].dirty ||
+                          customerFrom.controls['email'].touched)
+                      "
+                      >This field must be a valid email address</span
+                    > -->
+                  </div>
+                </div>
+              <div class="control-div">
+                <strong>Other Information</strong><br /><br />
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="">Contact Name <span [ngStyle]="{color:'red'}">* required</span></div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Contact Name"
+                      [(ngModel)]="contactName"
+                      name="contactNames"
+                      #contactNames="ngModel" 
+                      required
+                      (ngModelChange)="formIsEdit()"
+                    />
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="">Phone Number</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Phone Number"
+                      [(ngModel)]="phone"
+                      name="phones"
+                      placeholder="xxx-xxx-xxxx"
+                      (ngModelChange)="checkPhone()"
+                    />
+                    <span
+                      class="text-danger" *ngIf="phoneError">Enter a valid phone number.</span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="">Street</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Street"
+                      [(ngModel)]="street"
+                      (blur)="updateGoogleMap(street, city)"
+                      name="street"
+                      (ngModelChange)="formIsEdit()"
+                    />
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="">City</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="City"
+                      [(ngModel)]="city"
+                      (blur)="updateGoogleMap(street, city)"
+                      name="city"
+                      (ngModelChange)="formIsEdit()"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="">State</div>
+                    <ng-select [items]="states"
+                              bindLabel="name"
+                              bindValue="name"
+                              name="state"
+                              [(ngModel)]="state" (ngModelChange)="formIsEdit()" (search)="onSearchState($event)">
+                    </ng-select>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="">ZipCode</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Zip Code"
+                      [(ngModel)]="zipCode"
+                      name="zip"
+                      pattern="[0-9]{5}"
+                      (ngModelChange)="checkZipCode()"
+                    />
+                    <span
+                      class="text-danger" *ngIf="zipCodeError">Enter a valid zip code.</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </div>
+            <div class="col-sm-6">
+              <div class="control-div">
+                Location
+                <div class="row">
+                  <div class="col-sm-12">
+                    
+                    
+                      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                          <agm-marker *ngFor="let m of markers; let i = index"
+                                      [latitude]="m.lat" [longitude]="m.lng"
+                                      [label]="m.label" [title]="m.title" >
+                            <agm-info-window [disableAutoPan]="false">
+                              <a><strong>{{m.title}}</strong></a>
+                            </agm-info-window>
+                          </agm-marker>
+                        </agm-map>
+                        
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--/.row-->
+          <div class="form-actions">
+            <button class="btn btn-success" (click)="onConfirmCustomer()" [disabled]="!f.form.valid || zipCodeError || phoneError">
+              Save
+            </button>
+            <button class="btn btn-danger" (click)="onCancelCustomer()">
+              Cancel
+            </button>
+
+            <!-- <button class="btn btn-secondary" type="button">Cancel</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
